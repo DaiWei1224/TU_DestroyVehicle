@@ -6,6 +6,8 @@ cc.Class({
 
     properties: {
         //  血条
+        layerBg: cc.Node,
+        labelPfb: cc.Prefab,
         blood: {
             default: null,
             type: cc.ProgressBar
@@ -130,10 +132,12 @@ cc.Class({
             if(date.getMilliseconds() % 10 == 0){
                 self.blood.progress -= 0.1;     //暴击，耐久度-0.1             
                 a += 50;    //金币+50
+                self.showRollNotice('-10');
             }
             else{
                 self.blood.progress -= 0.01;    //耐久度-0.01
                 a += 5;     //金币+5
+                self.showRollNotice('-1');
             }  
 
             self.coin.string = a;   //将更新后的金币数保存到label
@@ -152,6 +156,14 @@ cc.Class({
         });
         
     },
+    createShowNode:function(str){
+       
+        let label = cc.instantiate(this.labelPfb);
+        this.layerBg.addChild(label);
+
+        label.getComponent(cc.Label).string = str;
+        return label;
+    },
 
     changeVehicle (fileName, self){
         cc.loader.loadRes(fileName, cc.SpriteFrame, function (err, texture) {
@@ -160,6 +172,22 @@ cc.Class({
             }                   
             self.node.getComponent(cc.Sprite).spriteFrame = texture;
         });
+    },
+    showRollNotice(str) {
+        console.log("开始执行主程序");
+        let label = this.createShowNode(str);
+
+        //时间 秒数
+        let holdTime = 1;
+
+         // var callback = cc.callFunc(this.onComplete, this);
+        let sequence = cc.sequence(cc.spawn(cc.fadeTo(holdTime, 0),cc.moveTo(holdTime,0,500)), cc.callFunc(function(target, score) {
+            //this.rollNoticeList.shift();
+            // target.removeFromParent(false)
+            target.destroy();
+        }, this))//动作完成后删除
+        label.runAction(sequence);
+
     },
 
     update (dt) {       
