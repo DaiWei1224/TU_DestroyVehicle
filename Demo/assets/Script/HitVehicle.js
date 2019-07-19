@@ -1,5 +1,5 @@
-var coin = 0;
-module.exports.coin = coin;
+//var coin = 0;
+//module.exports.coin = coin;
 
 cc.Class({
     extends: cc.Component,
@@ -14,6 +14,11 @@ cc.Class({
         hammer: {
             default: null,
             type: cc.Node
+        },
+        //金币
+        coin: {
+            default: null,
+            type: cc.Label
         }
     },
 
@@ -120,15 +125,20 @@ cc.Class({
 
             date = new Date();
 
+            var a = parseInt(self.coin.string);
+
             if(date.getMilliseconds() % 10 == 0){
-                self.blood.progress -= 0.1;     //暴击
-                coin += 50;
+                self.blood.progress -= 0.1;     //暴击，耐久度-0.1             
+                a += 50;    //金币+50
             }
             else{
-                self.blood.progress -= 0.01;
-                coin += 5;
+                self.blood.progress -= 0.01;    //耐久度-0.01
+                a += 5;     //金币+5
             }  
-            module.exports.coin = coin;
+
+            self.coin.string = a;   //将更新后的金币数保存到label
+
+            //module.exports.coin = coin;
             if(self.blood.progress < 0){
                 self.changeVehicle("over", self);
             }else if(self.blood.progress < 0.25){

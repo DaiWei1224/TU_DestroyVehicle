@@ -1,4 +1,4 @@
-var HitVehicle = require("HitVehicle");
+//var HitVehicle = require("HitVehicle");
 
 cc.Class({
     extends: cc.Component,
@@ -9,10 +9,11 @@ cc.Class({
             type: cc.Label
         },
 
-        coinLabel: {
-            default: null,
-            type: cc.Label
-        },
+        // coinLabel: {
+        //     default: null,
+        //     type: cc.Label
+        // },
+
         // defaults, set visually when attaching this script to the Canvas
         //text: 'Hello, World!',
 
@@ -30,8 +31,6 @@ cc.Class({
     // called every frame
     update: function (dt) {       
         this.bloodLabel.string = parseInt(this.blood.progress * 100) + "%";
-        //var HitVehicle = require("HitVehicle");
-        //console.log(HitVehicle.coin);
-        this.coinLabel.string = HitVehicle.coin;
+        //this.coinLabel.string = HitVehicle.coin;
     },
 });
