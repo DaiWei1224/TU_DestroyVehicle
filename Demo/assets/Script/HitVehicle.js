@@ -1,6 +1,7 @@
 //var coin = 0;
 //module.exports.coin = coin;
 
+
 cc.Class({
     extends: cc.Component,
 
@@ -10,17 +11,33 @@ cc.Class({
         labelPfb: cc.Prefab,
         blood: {
             default: null,
-            type: cc.ProgressBar
+            type: cc.ProgressBar,
+            displayName: "血量"
         },
         //锤子
         hammer: {
             default: null,
-            type: cc.Node
+            type: cc.Node,
+            displayName: "武器"
         },
         //金币
         coin: {
             default: null,
-            type: cc.Label
+            type: cc.Label,
+            displayName: "金币Label"
+        },
+
+        power: {
+            default: 1,
+            type: cc.Integer,
+            displayName: "武器攻击力",
+            //tooltip: "武器攻击力"
+        },
+
+        bloodValue: {
+            default: 100,
+            type: cc.Integer,
+            displayName: "血量值",
         }
     },
 
@@ -130,14 +147,20 @@ cc.Class({
             var a = parseInt(self.coin.string);
 
             if(date.getMilliseconds() % 10 == 0){
-                self.blood.progress -= 0.1;     //暴击，耐久度-0.1             
+                var decBlood = self.power * 2 / self.bloodValue;
+                console.log(decBlood);                
+
+                self.blood.progress -= decBlood;     //暴击，耐久度-0.1             
                 a += 50;    //金币+50
-                self.showRollNotice('-10');
+                self.showRollNotice('-' + (self.power * 2));
             }
             else{
-                self.blood.progress -= 0.01;    //耐久度-0.01
+                var decBlood = self.power / self.bloodValue;
+                console.log(decBlood);
+
+                self.blood.progress -= decBlood;    //耐久度-0.01
                 a += 5;     //金币+5
-                self.showRollNotice('-1');
+                self.showRollNotice('-' + self.power);
             }  
 
             self.coin.string = a;   //将更新后的金币数保存到label
@@ -174,7 +197,7 @@ cc.Class({
         });
     },
     showRollNotice(str) {
-        console.log("开始执行主程序");
+        //console.log("开始执行主程序");
         let label = this.createShowNode(str);
 
         //时间 秒数
