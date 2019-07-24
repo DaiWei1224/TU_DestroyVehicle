@@ -1,0 +1,29 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "hit",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.2,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "angle": [
+        {
+          "frame": 0,
+          "value": -80
+        },
+        {
+          "frame": 0.1,
+          "value": -20
+        },
+        {
+          "frame": 0.2,
+          "value": -80
+        }
+      ]
+    }
+  },
+  "events": []
+}
