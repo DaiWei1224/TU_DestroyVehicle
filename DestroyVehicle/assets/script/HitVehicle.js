@@ -112,7 +112,7 @@ cc.Class({
             console.log(pos.x, pos.y);   
    
             //设置武器击打时出现的位置
-            self.weapon.x = pos.x + 30;  
+            self.weapon.x = pos.x - 50;  
             self.weapon.y = pos.y + 200;   
 
             //通过代码设计击打动画
