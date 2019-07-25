@@ -8,6 +8,12 @@ cc.Class({
             type: cc.Label,
             displayName: "零件Label"
         },
+
+        diamonds: {
+            default: null,
+            type: cc.Label,
+            displayName: "钻石Label"
+        },
     },
 
     onLoad () {
