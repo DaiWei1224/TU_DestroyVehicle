@@ -19,6 +19,7 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
     var self = this;
 
     // 判断
+    console.log("开始显示弹窗");
     if (Alert._alert != undefined) return;
 
     // 
@@ -28,7 +29,7 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
     cc.loader.loadRes("prefab/hitv_alert", cc.Prefab, function (error, prefab) {
 
         if (error) {
-            cc.error(error);
+            console.log("申请资源失败");
             return;
         }
 
@@ -91,7 +92,7 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
         cc.eventManager.pauseTarget(Alert._alert, true);
         Alert._alert.position = cc.p(0, 0);
         Alert._alert.setScale(2);
-        Alert._alert.opacity = 0;
+        //Alert._alert.opacity = 0;
         Alert._alert.runAction(self.actionFadeIn);
     };
 
@@ -112,17 +113,17 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
     };
 
     // 按钮点击事件
-    /*self.onButtonClicked = function(event){
-        if(event.target.name == "enterButton"){
-            if(self._enterCallBack){
-                self._enterCallBack();
-            }
-        }
+    self.onButtonClicked = function(event){
+       /* if(name=="ok"){
+            
+        console.log("确定按钮被电击");}
+        }*/
+        self._enterCallBack();
         self.startFadeOut();
-    };*/
+    };
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
-  /*  self.onDestory = function () {
+    self.onDestory = function () {
         Alert._alert.destroy();
         Alert._enterCallBack = null;
         Alert._alert = null;
@@ -130,7 +131,7 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
         Alert._cancelButton = null;
         Alert._enterButton = null;
         Alert._animSpeed = 0.3;
-    };*/
+    };
 };
 
 

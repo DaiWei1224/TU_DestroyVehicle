@@ -73,3 +73,7 @@ weapon_info.changeweapon=function(){
     console.log(best);
     return best;
 };
+weapon_info.getatk=function(weapon_kind){
+    var atk=5*Math.pow(1.8,weapon_kind);
+    return atk;
+};
