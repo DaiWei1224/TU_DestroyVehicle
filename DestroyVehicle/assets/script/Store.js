@@ -42,7 +42,7 @@ Store.show = function (enterCallBack, needCancel, animSpeed) {
         self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Store._animSpeed, 0), cc.scaleTo(Store._animSpeed, 0)), cbFadeOut);
 
         // 获取子节点
-        Store._cancelButton = cc.find("CloseButton", store);
+        Store._cancelButton = cc.find("closeButton", store);
 
         // 添加点击事件
         Store._cancelButton.on('click', self.onButtonClicked, self);

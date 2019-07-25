@@ -109,7 +109,7 @@ cc.Class({
             var pos = event.getLocation();
             //获取当前点击的局部坐标
             pos=self.node.convertToNodeSpaceAR(pos);
-            console.log(pos.x, pos.y);   
+            //console.log(pos.x, pos.y);   
    
             //设置武器击打时出现的位置
             self.weapon.x = pos.x - 50;  
@@ -161,8 +161,7 @@ cc.Class({
 
             if(date.getMilliseconds() % 10 == 0){
                 var decBlood = self.power * 2 / self.allBlood;
-                console.log(decBlood);                
-
+                //console.log(decBlood);                
                 self.blood.progress -= decBlood;     //暴击，耐久度-0.1
 
                 self.restBlood -= self.power * 2;
@@ -172,8 +171,7 @@ cc.Class({
             }
             else{
                 var decBlood = self.power / self.allBlood;
-                console.log(decBlood);
-
+                //console.log(decBlood);
                 self.blood.progress -= decBlood;    //耐久度-0.01
 
                 self.restBlood -= self.power;
@@ -218,7 +216,7 @@ cc.Class({
                     self.bloodLabel.string = self.restBlood + "/" + self.allBlood;//血量
                     var car=cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
                     var templevle=self.car_level+1;
-                    var temp="Lv"+templevle;
+                    var temp="Lv."+templevle;
                     car.string=temp;
                     self.percentageLabel.string=100+"%";//重置血条百分比
                     self.blood.progress=1;//重置血条

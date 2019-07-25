@@ -41,7 +41,7 @@ cc.Class({
         console.log("这个程序开始执行了");
         var self=this;
         
-        var price=cc.find("Canvas/auto_buy/auto_lable").getComponent(cc.Label);
+        var price=cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
         price.string=weapon_info.getPrice(self.weapon_kind,self.weapon_num);
         self.node.on("touchstart",function(){
             console.log("触摸程序执行了");
