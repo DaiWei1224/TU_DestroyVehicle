@@ -52,7 +52,15 @@ cc.Class({
     },
 
     onLoad () {
+        this.car_level=0;
+       // this.allBlood=10000;
+        this.allBlood=Math.pow(1.23,this.car_level);
+        this.power=weapon_info.getatk(this.car_level);
+        this.allBlood=weapon_info.getatk(this.car_level)*20*this.allBlood
+        this.allBlood=Math.floor(this.allBlood);
+        this.restBlood=this.allBlood;
         this.bloodLabel.string = this.restBlood + "/" + this.allBlood;
+       
     },
 
     newClickNode(position, callBack) {
@@ -173,17 +181,50 @@ cc.Class({
                 pl += 5;     //金币+5
                 self.showRollNotice('-' + self.power);
             }  
+            if(self.blood.progress>=0)
+            {
+                self.percentageLabel.string = /*parseInt*/Math.ceil(self.blood.progress * 100) + "%";
+            }
+            else{
+                self.percentageLabel.string=0+"%";
+            }
 
-            self.percentageLabel.string = parseInt(self.blood.progress * 100) + "%";
+            
 
             self.partsLabel.string = pl;   //将更新后的金币数保存到label
-            self.bloodLabel.string = self.restBlood + "/" + self.allBlood;
-
+            if(self.restBlood>=0)
+            {
+                self.bloodLabel.string = self.restBlood + "/" + self.allBlood;
+            }
+            else{
+                self.bloodLabel.string = "0/" + self.allBlood;
+            }
+            
+           // console.log(self.blood.progress);
             //module.exports.partsLabel = partsLabel;
-            if(self.blood.progress <= 0.01){
+            if(self.blood.progress <0.00001){
                 //打爆车弹出窗口
                 //self.changeVehicle("over", self);
-                Alert.show("Congratulations!");
+                //console.log("砸车结束了！！！");
+                Alert.show("Congratulations!",function(){
+                    //console.log("按钮被电击");
+                    self.car_level+=1;//车的等级+1（从0开始）
+      
+                    self.allBlood=Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的上海
+
+                    self.allBlood=weapon_info.getatk(self.car_level)*20*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
+                    self.allBlood=Math.floor(self.allBlood);//取整
+                    self.restBlood=self.allBlood;
+                    self.bloodLabel.string = self.restBlood + "/" + self.allBlood;//血量
+                    var car=cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
+                    var templevle=self.car_level+1;
+                    var temp="Lv"+templevle;
+                    car.string=temp;
+                    self.percentageLabel.string=100+"%";//重置血条百分比
+                    self.blood.progress=1;//重置血条
+                    var filename="/vehicle/vehicle01_"+self.car_level;//申请当前等级的汽车资源
+                    self.changeVehicle(filename,self);
+                });
             }else if(self.blood.progress < 0.25){
                 self.changeVehicle("/vehicle/vehicle01_4", self);
             }else if(self.blood.progress < 0.5){
@@ -232,5 +273,6 @@ cc.Class({
     update (dt) {       
         
     },
+   
 
 });
