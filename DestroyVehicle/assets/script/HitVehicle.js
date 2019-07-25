@@ -180,9 +180,10 @@ cc.Class({
             self.bloodLabel.string = self.restBlood + "/" + self.allBlood;
 
             //module.exports.partsLabel = partsLabel;
-            if(self.blood.progress < 0){
+            if(self.blood.progress <= 0.01){
                 //打爆车弹出窗口
                 //self.changeVehicle("over", self);
+                Alert.show("Congratulations!");
             }else if(self.blood.progress < 0.25){
                 self.changeVehicle("/vehicle/vehicle01_4", self);
             }else if(self.blood.progress < 0.5){
