@@ -1,8 +1,8 @@
 var Alert = {
     _alert: null,           // prefab
     _detailLabel:   null,   // 内容
-    _cancelButton:  null,   // 确定按钮
-    _enterButton:   null,   // 取消按钮
+    _doubleButton:  null,   // 确定按钮
+    _directButton:   null,   // 取消按钮
     _enterCallBack: null,   // 回调事件
     _animSpeed:     0.3,    // 动画速度
 };
@@ -26,7 +26,7 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
     Alert._animSpeed = animSpeed ? animSpeed : Alert._animSpeed;
 
     // 加载 prefab 创建
-    cc.loader.loadRes("prefab/hitv_alert", cc.Prefab, function (error, prefab) {
+    cc.loader.loadRes("prefab/NewVehicle", cc.Prefab, function (error, prefab) {
 
         if (error) {
             console.log("申请资源失败");
@@ -46,18 +46,17 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
         self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Alert._animSpeed, 0), cc.scaleTo(Alert._animSpeed, 2.0)), cbFadeOut);
 
         // 获取子节点
-        var dl= cc.find('hitv_dnum', alert);
-        if(!dl)
-        {
+        var dl= cc.find('diamNum', alert);
+        if(!dl){
             console.log("节点为空");
         }
         Alert._detailLabel=dl.getComponent(cc.Label);
-        Alert._cancelButton = cc.find("double_share", alert);
-        Alert._enterButton = cc.find("ok", alert);
+        Alert._doubleButton = cc.find("double", alert);
+        Alert._directButton = cc.find("direct", alert);
 
         // 添加点击事件
-        Alert._enterButton.on('click', self.onButtonClicked, self);
-        Alert._cancelButton.on('click', self.onButtonClicked, self);
+        Alert._directButton.on('click', self.onButtonClicked, self);
+        Alert._doubleButton.on('click', self.onButtonClicked, self);
 
         // 父视图
         Alert._alert.parent = cc.find("Canvas");
@@ -80,10 +79,10 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
         Alert._detailLabel.string = detailString;
         // 是否需要取消按钮
         if (needCancel || needCancel == undefined) { // 显示
-            Alert._cancelButton.active = true;
+            Alert._doubleButton.active = true;
         } else {  // 隐藏
-            Alert._cancelButton.active = false;
-            Alert._enterButton.x = 0;
+            Alert._doubleButton.active = false;
+            Alert._directButton.x = 0;
         }
     };
 
@@ -94,7 +93,7 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
         Alert._alert.setScale(2);
         //Alert._alert.opacity = 0;
         Alert._alert.runAction(self.actionFadeIn);
-    };
+    };                  
 
     // 执行弹出动画
     self.startFadeOut = function () {
@@ -128,8 +127,8 @@ Alert.show = function (detailString, enterCallBack, needCancel, animSpeed) {
         Alert._enterCallBack = null;
         Alert._alert = null;
         Alert._detailLabel = null;
-        Alert._cancelButton = null;
-        Alert._enterButton = null;
+        Alert._doubleButton = null;
+        Alert._directButton = null;
         Alert._animSpeed = 0.3;
     };
 };

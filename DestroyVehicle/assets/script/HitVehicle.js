@@ -54,7 +54,6 @@ cc.Class({
     onLoad () {
         this.car_level=0;
        // this.allBlood=10000;
-      
         this.allBlood=Math.pow(1.23,this.car_level);
         this.power=weapon_info.getatk(this.car_level);
         this.allBlood=weapon_info.getatk(this.car_level)*20*this.allBlood
@@ -110,7 +109,7 @@ cc.Class({
             var pos = event.getLocation();
             //获取当前点击的局部坐标
             pos=self.node.convertToNodeSpaceAR(pos);
-            console.log(pos.x, pos.y);   
+            //console.log(pos.x, pos.y);   
    
             //设置武器击打时出现的位置
             self.weapon.x = pos.x - 50;  
@@ -162,8 +161,7 @@ cc.Class({
 
             if(date.getMilliseconds() % 10 == 0){
                 var decBlood = self.power * 2 / self.allBlood;
-                console.log(decBlood);                
-
+                //console.log(decBlood);                
                 self.blood.progress -= decBlood;     //暴击，耐久度-0.1
 
                 self.restBlood -= self.power * 2;
@@ -173,8 +171,7 @@ cc.Class({
             }
             else{
                 var decBlood = self.power / self.allBlood;
-                console.log(decBlood);
-
+                //console.log(decBlood);
                 self.blood.progress -= decBlood;    //耐久度-0.01
 
                 self.restBlood -= self.power;
@@ -210,9 +207,9 @@ cc.Class({
                 var str=35+15*(self.car_level);
                 if(self.car_level==0)
                 {
-                    str="0";
+                    str="10";
                 }
-                
+                 
                 Alert.show(str,function(){
                     //console.log("按钮被电击");
                     self.car_level+=1;//车的等级+1（从0开始）

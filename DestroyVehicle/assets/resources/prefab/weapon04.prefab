@@ -53,9 +53,9 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.288,
-      "y": 0.288,
-      "z": 0.288
+      "x": 0.297,
+      "y": 0.297,
+      "z": 1
     },
     "_quat": {
       "__type__": "cc.Quat",
@@ -106,7 +106,7 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "5be0196e-6e5a-40c5-900b-cc1f3f5eab5f"
+      "__uuid__": "5acfc78b-b80f-4d8b-9deb-3f0df4710bbd"
     },
     "fileId": "7dhpVl90RJeb2ZrlUgVkCu",
     "sync": false

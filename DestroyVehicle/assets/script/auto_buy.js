@@ -41,7 +41,7 @@ cc.Class({
         console.log("这个程序开始执行了");
         var self=this;
         
-        var price=cc.find("Canvas/auto_buy/auto_lable").getComponent(cc.Label);
+        var price=cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
         price.string=weapon_info.getPrice(self.weapon_kind,self.weapon_num);
         self.node.on("touchstart",function(){
             console.log("触摸程序执行了");
@@ -54,7 +54,7 @@ cc.Class({
                 console.log("金钱不足");
             }
             else{
-            console.log("已经购买了编号为"+self.weapon_kind+"的武器，此时已经购买了"+self.weapon_num+"把");
+                console.log("已经购买了编号为"+self.weapon_kind+"的武器，此时已经购买了"+self.weapon_num+"把");
                 self.weapon_num+=1;
                 weapon_info.weapon_nums[self.weapon_kind]=self.weapon_num;
                 sets.string=sets_num;//扣钱
@@ -65,7 +65,6 @@ cc.Class({
                 console.log("编号为"+self.weapon_kind);
                 self.weapon_num=weapon_info.weapon_nums[self.weapon_kind];
                 price.string=weapon_info.getPrice(self.weapon_kind,self.weapon_num);//更新打击后价格
-                
             }
             
            

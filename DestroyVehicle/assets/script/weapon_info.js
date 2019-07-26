@@ -59,7 +59,9 @@ weapon_info.changeweapon=function(){
     for(i=1;i<8;i++){
         max=max-1;
         
-      
+       // console.log(bestprice);
+        //console.log(max);
+        //console.log(best);
          price=weapon_info.getPrice(max,weapon_info.weapon_nums[max])*Math.pow(2,i);
         // console.log(price);
          if(price<bestprice)
@@ -72,6 +74,6 @@ weapon_info.changeweapon=function(){
     return best;
 };
 weapon_info.getatk=function(weapon_kind){
-    var atk=Math.floor(5*Math.pow(1.8,weapon_kind)) ;
+    var atk=Math.floor(5*Math.pow(1.8,weapon_kind)); 
     return atk;
 };
