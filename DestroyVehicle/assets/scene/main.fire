@@ -1916,15 +1916,13 @@
     "percentageLabel": {
       "__id__": 35
     },
-    "allBlood": 100,
-    "restBlood": 100,
     "bloodLabel": {
       "__id__": 33
     },
     "weapon": {
       "__id__": 47
     },
-    "power": 1,
+    "power": 5,
     "partsLabel": {
       "__id__": 21
     },
@@ -6666,6 +6664,15 @@
     },
     "level": {
       "__id__": 31
+    },
+    "blood": {
+      "__id__": 33
+    },
+    "bloodProgress": {
+      "__id__": 37
+    },
+    "percentageLabel": {
+      "__id__": 35
     },
     "_id": "58JPK0sv9PR4Eu2KfxoAQl"
   },

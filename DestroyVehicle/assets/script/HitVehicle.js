@@ -18,16 +18,16 @@ cc.Class({
             type: cc.Label,
             displayName: "剩余血量百分比"
         },
-        allBlood: {
-            default: 100,
-            type: cc.Integer,
-            displayName: "总血量值",
-        },
-        restBlood:{
-            default: 100,
-            type: cc.Integer,
-            displayName: "剩余血量"
-        },
+        // allBlood: {
+        //     default: 100,
+        //     type: cc.Integer,
+        //     displayName: "总血量值",
+        // },
+        // restBlood:{
+        //     default: 100,
+        //     type: cc.Integer,
+        //     displayName: "剩余血量"
+        // },
         bloodLabel:{
             default: null,
             type: cc.Label,
@@ -39,7 +39,7 @@ cc.Class({
             displayName: "武器"
         },
         power: {
-            default: 1,
+            default: 5,
             type: cc.Integer,
             displayName: "武器攻击力",
         },
@@ -52,15 +52,21 @@ cc.Class({
     },
 
     onLoad () {
-        this.car_level=0;
-       // this.allBlood=10000;
-        this.allBlood=Math.pow(1.23,this.car_level);
-        this.power=weapon_info.getatk(this.car_level);
-        this.allBlood=weapon_info.getatk(this.car_level)*20*this.allBlood
-        this.allBlood=Math.floor(this.allBlood);
-        this.restBlood=this.allBlood;
-        this.bloodLabel.string = this.restBlood + "/" + this.allBlood;
-       
+        // //this.allBlood=10000;
+        // this.allBlood=Math.pow(1.23,this.car_level);
+        //this.power=weapon_info.getatk(this.car_level);
+        // this.allBlood=weapon_info.getatk(this.car_level)*20*this.allBlood
+        // this.allBlood=Math.floor(this.allBlood);
+        // this.restBlood=this.allBlood;
+        // this.bloodLabel.string = this.restBlood + "/" + this.allBlood;
+
+        //根据武器等级初始化武器攻击力
+        //？？？？？？？？？？？？？？
+
+        //关卡数变量为读取的关卡数-1
+        this.car_level = parseInt(this.getUserData("level", 1)) - 1;
+        this.allBlood = parseInt(this.getUserData("allBlood", 100));
+        this.restBlood = parseInt(this.getUserData("restBlood", 100));
     },
 
     newClickNode(position, callBack) {
@@ -104,7 +110,7 @@ cc.Class({
 
         var self = this;
         
-        this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
+        this.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             //获取当前点击的全局坐标
             var pos = event.getLocation();
             //获取当前点击的局部坐标
@@ -184,10 +190,8 @@ cc.Class({
                 self.percentageLabel.string = /*parseInt*/Math.ceil(self.blood.progress * 100) + "%";
             }
             else{
-                self.percentageLabel.string=0+"%";
+                self.percentageLabel.string = 0 + "%";
             }
-
-            
 
             self.partsLabel.string = pl;   //将更新后的金币数保存到label
             if(self.restBlood>=0)
@@ -197,14 +201,10 @@ cc.Class({
             else{
                 self.bloodLabel.string = "0/" + self.allBlood;
             }
-            
-           // console.log(self.blood.progress);
             //module.exports.partsLabel = partsLabel;
             if(self.blood.progress <0.00001){
                 //打爆车弹出窗口
-                //self.changeVehicle("over", self);
-                //console.log("砸车结束了！！！");
-                var str=35+15*(self.car_level);
+                var str = 35 + 15 * (self.car_level);
                 if(self.car_level==0)
                 {
                     str="10";
@@ -222,15 +222,16 @@ cc.Class({
                     self.bloodLabel.string = self.restBlood + "/" + self.allBlood;//血量
                     var car=cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
                     var templevle=self.car_level+1;
-                    var temp="Lv"+templevle;
-                    car.string=temp;
+                    var temp="Lv."+templevle;
+                    car.string = temp;
                     self.percentageLabel.string=100+"%";//重置血条百分比
                     self.blood.progress=1;//重置血条
                     var filename="/vehicle/vehicle01_"+self.car_level;//申请当前等级的汽车资源
                     self.changeVehicle(filename,self);
                 });
-                var diamond=cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
-                diamond.string=parseInt(diamond.string)+parseInt(str) ;
+                var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
+                diamond.string = parseInt(diamond.string) + parseInt(str);
+
             }else if(self.blood.progress < 0.25){
                 self.changeVehicle("/vehicle/vehicle01_4", self);
             }else if(self.blood.progress < 0.5){
@@ -274,6 +275,20 @@ cc.Class({
         }, this))//动作完成后删除
         label.runAction(sequence);
 
+    },
+
+    //获取key对应的数据，为空设为默认值dft
+    getUserData: function(key, dft) {    
+
+        var value = cc.sys.localStorage.getItem(key);
+
+        if(value == "" || value == null){         
+            //console.log("no exist");
+            return dft;
+        }else{
+            //console.log("exist");
+            return value;
+        }
     },
 
     update (dt) {       

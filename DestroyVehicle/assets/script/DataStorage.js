@@ -18,6 +18,21 @@ cc.Class({
             type: cc.Label,
             displayName: "当前关卡数",
         },
+        blood: {
+            default: null,
+            type: cc.Label,
+            displayName: "血量Label",
+        },
+        bloodProgress: {
+            default: null,
+            type: cc.ProgressBar,
+            displayName: "血量进度条",
+        },
+        percentageLabel: {
+            default: null,
+            type: cc.Label,
+            displayName: "剩余血量百分比"
+        },
     },
 
     onLoad () {
@@ -25,7 +40,7 @@ cc.Class({
         var self = this;
         var date1 = 0; //离线时间
         var date2 = 0; //上线时间
-
+        cc.sys.localStorage.setItem("parts", 0); 
         //读取钻石数
         self.diamonds.string = self.getUserData("diamonds",0);
         //读取零件数
@@ -41,8 +56,16 @@ cc.Class({
         }
         //读取关卡数，默认值为1
         self.level.string = "Lv." + self.getUserData("level", "1");
-
-
+        //读取剩余血量
+        read = parseInt(self.getUserData("restBlood", 100));
+        //读取总血量
+        var read2 = parseInt(self.getUserData("allBlood", 100));
+        //设置血量Label
+        self.blood.string = read + '/' + read2;
+        //设置进度条
+        self.bloodProgress.progress = read / read2;
+        //设置剩余血量备份比
+        self.percentageLabel.string = parseInt(self.bloodProgress.progress * 100) + '%';
 
         //对离开页面进行监听
         cc.game.on(cc.game.EVENT_HIDE, function () {
@@ -76,8 +99,12 @@ cc.Class({
         cc.sys.localStorage.setItem("parts", parseInt(this.parts.string)); 
         //将Lv.1根据'.'分成两部分，后面那部分为temp[1]，代表关卡数，取为整型数
         var temp = this.level.string.split('.');
-        cc.sys.localStorage.setItem("level", parseInt(temp[1])); 
-
+        cc.sys.localStorage.setItem("level", parseInt(temp[1]));
+        //若当前血量为60/100，则restBlood=60，allBlood=100
+        temp = this.blood.string.split('/');
+        cc.sys.localStorage.setItem("restBlood",parseInt(temp[0]));
+        cc.sys.localStorage.setItem("allBlood",parseInt(temp[1]));
+        
 
 
 
