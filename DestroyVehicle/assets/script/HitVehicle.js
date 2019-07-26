@@ -204,7 +204,7 @@ cc.Class({
                 //打爆车弹出窗口
                 //self.changeVehicle("over", self);
                 //console.log("砸车结束了！！！");
-                Alert.show("Congratulations!",function(){
+                Alert.show("x 666",function(){
                     //console.log("按钮被电击");
                     self.car_level+=1;//车的等级+1（从0开始）
       
