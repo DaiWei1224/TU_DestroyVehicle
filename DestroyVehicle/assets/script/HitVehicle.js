@@ -54,6 +54,7 @@ cc.Class({
     onLoad () {
         this.car_level=0;
        // this.allBlood=10000;
+      
         this.allBlood=Math.pow(1.23,this.car_level);
         this.power=weapon_info.getatk(this.car_level);
         this.allBlood=weapon_info.getatk(this.car_level)*20*this.allBlood
@@ -206,7 +207,13 @@ cc.Class({
                 //打爆车弹出窗口
                 //self.changeVehicle("over", self);
                 //console.log("砸车结束了！！！");
-                Alert.show("Congratulations!",function(){
+                var str=35+15*(self.car_level);
+                if(self.car_level==0)
+                {
+                    str="0";
+                }
+                
+                Alert.show(str,function(){
                     //console.log("按钮被电击");
                     self.car_level+=1;//车的等级+1（从0开始）
       
@@ -225,6 +232,8 @@ cc.Class({
                     var filename="/vehicle/vehicle01_"+self.car_level;//申请当前等级的汽车资源
                     self.changeVehicle(filename,self);
                 });
+                var diamond=cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
+                diamond.string=parseInt(diamond.string)+parseInt(str) ;
             }else if(self.blood.progress < 0.25){
                 self.changeVehicle("/vehicle/vehicle01_4", self);
             }else if(self.blood.progress < 0.5){
