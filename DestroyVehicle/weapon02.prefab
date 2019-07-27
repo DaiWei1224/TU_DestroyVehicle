@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "weapon02",
+    "_name": "weapon03",
     "_objFlags": 0,
     "_parent": null,
     "_children": [],
@@ -53,9 +53,9 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.297,
-      "y": 0.297,
-      "z": 1
+      "x": 0.183,
+      "y": 0.183,
+      "z": 0.183
     },
     "_quat": {
       "__type__": "cc.Quat",
@@ -106,9 +106,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "0a571565-19a3-474a-aaab-08765cde3f62"
+      "__uuid__": "cbab281d-ec68-49e0-ab7e-738618822e35"
     },
-    "fileId": "e3r09U+yFKpZ7TYpSnBaAD",
+    "fileId": "7dhpVl90RJeb2ZrlUgVkCu",
     "sync": false
   }
 ]

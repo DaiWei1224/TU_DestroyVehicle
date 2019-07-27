@@ -14,7 +14,7 @@
   {
     "__type__": "cc.Node",
     "_name": "OffLineRevenue",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": null,
     "_children": [
       {
@@ -1003,7 +1003,7 @@
     "hoverSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 1
+      "__id__": 25
     },
     "_id": ""
   },
@@ -1176,7 +1176,7 @@
     "hoverSprite": null,
     "_N$disabledSprite": null,
     "_N$target": {
-      "__id__": 1
+      "__id__": 29
     },
     "_id": ""
   },

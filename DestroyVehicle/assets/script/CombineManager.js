@@ -21,6 +21,8 @@ cc.Class({
         MyArmNode:cc.Node,//？？？
         WorkerArmNode:cc.Node,//？？？
 
+        NewArmWindow:cc.Prefab,
+
         ArmArry:[cc.Integer],//？？
         ArmPrefabArry:[cc.Prefab],
         SlotPositionArry:[cc.Vec2],
@@ -34,28 +36,32 @@ cc.Class({
 
         CurrentArmRank:0,
         MaxArmRank:0,
+        label:cc.Node,
+        erning_parts:[cc.Node],
+        DustbinNode:cc.Node,
     },
-
+    
     // LIFE-CYCLE CALLBACKS:
     onLoad(){
-        self=this;
-        this.node.on(cc.Node.EventType.TOUCH_START, function (event) {
+     self=this;
+       
+        self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             console.log("触摸了");
             self.MouseDownSlot=self.GetSlot(event.getLocation());//得到触摸的是第几块
             console.log(parseInt(self.MouseDownPos));
-            self.MouseDownOnSlot(self.MouseDownSlot,event.getLocation());//触摸的位置（x，y），和第几个
-        }, this.node);
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
+            self.MouseDownOnSlot(self.MouseDownSlot,self.node.convertToNodeSpaceAR(event.getLocation()));//触摸的位置（x，y），和第几个
+        }, self.node);
+        self.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
             if(self.FollowArm)
             {
                 self.FollowArm.setPosition(self.node.convertToNodeSpaceAR(event.getLocation()));
             }
-        }, this.node);
-        this.node.on(cc.Node.EventType.TOUCH_END, function (event) {
+        }, self.node);
+        self.node.on(cc.Node.EventType.TOUCH_END, function (event) {
             
             self.MouseUpSlot=self.GetSlot(event.getLocation());
             self.MouseUpOnSlot(self.MouseUpSlot);
-        }, this.node);
+        }, self.node);
     },
 
 
@@ -107,8 +113,14 @@ cc.Class({
         if(self.ArmArry[slotnum]>-1){
             self.SpawnFollowArm(self.ArmArry[slotnum],position);
             self.ArmImagesArry[slotnum].opacity = 100;
+
+            //dustbineffect
+            self.DustbinNode.opacity=240;
+            var action = cc.scaleTo(0.15, 1.05,1.05);
+            self.DustbinNode.runAction(action);
         }
     },
+
 
     SpawnFollowArm(Armnum,position){
         var FArm = cc.instantiate(self.ArmPrefabArry[Armnum]);
@@ -116,16 +128,18 @@ cc.Class({
         FArm.setPosition(position);
         self.FollowArm=FArm;
     },
-
     MouseUpOnSlot(slotnum)
     {
-        if(self.MouseDownSlot==-1) return;
+        if(self.MouseDownSlot==-1||self.MouseDownSlot==-2||self.ArmArry[self.MouseDownSlot]==-1) return;
+        self.DustbinNode.opacity=200;
+        var action = cc.scaleTo(0.15, 1,1);
+        self.DustbinNode.runAction(action);
         if(slotnum==-2)
         {
             self.ArmDelet(self.MouseDownSlot);
             console.log("delet");
         }
-        else if(slotnum==-1)
+        else if(slotnum==-1||slotnum==self.MouseDownSlot)
         {
             self.ArmMoveCancle(self.MouseDownSlot);console.log("cancle");
         }
@@ -147,10 +161,18 @@ cc.Class({
     {
         self.ArmImagesArry[downslot].destroy();
 
+        var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
+        self.ArmArry[upslot]+=1;
+        var speednum=parseInt(speed.string);
+        console.log("零件数"+parseInt(weapon_info.getpart(self.ArmArry[downslot]))+"速度"+(weapon_info.gettime(self.ArmArry[downslot])));
+        speednum=speednum-parseInt(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(downslot)));
+        speednum=speednum+parseInt(weapon_info.getpart(self.ArmArry[upslot])/weapon_info.gettime(self.ArmArry[upslot]));
+        speed.string="+"+speednum+"/s";
+        self.ArmArry[downslot]=-1;
+
         var finished = cc.callFunc(function () {
-            self.FollowArm.destroy();
-            self.ArmArry[downslot]=-1;
-            self.ArmArry[upslot]+=1;
+            CurrentFollowArm.destroy();
+            
 
             self.ArmImagesArry[upslot].destroy();
             var Armi = cc.instantiate(self.ArmPrefabArry[self.ArmArry[upslot]]);
@@ -170,13 +192,17 @@ cc.Class({
         var CollisionEffectB=cc.sequence(cc.moveBy(0.1,-100,0),cc.moveBy(0.1,50,0));
 
         var CollisionEffect=cc.callFunc(function () {
-            self.FollowArm.runAction(CollisionEffectA);
+            CurrentFollowArm.runAction(CollisionEffectA);
             self.ArmImagesArry[upslot].runAction(CollisionEffectB);
         }, this);
 
         var action = cc.sequence(cc.moveTo(0.2, self.SlotPositionArry[upslot]),CollisionEffect);
-        self.FollowArm.runAction(action);
+        var CurrentFollowArm=self.FollowArm;
+        self.FollowArm=null;
+        CurrentFollowArm.runAction(action);
     },
+
+
 
     ArmMove(downslot,upslot)
     {
@@ -185,7 +211,14 @@ cc.Class({
             self.ArmArry[upslot]=self.ArmArry[downslot];
             self.ArmArry[downslot]=-1;
         }
-        self.ChangeSprites();
+
+        self.FollowArm.destroy();
+        self.FollowArm=null;
+
+        self.ArmImagesArry[upslot]=self.ArmImagesArry[downslot];
+        self.ArmImagesArry[downslot]=null;
+        self.ArmImagesArry[upslot].setPosition(self.SlotPositionArry[upslot]);
+        self.ArmImagesArry[upslot].opacity=255;
     },
 
     ArmChangePlace(downslot,upslot)
@@ -193,12 +226,21 @@ cc.Class({
         var temp=self.ArmArry[downslot];
         self.ArmArry[downslot]=self.ArmArry[upslot];
         self.ArmArry[upslot]=temp;
-        self.ChangeSprites();
+
+        self.FollowArm.destroy();
+        var tempimage=self.ArmImagesArry[downslot];
+        tempimage.opacity=255;
+        self.ArmImagesArry[downslot]=self.ArmImagesArry[upslot]
+        self.ArmImagesArry[upslot]=tempimage;
+        self.ArmImagesArry[downslot].setPosition(self.SlotPositionArry[downslot]);
+        self.ArmImagesArry[upslot].setPosition(self.SlotPositionArry[upslot]);
     },
+
 
     ArmMoveCancle(downslot)
     {
         self.FollowArm.destroy();
+        self.FollowArm=null;
         self.ArmImagesArry[downslot].opacity = 255;
     },
 
@@ -206,7 +248,10 @@ cc.Class({
     {
         self.FollowArm.destroy();
         self.ArmImagesArry[downslot].destroy();
-        
+        var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
+        var speednum=parseInt(speed.string);
+        speednum=speednum-parseInt(weapon_info.getpart(self.ArmArry[downslot])/weapon_info.gettime(self.ArmArry[downslot]));
+        speed.string="+"+speednum+"/s";
         var part=cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
        
         part.string=parseInt(part.string)+Math.floor(0.8*parseInt(weapon_info.getPrice(self.ArmArry[downslot],0)));
@@ -233,8 +278,13 @@ cc.Class({
 
     GetBetterArm(ArmRank)
     {
+        var NewArmWindow = cc.instantiate(self.NewArmWindow);
+        self.node.parent.addChild(NewArmWindow);
+        NewArmWindow.getComponent("NewScript").SetArmLevel(ArmRank);
+
         self.ChangeArm(ArmRank);
     },
+
 
     ChangeArm(ArmRank)
     {
@@ -243,12 +293,19 @@ cc.Class({
         var car=cc.find("Canvas/Vehicle").getComponent("HitVehicle");//改变等级
         car.power=weapon_info.getatk(ArmRank);
     },
+    destroylab:function(){
+        self.label.active=false;
+        self.label.runAction(cc.sequence(cc.moveBy(0.01,0,-200),cc.fadeIn(0.01)));
+    },
+    
 
      
 });
 
+
     module.exports.InstNewArm=function(ArmRank)
-    {
+    { 
+    
         
         for(var i=0;i<12;i++)
         {
@@ -259,12 +316,45 @@ cc.Class({
                 self.node.addChild(Armi);
                 self.ArmImagesArry[i]=Armi;
                 Armi.setPosition(self.SlotPositionArry[i]);
+                var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
+                var speednum=parseInt(speed.string);
+                speednum=speednum+parseInt(weapon_info.getpart(ArmRank)/weapon_info.gettime(ArmRank));
+                console.log("此时塑料布"+speednum);
+                speed.string="+"+speednum+"/s";
+                var abcc=function(){
+                if(self.ArmArry[i]=='-1')
+                {
+                    self.unschedule(abcc);
+                }  
+                else{
+                    var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
+               
+                part.string=parseInt(part.string)+parseInt(weapon_info.getpart(self.ArmArry[i]));
+                console.log(weapon_info.getpart(self.ArmArry[i]));
+                self.erning_parts[i].getComponent(cc.Label).string="+$"+weapon_info.getpart(self.ArmArry[i]);
+                self.erning_parts[i].active=true;
+                self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
+                //if()
+                }
+                
+                };         
+                //console.log(weapon_info.gettime())      
+                self.schedule(abcc,weapon_info.gettime(self.ArmArry[i]));
+                
+                
+                
+                var flag=1;
+                return flag;
                 //此处扣除金币/钻石
-                break;
             }
             if(i==11&&self.ArmArry[i]>-1)
             {
-                //没有空间 购买失败
+                
+                self.label.active=true;
+                self.label.runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.5,0,200),cc.fadeOut(0.01)));
+                self.label.runAction(cc.moveBy(0.01,0,-200));
+                flag=0;
+                return flag;
             }
         }
         console.log("创建编号为"+ArmRank+"的武器");

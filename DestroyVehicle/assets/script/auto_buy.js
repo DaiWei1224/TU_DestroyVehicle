@@ -14,6 +14,9 @@ cc.Class({
     properties: {
         weapon_kind:0,
         weapon_num:1,
+        mask:cc.Node,
+        label:cc.Node,
+        //mask:cc.Node,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -52,6 +55,7 @@ cc.Class({
             if(sets_num<0)
             {
                 console.log("金钱不足");
+               
             }
             else{
                 console.log("已经购买了编号为"+self.weapon_kind+"的武器，此时已经购买了"+self.weapon_num+"把");
@@ -60,11 +64,28 @@ cc.Class({
                 sets.string=sets_num;//扣钱
                 console.log("现在还剩"+sets.string+"个零件");
                 var abc=require("CombineManager");
-                abc.InstNewArm(self.weapon_kind);
-                self.weapon_kind=weapon_info.changeweapon();
-                console.log("编号为"+self.weapon_kind);
-                self.weapon_num=weapon_info.weapon_nums[self.weapon_kind];
-                price.string=weapon_info.getPrice(self.weapon_kind,self.weapon_num);//更新打击后价格
+                var flag=abc.InstNewArm(self.weapon_kind);
+                console.log(flag);
+                if(flag=='1')
+                {
+                    self.weapon_kind=weapon_info.changeweapon();
+                    console.log("编号为"+self.weapon_kind);
+                    self.weapon_num=weapon_info.weapon_nums[self.weapon_kind];
+                    console.log(self.weapon_num);
+                    price.string=weapon_info.getPrice(self.weapon_kind,self.weapon_num);//更新打击后价格
+                    if(sets_num<parseInt(price.string)){
+                        console.log("钱不够再买了")
+                        self.mask.active=true;
+                    }
+                    else{
+                        console.log(sets_num);
+                        console.log(price.string);
+                        console.log("金钱充足");
+                    }
+                    
+                }
+                
+               
             }
             
            
@@ -72,4 +93,5 @@ cc.Class({
     },
 
     // update (dt) {},
+   
 });

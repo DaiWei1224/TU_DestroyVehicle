@@ -39,7 +39,7 @@ cc.Class({
             displayName: "武器"
         },
         power: {
-            default: 5,
+            default: 1,
             type: cc.Integer,
             displayName: "武器攻击力",
         },
@@ -86,8 +86,7 @@ cc.Class({
             }                   
             self.node.getComponent(cc.Sprite).spriteFrame = texture;
         });
-
-
+       
     },
 
     newClickNode(position, callBack) {
@@ -131,7 +130,7 @@ cc.Class({
 
         var self = this;
         
-        this.node.on(cc.Node.EventType.TOUCH_START, function (event) {
+        this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
             //获取当前点击的全局坐标
             var pos = event.getLocation();
             //获取当前点击的局部坐标
@@ -204,6 +203,7 @@ cc.Class({
                 self.restBlood -= self.power;
 
                 pl += 5;     //金币+5
+                self.check(pl);
                 self.showRollNotice('-' + self.power);
             }  
             if(self.blood.progress>=0)
@@ -211,8 +211,10 @@ cc.Class({
                 self.percentageLabel.string = /*parseInt*/Math.ceil(self.blood.progress * 100) + "%";
             }
             else{
-                self.percentageLabel.string = 0 + "%";
+                self.percentageLabel.string=0+"%";
             }
+
+            
 
             self.partsLabel.string = pl;   //将更新后的金币数保存到label
             if(self.restBlood>=0)
@@ -222,16 +224,19 @@ cc.Class({
             else{
                 self.bloodLabel.string = "0/" + self.allBlood;
             }
+            
+           // console.log(self.blood.progress);
             //module.exports.partsLabel = partsLabel;
             if(self.blood.progress <0.00001){
                 //打爆车弹出窗口
-                var str = 35 + 15 * (self.car_level);
+                //self.changeVehicle("over", self);
+                //console.log("砸车结束了！！！");
+                var str=14+9*(self.car_level);
                 if(self.car_level==0)
                 {
-                    str = "10";
+                    str="10";
                 }
-
-                //Alert.show(str,function(){
+                 
                 Popup.show(
                     'newVehicle', 
                     'prefab/NewVehicle', 
@@ -266,13 +271,44 @@ cc.Class({
             }else if(self.blood.progress < 0.75){
                 self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_2", self);
             }
+            //     Alert.show(str,function(){
+            //         /*Popup.show(
+            //         'newVehicle', 
+            //         'prefab/NewVehicle', 
+            //          str,
+            //         'Lv.666 小破车', 
+            //         '/vehicle/vehicle01_3',
+            //         function(){*/
+            //         self.car_level+=1;//车的等级+1（从0开始）
+      
+            //         self.allBlood=Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的上海
+
+            //         self.allBlood=weapon_info.getatk(self.car_level)*20*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
+            //         self.allBlood=Math.floor(self.allBlood);//取整
+            //         self.restBlood=self.allBlood;
+            //         self.bloodLabel.string = self.restBlood + "/" + self.allBlood;//血量
+            //         var car=cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
+            //         var templevle=self.car_level+1;
+            //         var temp="Lv."+templevle;
+            //         car.string=temp;
+            //         self.percentageLabel.string=100+"%";//重置血条百分比
+            //         self.blood.progress=1;//重置血条
+            //         var filename="/vehicle/vehicle01_"+self.car_level;//申请当前等级的汽车资源
+            //         self.changeVehicle(filename,self);
+            //     });
+            //     var diamond=cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
+            //     diamond.string=parseInt(diamond.string)+parseInt(str) ;
+            // }else if(self.blood.progress < 0.25){
+            //     self.changeVehicle("/vehicle/vehicle01_4", self);
+            // }else if(self.blood.progress < 0.5){
+            //     self.changeVehicle("/vehicle/vehicle01_3", self);
+            // }else if(self.blood.progress < 0.75){
+            //     self.changeVehicle("/vehicle/vehicle01_2", self);
+            // }
 
         });
         
     },
-
-    
-
     createShowNode:function(str){
        
         let label = cc.instantiate(this.labelPfb);
@@ -324,6 +360,15 @@ cc.Class({
     update (dt) {       
         
     },
+    check:function(pl){
+        pl=parseInt(pl);
+        var price=cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
+        if(pl>parseInt(price.string))
+        {
+            cc.find("Canvas/autobuyButton/mask").active=false;
+        }
+    },
+
     //获取车辆名
     getVehicleName: function(level){
         switch(level){

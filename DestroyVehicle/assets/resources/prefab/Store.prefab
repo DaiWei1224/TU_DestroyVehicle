@@ -1800,7 +1800,7 @@
       "__id__": 1
     },
     "component": "",
-    "_componentId": "45031S3NUJNPqth4UXP9dEc",
+    "_componentId": "5fb67kr+i5AAKKBOh4wQaAt",
     "handler": "weapon01BtnClick",
     "customEventData": ""
   },
@@ -2205,9 +2205,7 @@
     "_materials": [],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "34645481-ebff-4813-ae2a-a0acb78eb6fc"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -3036,9 +3034,7 @@
     "_materials": [],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "649f2ee6-90a1-44cc-aa21-6a706d6df026"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -6977,7 +6973,7 @@
     "sync": false
   },
   {
-    "__type__": "45031S3NUJNPqth4UXP9dEc",
+    "__type__": "5fb67kr+i5AAKKBOh4wQaAt",
     "_name": "",
     "_objFlags": 0,
     "node": {
