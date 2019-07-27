@@ -40,7 +40,7 @@ cc.Class({
         var self = this;
         var date1 = 0; //离线时间
         var date2 = 0; //上线时间
-        cc.sys.localStorage.setItem("parts", 0); 
+
         //读取钻石数
         self.diamonds.string = self.getUserData("diamonds",0);
         //读取零件数
@@ -53,7 +53,12 @@ cc.Class({
             console.log("距离上次登陆 " + leaveTime + " 秒");
             read += leaveTime * 5;
             self.parts.string = read;   //将更新后的零件数保存到label
+
+            console.log(self.parts.string);
+            //弹窗提示离线收益
+            Popup.show('offLineProfit', 'prefab/OffLineRevenue', (leaveTime * 5)+'','1');
         }
+
         //读取关卡数，默认值为1
         self.level.string = "Lv." + self.getUserData("level", "1");
         //读取剩余血量

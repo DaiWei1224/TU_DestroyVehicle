@@ -3,7 +3,7 @@ cc.Class({
 
     //点击商店按钮
     storeBtnClick: function(){
-        Store.show();
+        Popup.show("store","prefab/Store",);
     },
     //点击购买武器1
     weapon01BtnClick: function(){

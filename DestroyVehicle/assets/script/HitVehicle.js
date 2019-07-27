@@ -210,11 +210,16 @@ cc.Class({
                     str="10";
                 }
                  
-                Alert.show(str,function(){
-                    //console.log("按钮被电击");
+                //Alert.show(str,function(){
+                Popup.show(
+                    'newVehicle', 
+                    'prefab/NewVehicle', 
+                     str,
+                    'Lv.666 小破车', 
+                    '/vehicle/vehicle01_3',
+                    function(){
                     self.car_level+=1;//车的等级+1（从0开始）
-      
-                    self.allBlood=Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的上海
+                    self.allBlood=Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
 
                     self.allBlood=weapon_info.getatk(self.car_level)*20*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
                     self.allBlood=Math.floor(self.allBlood);//取整
