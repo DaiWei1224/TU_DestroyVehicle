@@ -49,7 +49,10 @@ cc.Class({
     {
         self.NewArmImageNode.getComponent(cc.Sprite).spriteFrame = null;
         //加钻石 14+6*self.level
-        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Store._animSpeed, 0), cc.scaleTo(Store._animSpeed, 0)), this.node.destroy());
+        var finished = cc.callFunc(function () {
+            self.node.destroy();
+        }, this);
+        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Store._animSpeed, 0), cc.scaleTo(Store._animSpeed, 0)), finished);
         self.node.runAction(actionFadeOut);
         //this.node.destroy();
     },
@@ -58,7 +61,10 @@ cc.Class({
     {
         self.NewArmImageNode.getComponent(cc.Sprite).spriteFrame = null;
         //加双倍钻石 28+12*self.level
-        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Store._animSpeed, 0), cc.scaleTo(Store._animSpeed, 0)), this.node.destroy());
+        var finished = cc.callFunc(function () {
+            self.node.destroy();
+        }, this);
+        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Store._animSpeed, 0), cc.scaleTo(Store._animSpeed, 0)), finished);
         self.node.runAction(actionFadeOut);
         //this.node.destroy();
     },
