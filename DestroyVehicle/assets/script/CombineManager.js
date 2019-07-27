@@ -289,7 +289,7 @@ cc.Class({
     ChangeArm(ArmRank)
     {
         self.MyArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
-        //self.WorkerArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
+        self.WorkerArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
         var car=cc.find("Canvas/Vehicle").getComponent("HitVehicle");//改变等级
         car.power=weapon_info.getatk(ArmRank);
     },
