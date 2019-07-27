@@ -1,6 +1,6 @@
 {
   "ver": "2.3.0",
-  "uuid": "241bb0c6-1877-42e6-b717-cbd2bf8abfe1",
+  "uuid": "7ad39228-1583-49b1-bb4c-f661c1126254",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -9,8 +9,8 @@
   "subMetas": {
     "左胳膊": {
       "ver": "1.0.4",
-      "uuid": "b655e23b-7408-476c-b044-f4b9b6aac064",
-      "rawTextureUuid": "241bb0c6-1877-42e6-b717-cbd2bf8abfe1",
+      "uuid": "236837df-c0b6-4a59-a59e-0122dd6bd067",
+      "rawTextureUuid": "7ad39228-1583-49b1-bb4c-f661c1126254",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
