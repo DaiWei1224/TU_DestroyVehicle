@@ -40,7 +40,6 @@ cc.Class({
         var self = this;
         var date1 = 0; //离线时间
         var date2 = 0; //上线时间
-
         //读取钻石数
         self.diamonds.string = self.getUserData("diamonds",0);
         //读取零件数
@@ -51,12 +50,13 @@ cc.Class({
             date2 = new Date().getTime(); //返回页面的时间
             var leaveTime = parseInt((date2 - date1) / 1000);
             console.log("距离上次登陆 " + leaveTime + " 秒");
+            if(leaveTime > 7200){  //设置最大离线收益时间为2小时
+                leaveTime = 7200;
+            }
             read += leaveTime * 5;
             self.parts.string = read;   //将更新后的零件数保存到label
-
-            console.log(self.parts.string);
             //弹窗提示离线收益
-            Popup.show('offLineProfit', 'prefab/OffLineRevenue', (leaveTime * 5)+'','1');
+            Popup.show('offLineProfit', 'prefab/OffLineRevenue', (leaveTime * 5)+'','emmm');
         }
 
         //读取关卡数，默认值为1

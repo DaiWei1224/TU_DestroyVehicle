@@ -60,6 +60,8 @@ cc.Class({
         // this.restBlood=this.allBlood;
         // this.bloodLabel.string = this.restBlood + "/" + this.allBlood;
 
+        var self = this;
+
         //根据武器等级初始化武器攻击力
         //？？？？？？？？？？？？？？
 
@@ -67,6 +69,25 @@ cc.Class({
         this.car_level = parseInt(this.getUserData("level", 1)) - 1;
         this.allBlood = parseInt(this.getUserData("allBlood", 100));
         this.restBlood = parseInt(this.getUserData("restBlood", 100));
+        //加载车图片
+        var routeName = '/vehicle/vehicle' + (this.car_level + 1);
+        if(this.restBlood / this. allBlood < 0.25){
+            routeName += '_4';
+        }else if(this.restBlood / this. allBlood < 0.5){
+            routeName += '_3';
+        }else if(this.restBlood / this. allBlood < 0.75){
+            routeName += '_2';
+        }else{
+            routeName += '_1';
+        }
+        cc.loader.loadRes(routeName, cc.SpriteFrame, function (err, texture) {
+            if(err){
+                console.log(err);
+            }                   
+            self.node.getComponent(cc.Sprite).spriteFrame = texture;
+        });
+
+
     },
 
     newClickNode(position, callBack) {
@@ -207,18 +228,18 @@ cc.Class({
                 var str = 35 + 15 * (self.car_level);
                 if(self.car_level==0)
                 {
-                    str="10";
+                    str = "10";
                 }
-                 
+
                 //Alert.show(str,function(){
                 Popup.show(
                     'newVehicle', 
                     'prefab/NewVehicle', 
-                     str,
-                    'Lv.666 小破车', 
-                    '/vehicle/vehicle01_3',
+                    str,
+                    self.getVehicleName(self.car_level + 2),
+                    self.getImageRoute(self.car_level + 2),
                     function(){
-                    self.car_level+=1;//车的等级+1（从0开始）
+                    self.car_level += 1;//车的等级+1（从0开始）
                     self.allBlood=Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
 
                     self.allBlood=weapon_info.getatk(self.car_level)*20*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
@@ -231,23 +252,27 @@ cc.Class({
                     car.string = temp;
                     self.percentageLabel.string=100+"%";//重置血条百分比
                     self.blood.progress=1;//重置血条
-                    var filename="/vehicle/vehicle01_"+self.car_level;//申请当前等级的汽车资源
+                    //var filename="/vehicle/vehicle1_"+self.car_level;//申请当前等级的汽车资源
+                    var filename = "/vehicle/vehicle" + (self.car_level + 1) + "_1";//申请当前等级的汽车资源
                     self.changeVehicle(filename,self);
                 });
                 var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
                 diamond.string = parseInt(diamond.string) + parseInt(str);
 
             }else if(self.blood.progress < 0.25){
-                self.changeVehicle("/vehicle/vehicle01_4", self);
+                self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_4", self);
             }else if(self.blood.progress < 0.5){
-                self.changeVehicle("/vehicle/vehicle01_3", self);
+                self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_3", self);
             }else if(self.blood.progress < 0.75){
-                self.changeVehicle("/vehicle/vehicle01_2", self);
+                self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_2", self);
             }
 
         });
         
     },
+
+    
+
     createShowNode:function(str){
        
         let label = cc.instantiate(this.labelPfb);
@@ -299,6 +324,75 @@ cc.Class({
     update (dt) {       
         
     },
-   
+    //获取车辆名
+    getVehicleName: function(level){
+        switch(level){
+            case 1:  return 'Lv.1 出租车';
+            case 2:  return 'Lv.2 叮叮快车';
+            case 3:  return 'Lv.3 里菊专车';
+            case 4:  return 'Lv.4 蔚来es6';
+            case 5:  return 'Lv.5 蔚来es8';
+            case 6:  return 'Lv.6 蔚来es9';
+            case 7:  return 'Lv.7 挑战者';
+            case 8:  return 'Lv.8 战马';
+            case 9:  return 'Lv.9 地狱猫';
+            case 10: return 'Lv.10 克洛泽';
+            case 11: return 'Lv.11 迈锐宝';
+            case 12: return 'Lv.12 大黄蜂';
+            case 13: return 'Lv.13 宝马3系';
+            case 14: return 'Lv.14 宝马5系';
+            case 15: return 'Lv.15 宝马7系';
+            case 16: return 'Lv.16 保时捷718';
+            case 17: return 'Lv.17 保时捷911';
+            case 18: return 'Lv.18 保时捷918';
+            case 19: return 'Lv.19 法拉利488';
+            case 20: return 'Lv.20 法拉利812';
+            case 21: return 'Lv.21 法拉利LF';
+            case 22: return 'Lv.22 兰博基尼盖拉多';
+            case 23: return 'Lv.23 兰博基尼蝙蝠';
+            case 24: return 'Lv.24 兰博基尼毒药';
+            case 25: return 'Lv.25 莱肯';
+            case 26: return 'Lv.26 西贝尔';
+            case 27: return 'Lv.27 黄金超跑';
+            case 28: return 'Lv.28 劳斯莱斯幻影';
+            case 29: return 'Lv.29 劳斯莱斯银魅';
+            case 30: return 'Lv.30 劳斯莱斯金魅';
+        }
+    },
+    //获取车辆图片路径
+    getImageRoute: function(level){
+        switch(level){
+            case 1:  return '/vehicle/vehicle1_1';
+            case 2:  return '/vehicle/vehicle2_1';
+            case 3:  return '/vehicle/vehicle3_1';
+            case 4:  return '/vehicle/vehicle4_1';
+            case 5:  return '/vehicle/vehicle5_1';
+            case 6:  return '/vehicle/vehicle6_1';
+            case 7:  return '/vehicle/vehicle7_1';
+            case 8:  return '/vehicle/vehicle8_1';
+            case 9:  return '/vehicle/vehicle9_1';
+            case 10: return '/vehicle/vehicle10_1';
+            case 11: return '/vehicle/vehicle11_1';
+            case 12: return '/vehicle/vehicle12_1';
+            case 13: return '/vehicle/vehicle13_1';
+            case 14: return '/vehicle/vehicle14_1';
+            case 15: return '/vehicle/vehicle15_1';
+            case 16: return '/vehicle/vehicle16_1';
+            case 17: return '/vehicle/vehicle17_1';
+            case 18: return '/vehicle/vehicle18_1';
+            case 19: return '/vehicle/vehicle19_1';
+            case 20: return '/vehicle/vehicle20_1';
+            case 21: return '/vehicle/vehicle21_1';
+            case 22: return '/vehicle/vehicle22_1';
+            case 23: return '/vehicle/vehicle23_1';
+            case 24: return '/vehicle/vehicle24_1';
+            case 25: return '/vehicle/vehicle25_1';
+            case 26: return '/vehicle/vehicle26_1';
+            case 27: return '/vehicle/vehicle27_1';
+            case 28: return '/vehicle/vehicle28_1';
+            case 29: return '/vehicle/vehicle29_1';
+            case 30: return '/vehicle/vehicle30_1';
+        }
+    },
 
 });

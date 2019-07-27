@@ -1850,7 +1850,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "cdc7c3f6-8259-4229-8b60-2593f9a9567a"
+      "__uuid__": "b738dd6a-322f-44e1-a2a9-9eed73581942"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -13853,7 +13853,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "470+AQsHJPG5xfrmpAbXeN",
     "sync": false
@@ -13955,7 +13955,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "73Sp3svc9Pu4/Wo29oPy79",
     "sync": false
@@ -13988,8 +13988,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 260,
-      "height": 212
+      "width": 266,
+      "height": 216
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -14035,7 +14035,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "cdc7c3f6-8259-4229-8b60-2593f9a9567a"
+      "__uuid__": "b738dd6a-322f-44e1-a2a9-9eed73581942"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -14057,7 +14057,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "f7S0qBUnBH+L07Ulj0IAS4",
     "sync": false
@@ -14159,7 +14159,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "70EGXlPRpBHJ9qc1vHn8cQ",
     "sync": false
@@ -14192,7 +14192,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 239.3,
+      "width": 203.75,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -14237,8 +14237,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "Lv.2 出租车-II",
-    "_N$string": "Lv.2 出租车-II",
+    "_string": "Lv.1 出租车",
+    "_N$string": "Lv.1 出租车",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -14259,7 +14259,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "59xfpKhEROza4uUUd9QuQv",
     "sync": false
@@ -14299,7 +14299,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 75.61,
+      "width": 97.85,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -14375,7 +14375,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -78.305,
+      "x": -89.425,
       "y": 0,
       "z": 0
     },
@@ -14461,7 +14461,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "aftuwVZ+hK9ZgiQi4bKnz+",
     "sync": false
@@ -14476,8 +14476,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "x 10",
-    "_N$string": "x 10",
+    "_string": "x 666",
+    "_N$string": "x 666",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -14525,7 +14525,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "55nGmCLxxNm78cNDZHSya+",
     "sync": false
@@ -14698,7 +14698,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "7eGZIWrDpO5YmzWBzspofg",
     "sync": false
@@ -14871,7 +14871,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "3dxC9eJVFPAoLNu0sPj2kr",
     "sync": false
@@ -14882,7 +14882,7 @@
       "__id__": 343
     },
     "asset": {
-      "__uuid__": "d1a35b97-55ae-4055-a6bf-06e3d572bc7c"
+      "__uuid__": "597c296c-dbf6-464b-b6ea-a58a8a5c81da"
     },
     "fileId": "d24cQSb9FFWrmWMlDf40XH",
     "sync": false
