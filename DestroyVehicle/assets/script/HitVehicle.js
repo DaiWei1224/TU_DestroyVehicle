@@ -56,8 +56,12 @@ cc.Class({
         // this.bloodLabel.string = this.restBlood + "/" + this.allBlood;
 
         var self = this;
-        this.count = 0; //用于计算工人打击
-
+        //用于计算工人打击的频率
+        this.count = 0; 
+        //初始化工人打击的位置
+        this.workerPos = this.worker.getPosition();
+        this.workerPos.x = 45;
+        this.workerPos.y = -25;
         //根据武器等级初始化武器攻击力
         //？？？？？？？？？？？？？？
 
@@ -222,51 +226,6 @@ cc.Class({
 
             //module.exports.partsLabel = partsLabel;
 
-            // if(self.blood.progress <0.00001){
-            //     //打爆车弹出窗口
-            //     //self.changeVehicle("over", self);
-            //     //console.log("砸车结束了！！！");
-            //     var str=14+9*(self.car_level);
-            //     if(self.car_level==0)
-            //     {
-            //         str="10";
-            //     }
-                 
-            //     Popup.show(
-            //         'newVehicle', 
-            //         'prefab/NewVehicle', 
-            //         str,
-            //         self.getVehicleName(self.car_level + 2),
-            //         self.getImageRoute(self.car_level + 2),
-            //         function(){
-            //         self.car_level += 1;//车的等级+1（从0开始）
-            //         self.allBlood=Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
-
-            //         self.allBlood=weapon_info.getatk(self.car_level)*20*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
-            //         self.allBlood=Math.floor(self.allBlood);//取整
-            //         self.restBlood=self.allBlood;
-            //         self.bloodLabel.string = self.restBlood + "/" + self.allBlood;//血量
-            //         var car=cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
-            //         var templevle=self.car_level+1;
-            //         var temp="Lv."+templevle;
-            //         car.string = temp;
-            //         self.percentageLabel.string=100+"%";//重置血条百分比
-            //         self.blood.progress=1;//重置血条
-            //         //var filename="/vehicle/vehicle1_"+self.car_level;//申请当前等级的汽车资源
-            //         var filename = "/vehicle/vehicle" + (self.car_level + 1) + "_1";//申请当前等级的汽车资源
-            //         self.changeVehicle(filename,self);
-            //     });
-            //     var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
-            //     diamond.string = parseInt(diamond.string) + parseInt(str);
-
-            // }else if(self.blood.progress < 0.25){
-            //     self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_4", self);
-            // }else if(self.blood.progress < 0.5){
-            //     self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_3", self);
-            // }else if(self.blood.progress < 0.75){
-            //     self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_2", self);
-            // }
-
         });
         
     },
@@ -326,7 +285,28 @@ cc.Class({
         if(self.count % 120 == 0){   
             var anim = self.worker.getComponent(cc.Animation);
             anim.play();
-            /////////////////
+            
+            //击打火花
+            self.newClickNode(self.workerPos, function (node) {
+    
+                if (!node) return
+                //杀死所有存在的粒子，然后重新启动粒子发射器。
+                node.getComponent(cc.ParticleSystem).resetSystem();
+                //cc.log("子节点数:" + this.node.children.length);
+                this.node.children.forEach(element => {
+                    if (element.name === 'clickNode') {        
+                        //获取粒子系统组件
+                        let particle = element.getComponent(cc.ParticleSystem);       
+                        //指示粒子播放是否完毕
+                        if (particle.stopped) {
+                            //特效播放完毕的节点放入对象池
+                            this._clickPool.put(element);
+                            //cc.log("顺利回收...");
+                        }
+                    }
+                });
+            }.bind(self));
+
             var pl = parseInt(self.partsLabel.string);
 
             var decBlood = self.power / self.allBlood;

@@ -3,7 +3,11 @@ cc.Class({
 
     //点击商店按钮
     storeBtnClick: function(){
-        Popup.show("store","prefab/Store",);
+        Popup.show("store","prefab/Store","1","2","3",function(){
+            //点击商店按钮后执行回调函数，在Popup里添加，初始化每个按钮的零件值
+            console.log("假装初始化了每个按钮的零件数");
+
+        });
     },
     //点击购买武器1
     weapon01BtnClick: function(event,customEventData){

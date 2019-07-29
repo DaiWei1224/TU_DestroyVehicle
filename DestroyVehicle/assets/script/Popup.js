@@ -23,6 +23,10 @@ Popup.show = function (
     // 引用
     var self = this;
 
+    if(type == 'store'){
+        enterCallBack();  //执行回调函数
+    }
+
     // 判断
     if (Popup._popup != undefined) return;
 
@@ -45,8 +49,8 @@ Popup.show = function (
         // 动画 
         var cbFadeOut = cc.callFunc(self.onFadeOutFinish, self);
         var cbFadeIn = cc.callFunc(self.onFadeInFinish, self);
-        self.actionFadeIn = cc.sequence(cc.spawn(cc.fadeTo(Store._animSpeed, 255), cc.scaleTo(Store._animSpeed, 1)), cbFadeIn);
-        self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Store._animSpeed, 0), cc.scaleTo(Store._animSpeed, 0)), cbFadeOut);
+        self.actionFadeIn = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 255), cc.scaleTo(Popup._animSpeed, 1)), cbFadeIn);
+        self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), cbFadeOut);
 
         // 获取子节点并添加点击事件
         if(type == 'store'){
