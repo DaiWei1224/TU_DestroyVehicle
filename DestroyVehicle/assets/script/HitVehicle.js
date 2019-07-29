@@ -18,16 +18,6 @@ cc.Class({
             type: cc.Label,
             displayName: "剩余血量百分比"
         },
-        // allBlood: {
-        //     default: 100,
-        //     type: cc.Integer,
-        //     displayName: "总血量值",
-        // },
-        // restBlood:{
-        //     default: 100,
-        //     type: cc.Integer,
-        //     displayName: "剩余血量"
-        // },
         bloodLabel:{
             default: null,
             type: cc.Label,
@@ -37,6 +27,11 @@ cc.Class({
             default: null,
             type: cc.Node,
             displayName: "武器"
+        },
+        worker: {
+            default: null,
+            type: cc.Node,
+            displayName: "工人手臂"
         },
         power: {
             default: 1,
@@ -61,6 +56,7 @@ cc.Class({
         // this.bloodLabel.string = this.restBlood + "/" + this.allBlood;
 
         var self = this;
+        this.count = 0; //用于计算工人打击
 
         //根据武器等级初始化武器攻击力
         //？？？？？？？？？？？？？？
@@ -205,7 +201,8 @@ cc.Class({
                 pl += 5;     //金币+5
                 self.check(pl);
                 self.showRollNotice('-' + self.power);
-            }  
+            } 
+
             if(self.blood.progress>=0)
             {
                 self.percentageLabel.string = /*parseInt*/Math.ceil(self.blood.progress * 100) + "%";
@@ -213,8 +210,6 @@ cc.Class({
             else{
                 self.percentageLabel.string=0+"%";
             }
-
-            
 
             self.partsLabel.string = pl;   //将更新后的金币数保存到label
             if(self.restBlood>=0)
@@ -224,64 +219,28 @@ cc.Class({
             else{
                 self.bloodLabel.string = "0/" + self.allBlood;
             }
-            
-           // console.log(self.blood.progress);
+
             //module.exports.partsLabel = partsLabel;
-            if(self.blood.progress <0.00001){
-                //打爆车弹出窗口
-                //self.changeVehicle("over", self);
-                //console.log("砸车结束了！！！");
-                var str=14+9*(self.car_level);
-                if(self.car_level==0)
-                {
-                    str="10";
-                }
+
+            // if(self.blood.progress <0.00001){
+            //     //打爆车弹出窗口
+            //     //self.changeVehicle("over", self);
+            //     //console.log("砸车结束了！！！");
+            //     var str=14+9*(self.car_level);
+            //     if(self.car_level==0)
+            //     {
+            //         str="10";
+            //     }
                  
-                Popup.show(
-                    'newVehicle', 
-                    'prefab/NewVehicle', 
-                    str,
-                    self.getVehicleName(self.car_level + 2),
-                    self.getImageRoute(self.car_level + 2),
-                    function(){
-                    self.car_level += 1;//车的等级+1（从0开始）
-                    self.allBlood=Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
-
-                    self.allBlood=weapon_info.getatk(self.car_level)*20*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
-                    self.allBlood=Math.floor(self.allBlood);//取整
-                    self.restBlood=self.allBlood;
-                    self.bloodLabel.string = self.restBlood + "/" + self.allBlood;//血量
-                    var car=cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
-                    var templevle=self.car_level+1;
-                    var temp="Lv."+templevle;
-                    car.string = temp;
-                    self.percentageLabel.string=100+"%";//重置血条百分比
-                    self.blood.progress=1;//重置血条
-                    //var filename="/vehicle/vehicle1_"+self.car_level;//申请当前等级的汽车资源
-                    var filename = "/vehicle/vehicle" + (self.car_level + 1) + "_1";//申请当前等级的汽车资源
-                    self.changeVehicle(filename,self);
-                });
-                var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
-                diamond.string = parseInt(diamond.string) + parseInt(str);
-
-            }else if(self.blood.progress < 0.25){
-                self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_4", self);
-            }else if(self.blood.progress < 0.5){
-                self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_3", self);
-            }else if(self.blood.progress < 0.75){
-                self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_2", self);
-            }
-            //     Alert.show(str,function(){
-            //         /*Popup.show(
+            //     Popup.show(
             //         'newVehicle', 
             //         'prefab/NewVehicle', 
-            //          str,
-            //         'Lv.666 小破车', 
-            //         '/vehicle/vehicle01_3',
-            //         function(){*/
-            //         self.car_level+=1;//车的等级+1（从0开始）
-      
-            //         self.allBlood=Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的上海
+            //         str,
+            //         self.getVehicleName(self.car_level + 2),
+            //         self.getImageRoute(self.car_level + 2),
+            //         function(){
+            //         self.car_level += 1;//车的等级+1（从0开始）
+            //         self.allBlood=Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
 
             //         self.allBlood=weapon_info.getatk(self.car_level)*20*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
             //         self.allBlood=Math.floor(self.allBlood);//取整
@@ -290,20 +249,22 @@ cc.Class({
             //         var car=cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
             //         var templevle=self.car_level+1;
             //         var temp="Lv."+templevle;
-            //         car.string=temp;
+            //         car.string = temp;
             //         self.percentageLabel.string=100+"%";//重置血条百分比
             //         self.blood.progress=1;//重置血条
-            //         var filename="/vehicle/vehicle01_"+self.car_level;//申请当前等级的汽车资源
+            //         //var filename="/vehicle/vehicle1_"+self.car_level;//申请当前等级的汽车资源
+            //         var filename = "/vehicle/vehicle" + (self.car_level + 1) + "_1";//申请当前等级的汽车资源
             //         self.changeVehicle(filename,self);
             //     });
-            //     var diamond=cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
-            //     diamond.string=parseInt(diamond.string)+parseInt(str) ;
+            //     var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
+            //     diamond.string = parseInt(diamond.string) + parseInt(str);
+
             // }else if(self.blood.progress < 0.25){
-            //     self.changeVehicle("/vehicle/vehicle01_4", self);
+            //     self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_4", self);
             // }else if(self.blood.progress < 0.5){
-            //     self.changeVehicle("/vehicle/vehicle01_3", self);
+            //     self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_3", self);
             // }else if(self.blood.progress < 0.75){
-            //     self.changeVehicle("/vehicle/vehicle01_2", self);
+            //     self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_2", self);
             // }
 
         });
@@ -357,9 +318,89 @@ cc.Class({
         }
     },
 
-    update (dt) {       
-        
+    update (dt) {
+        var self = this;
+
+        self.count++;
+        //一秒60帧，120表示工人2秒砸一次
+        if(self.count % 120 == 0){   
+            var anim = self.worker.getComponent(cc.Animation);
+            anim.play();
+            /////////////////
+            var pl = parseInt(self.partsLabel.string);
+
+            var decBlood = self.power / self.allBlood;
+            self.blood.progress -= decBlood;
+            self.restBlood -= self.power;
+
+            pl += 5;     //金币+5
+            self.check(pl);
+            self.showRollNotice('-' + self.power);
+
+            if(self.blood.progress>=0){
+                self.percentageLabel.string = /*parseInt*/Math.ceil(self.blood.progress * 100) + "%";
+            }
+            else{
+                self.percentageLabel.string = 0 + "%";
+            }
+
+            self.partsLabel.string = pl;   //将更新后的金币数保存到label
+
+            if(self.restBlood >= 0){
+                self.bloodLabel.string = self.restBlood + "/" + self.allBlood;
+            }
+            else{
+                self.bloodLabel.string = "0/" + self.allBlood;
+            }
+        }
+
+        //根据血量换车的图片和弹出弹窗
+        if(self.blood.progress <0.00001){
+            
+            var str = 14+9*(self.car_level);
+            if(self.car_level==0)
+            {
+                str="10";
+            }
+            //打爆车弹出窗口
+            Popup.show(
+                'newVehicle', 
+                'prefab/NewVehicle', 
+                str,
+                self.getVehicleName(self.car_level + 2),
+                self.getImageRoute(self.car_level + 2),
+                function(){
+                self.car_level += 1;//车的等级+1（从0开始）
+                self.allBlood = Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
+
+                self.allBlood = weapon_info.getatk(self.car_level)*20*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
+                self.allBlood = Math.floor(self.allBlood);//取整
+                self.restBlood = self.allBlood;
+                self.bloodLabel.string = self.restBlood + "/" + self.allBlood;//血量
+                var car = cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
+                // var templevle=self.car_level+1;
+                // var temp="Lv."+templevle;
+                // car.string = temp;
+                car.string = "Lv." + (self.car_level + 1);
+                self.percentageLabel.string = 100+"%";//重置血条百分比
+                self.blood.progress = 1;//重置血条
+                //var filename="/vehicle/vehicle1_"+self.car_level;//申请当前等级的汽车资源
+                var filename = "/vehicle/vehicle" + (self.car_level + 1) + "_1";//申请当前等级的汽车资源
+                self.changeVehicle(filename,self);
+            });
+            var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
+            diamond.string = parseInt(diamond.string) + parseInt(str);
+
+        }else if(self.blood.progress < 0.25){
+            self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_4", self);
+        }else if(self.blood.progress < 0.5){
+            self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_3", self);
+        }else if(self.blood.progress < 0.75){
+            self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_2", self);
+        }    
+
     },
+
     check:function(pl){
         pl=parseInt(pl);
         var price=cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
