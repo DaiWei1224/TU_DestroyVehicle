@@ -39,12 +39,19 @@ cc.Class({
         label:cc.Node,
         erning_parts:[cc.Node],
         DustbinNode:cc.Node,
+
+        DustbinChange:Boolean,
     },
     
     // LIFE-CYCLE CALLBACKS:
     onLoad(){
-     self=this;
-       
+        self=this;
+        //从本地读取当前武器最高等级
+        self.MaxArmRank = self.getUserData('MaxArmRank',0);
+        self.ChangeArm(self.MaxArmRank);
+
+        this.DustbinChange=false;
+        self.ArmArry=new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1)
         self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             console.log("触摸了");
             self.MouseDownSlot=self.GetSlot(event.getLocation());//得到触摸的是第几块
@@ -55,6 +62,24 @@ cc.Class({
             if(self.FollowArm)
             {
                 self.FollowArm.setPosition(self.node.convertToNodeSpaceAR(event.getLocation()));
+                console.log(event.getLocation().sub(self.node.convertToWorldSpaceAR(self.DustbinNode.position)).mag());
+                if(event.getLocation().sub(self.node.convertToWorldSpaceAR(self.DustbinNode.position)).mag()<=50)
+                {
+                    if(self.DustbinChange==false)
+                    {
+                        self.DustbinChange=true;
+                        self.DustbinNode.opacity=240;
+                        var action = cc.scaleTo(0.15, 1.05,1.05);
+                        self.DustbinNode.runAction(action);
+                    }
+                }
+                else if(self.DustbinChange)
+                {
+                    self.DustbinChange=false;
+                    self.DustbinNode.opacity=200;
+                    var action = cc.scaleTo(0.15, 1,1);
+                    self.DustbinNode.runAction(action);
+                }
             }
         }, self.node);
         self.node.on(cc.Node.EventType.TOUCH_END, function (event) {
@@ -66,11 +91,10 @@ cc.Class({
 
 
     start () {
-        this.ChangeSprites();
+        //this.ChangeSprites();
     },
 
     update (dt) {
-
     },
 
 
@@ -101,7 +125,11 @@ cc.Class({
                 {
                     return -2;
                 }
-            else    return -1;
+            else{
+                
+                return -1;
+            }
+
         }
 
         else return sloty*4+slotx;
@@ -115,9 +143,7 @@ cc.Class({
             self.ArmImagesArry[slotnum].opacity = 100;
 
             //dustbineffect
-            self.DustbinNode.opacity=240;
-            var action = cc.scaleTo(0.15, 1.05,1.05);
-            self.DustbinNode.runAction(action);
+            
         }
     },
 
@@ -131,9 +157,7 @@ cc.Class({
     MouseUpOnSlot(slotnum)
     {
         if(self.MouseDownSlot==-1||self.MouseDownSlot==-2||self.ArmArry[self.MouseDownSlot]==-1) return;
-        self.DustbinNode.opacity=200;
-        var action = cc.scaleTo(0.15, 1,1);
-        self.DustbinNode.runAction(action);
+        
         if(slotnum==-2)
         {
             self.ArmDelet(self.MouseDownSlot);
@@ -162,7 +186,7 @@ cc.Class({
         self.ArmImagesArry[downslot].destroy();
 
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
-        self.ArmArry[upslot]+=1;
+        self.ArmArry[upslot]=parseInt(self.ArmArry[upslot]+1);
         var speednum=parseInt(speed.string);
         console.log("零件数"+parseInt(weapon_info.getpart(self.ArmArry[downslot]))+"速度"+(weapon_info.gettime(self.ArmArry[downslot])));
         speednum=speednum-parseInt(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(downslot)));
@@ -175,14 +199,17 @@ cc.Class({
             
 
             self.ArmImagesArry[upslot].destroy();
-            var Armi = cc.instantiate(self.ArmPrefabArry[self.ArmArry[upslot]]);
+            var Armi = cc.instantiate(self.ArmPrefabArry[self.ArmArry[upslot]]);console.log(upslot+" "+self.ArmArry[upslot]);
             self.node.addChild(Armi);
             self.ArmImagesArry[upslot]=Armi;
+            
             Armi.setPosition(self.SlotPositionArry[upslot]);
-
             if(self.ArmArry[upslot]>self.MaxArmRank)
             {
                 self.MaxArmRank=self.ArmArry[upslot];
+                //将更新后的最高武器等级保存到本地
+                cc.sys.localStorage.setItem("MaxArmRank", self.MaxArmRank); 
+
                 self.GetBetterArm(self.MaxArmRank);
             }
 
@@ -200,6 +227,8 @@ cc.Class({
         var CurrentFollowArm=self.FollowArm;
         self.FollowArm=null;
         CurrentFollowArm.runAction(action);
+        Sound.PlaySound("combine");
+        
     },
 
 
@@ -256,11 +285,17 @@ cc.Class({
        
         part.string=parseInt(part.string)+Math.floor(0.8*parseInt(weapon_info.getPrice(self.ArmArry[downslot],0)));
        self.ArmArry[downslot]=-1;
+
+        self.DustbinChange=false;
+        self.DustbinNode.opacity=200;
+        var action = cc.scaleTo(0.15, 1,1);
+        self.DustbinNode.runAction(action);
     },
 
     ChangeSprites()
     {
         var children = self.node.children;
+        console.log("childrenlength"+children.length);
         for (var i = 0; i < children.length; ++i) {
             children[i].destroy();
         }
@@ -285,7 +320,6 @@ cc.Class({
         self.ChangeArm(ArmRank);
     },
 
-
     ChangeArm(ArmRank)
     {
         self.MyArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
@@ -298,7 +332,19 @@ cc.Class({
         self.label.runAction(cc.sequence(cc.moveBy(0.01,0,-200),cc.fadeIn(0.01)));
     },
     
+    //获取key对应的数据，为空设为默认值dft
+    getUserData: function(key, dft) {    
 
+        var value = cc.sys.localStorage.getItem(key);
+
+        if(value == "" || value == null){         
+            //console.log("no exist");
+            return dft;
+        }else{
+            //console.log("exist");
+            return value;
+        }
+    },
      
 });
 
@@ -329,11 +375,11 @@ cc.Class({
                 else{
                     var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
                
-                part.string=parseInt(part.string)+parseInt(weapon_info.getpart(self.ArmArry[i]));
-                console.log(weapon_info.getpart(self.ArmArry[i]));
-                self.erning_parts[i].getComponent(cc.Label).string="+$"+weapon_info.getpart(self.ArmArry[i]);
-                self.erning_parts[i].active=true;
-                self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
+                    part.string=parseInt(part.string)+parseInt(weapon_info.getpart(self.ArmArry[i]));
+                    console.log(weapon_info.getpart(self.ArmArry[i]));
+                    self.erning_parts[i].getComponent(cc.Label).string="+$"+weapon_info.getpart(self.ArmArry[i]);
+                    self.erning_parts[i].active=true;
+                    self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
                 //if()
                 }
                 
@@ -341,7 +387,7 @@ cc.Class({
                 //console.log(weapon_info.gettime())      
                 self.schedule(abcc,weapon_info.gettime(self.ArmArry[i]));
                 
-                
+                Sound.PlaySound("buy");
                 
                 var flag=1;
                 return flag;

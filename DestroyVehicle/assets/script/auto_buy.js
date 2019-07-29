@@ -55,7 +55,7 @@ cc.Class({
             if(sets_num<0)
             {
                 console.log("金钱不足");
-               
+                
             }
             else{
                 console.log("已经购买了编号为"+self.weapon_kind+"的武器，此时已经购买了"+self.weapon_num+"把");

@@ -36,6 +36,9 @@ cc.Class({
     },
 
     onLoad () {
+        //这个调用记得删！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！1111111
+        this.InitializationTest();
+
         //登陆读取用户数据
         var self = this;
         var date1 = 0; //离线时间
@@ -94,6 +97,19 @@ cc.Class({
             }
         });
 
+    },
+
+    InitializationTest: function(){
+        cc.sys.localStorage.setItem("level", 1);
+        cc.sys.localStorage.setItem("diamonds", 22);
+        cc.sys.localStorage.setItem("parts", 0);
+        cc.sys.localStorage.setItem("restBlood",100);
+        cc.sys.localStorage.setItem("allBlood",100);
+        cc.sys.localStorage.setItem("MaxArmRank", 0);
+        cc.sys.localStorage.setItem("weapon1", 0);
+        cc.sys.localStorage.setItem("weapon2", 0);
+        cc.sys.localStorage.setItem("weapon3", 0);
+        cc.sys.localStorage.setItem("weapon4", 0);
     },
 
     //存储数据

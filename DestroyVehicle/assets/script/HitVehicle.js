@@ -371,6 +371,8 @@ cc.Class({
             var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
             diamond.string = parseInt(diamond.string) + parseInt(str);
 
+            self.blood.progress = 1;
+            
         }else if(self.blood.progress < 0.25){
             self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_4", self);
         }else if(self.blood.progress < 0.5){

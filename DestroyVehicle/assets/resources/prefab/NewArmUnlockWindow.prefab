@@ -389,7 +389,9 @@
     "_materials": [],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": null,
+    "_spriteFrame": {
+      "__uuid__": "08658a7d-7f43-4e60-92a7-90492726194c"
+    },
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -1416,16 +1418,14 @@
         "__uuid__": "fdd03ac9-3129-475e-a1a8-fa07f16d46f0"
       },
       {
-        "__uuid__": "c0a38d70-3c3c-4fde-82f6-4e472dd22176"
+        "__uuid__": "08658a7d-7f43-4e60-92a7-90492726194c"
       },
       {
-        "__uuid__": "ef79a362-8afe-4863-8838-69ca1465cbbb"
+        "__uuid__": "94957609-41c2-4625-a43a-1c1b02f3ee4d"
       },
       {
         "__uuid__": "af1459d9-59ac-4115-b04b-f2e792981f89"
       },
-      null,
-      null,
       null,
       null,
       null,

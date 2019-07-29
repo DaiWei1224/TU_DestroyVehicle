@@ -23,10 +23,6 @@ Popup.show = function (
     // 引用
     var self = this;
 
-    if(type == 'store'){
-        enterCallBack();  //执行回调函数
-    }
-
     // 判断
     if (Popup._popup != undefined) return;
 
@@ -46,6 +42,9 @@ Popup.show = function (
         // Popup 持有
         Popup._popup = _popup;
 
+        // 父视图
+        Popup._popup.parent = cc.find("Canvas");
+
         // 动画 
         var cbFadeOut = cc.callFunc(self.onFadeOutFinish, self);
         var cbFadeIn = cc.callFunc(self.onFadeInFinish, self);
@@ -54,7 +53,7 @@ Popup.show = function (
 
         // 获取子节点并添加点击事件
         if(type == 'store'){
-
+            enterCallBack();  //执行回调函数，初始化商店
             Popup._directButton = cc.find("closeButton", _popup);
             Popup._directButton.on('click', self.onButtonClicked, self);
             console.log("close button found");
@@ -109,9 +108,6 @@ Popup.show = function (
             Popup._directButton.on('click', self.onButtonClicked, self);
 
         }
-
-        // 父视图
-        Popup._popup.parent = cc.find("Canvas");
 
         // 展现 alert
         self.startFadeIn();

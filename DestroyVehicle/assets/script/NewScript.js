@@ -41,7 +41,7 @@ cc.Class({
         self.NewArmAttack.getComponent(cc.Label).string="攻击力 "+Math.floor(5*Math.pow(1.8,self.level))+"k";
         self.NewArmDio.getComponent(cc.Label).string=" +"+(14+6*self.level);
 
-        var actionFadeIn = cc.spawn(cc.fadeTo(Store._animSpeed, 255), cc.scaleTo(Store._animSpeed, 1));
+        var actionFadeIn = cc.spawn(cc.fadeTo(Popup._animSpeed, 255), cc.scaleTo(Popup._animSpeed, 1));
         self.node.runAction(actionFadeIn);
     },
 
@@ -52,7 +52,7 @@ cc.Class({
         var finished = cc.callFunc(function () {
             self.node.destroy();
         }, this);
-        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Store._animSpeed, 0), cc.scaleTo(Store._animSpeed, 0)), finished);
+        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), finished);
         self.node.runAction(actionFadeOut);
         //this.node.destroy();
     },
@@ -64,7 +64,7 @@ cc.Class({
         var finished = cc.callFunc(function () {
             self.node.destroy();
         }, this);
-        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Store._animSpeed, 0), cc.scaleTo(Store._animSpeed, 0)), finished);
+        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), finished);
         self.node.runAction(actionFadeOut);
         //this.node.destroy();
     },
