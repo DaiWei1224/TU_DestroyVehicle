@@ -186,7 +186,7 @@ cc.Class({
         self.ArmImagesArry[downslot].destroy();
 
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
-        self.ArmArry[upslot]=parseInt(self.ArmArry[upslot]+1);
+        self.ArmArry[upslot]=parseInt(self.ArmArry[upslot])+1;
         var speednum=parseInt(speed.string);
         console.log("零件数"+parseInt(weapon_info.getpart(self.ArmArry[downslot]))+"速度"+(weapon_info.gettime(self.ArmArry[downslot])));
         speednum=speednum-parseInt(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(downslot)));

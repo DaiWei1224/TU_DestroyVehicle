@@ -129,8 +129,8 @@ cc.Class({
         var date;
 
         var self = this;
-        
-        this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
+ 
+        this.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             //获取当前点击的全局坐标
             var pos = event.getLocation();
             //获取当前点击的局部坐标

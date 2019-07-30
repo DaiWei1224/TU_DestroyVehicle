@@ -13,8 +13,10 @@ cc.Class({
             var MaxArmRank = self.getUserData('MaxArmRank', 0);            
             //初始化商店里所有武器的价格
             for(var i = 0; i <= MaxArmRank; i++){
-                str = 'weapon' + (i + 1);
-                weaponBuyNum = self.getUserData(str, 1);//默认值1代表要购买第1个武器
+                //str = 'weapon' + (i + 1);
+                //weaponBuyNum = self.getUserData(str, 1);//默认值1代表要购买第1个武器
+                var weaponBuyNum = weapon_info.weapon_nums[i];
+
                 //根据武器等级和购买数量获取当前武器价格
                 price = weapon_info.getPrice(i, parseInt(weaponBuyNum))
                 //设置价格Label
@@ -49,9 +51,9 @@ cc.Class({
         {
             //console.log(customEventData);
             customEventData = parseInt(customEventData);
-            //var num = weapon_info.weapon_nums[customEventData];
+            var num = weapon_info.weapon_nums[customEventData];
             var str = 'weapon' + (customEventData + 1);
-            var num = self.getUserData(str, 0);
+            //var num = self.getUserData(str, 0);
             var parts = cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
             //parts.string = parseInt(parts.string) - parseInt(weapon_info.getPrice(customEventData,num));
             var partsNum = parseInt(parts.string);
@@ -62,11 +64,33 @@ cc.Class({
                 var filename="Canvas/Store/StoreScrollView/view/content/item" + parseInt(customEventData + 1)+"/buyButton/label";
                 num ++;
                 //购买后将最新的购买数量存到本地数据区
-                cc.sys.localStorage.setItem(str, num); 
-                //weapon_info.weapon_nums[customEventData] = num;
+                //cc.sys.localStorage.setItem(str, num); 
+                weapon_info.weapon_nums[customEventData] = num;
+                console.log(weapon_info.weapon_nums[customEventData]);
                 var price = weapon_info.getPrice(customEventData,num);
                 var pricelabel = cc.find(filename).getComponent(cc.Label);
                 pricelabel.string = price;
+                //重新计算最优购买武器
+                var autoBuyBtn = cc.find("Canvas/autobuyButton");
+                autoBuyBtn.weapon_kind = weapon_info.changeweapon();
+                //更新打击后价格
+                var priceLabel = cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
+                autoBuyBtn.weapon_num = weapon_info.weapon_nums[autoBuyBtn.weapon_kind];
+                priceLabel.string = weapon_info.getPrice(autoBuyBtn.weapon_kind, autoBuyBtn.weapon_num);
+                //更新最优武器图片
+                var weaponImage = cc.find("Canvas/autobuyButton/Sprite").getComponent(cc.Sprite);
+                if(parseInt(autoBuyBtn.weapon_kind) + 1 < 10){
+                    filename = "/weapon/weapon0" + (parseInt(autoBuyBtn.weapon_kind) + 1);
+                }else{
+                    filename = "/weapon/weapon" + (parseInt(autoBuyBtn.weapon_kind) + 1);
+                }
+                cc.loader.loadRes(filename, cc.SpriteFrame, function (err, texture) {
+                    if(err){
+                        console.log(err);
+                    }                   
+                    weaponImage.spriteFrame = texture;
+                });
+
 
                 //检查所有购买按钮是否金钱不足需要变灰
                 for(var i = 1; i <= 4; i++){

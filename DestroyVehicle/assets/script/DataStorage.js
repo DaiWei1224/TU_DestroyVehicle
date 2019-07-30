@@ -62,6 +62,13 @@ cc.Class({
             Popup.show('offLineProfit', 'prefab/OffLineRevenue', (leaveTime * 0.01)+'','emmm');
         }
 
+        //初始化weapon_info.weapon_num数组
+        var MaxArmRank = self.getUserData("MaxArmRank", 0);
+        for(var i = 0; i <= MaxArmRank; i++){
+            weapon_info.weapon_nums[i] = self.getUserData("weapon" + (i + 1), 1);
+        }
+        
+
         //读取关卡数，默认值为1
         self.level.string = "Lv." + self.getUserData("level", "1");
         //读取剩余血量
@@ -102,14 +109,14 @@ cc.Class({
     InitializationTest: function(){
         cc.sys.localStorage.setItem("level", 1);
         cc.sys.localStorage.setItem("diamonds", 0);
-        cc.sys.localStorage.setItem("parts", 0);
+        cc.sys.localStorage.setItem("parts", 1000000);
         cc.sys.localStorage.setItem("restBlood",100);
         cc.sys.localStorage.setItem("allBlood",100);
         cc.sys.localStorage.setItem("MaxArmRank", 0);
-        cc.sys.localStorage.setItem("weapon1", 1);
-        cc.sys.localStorage.setItem("weapon2", 1);
-        cc.sys.localStorage.setItem("weapon3", 1);
-        cc.sys.localStorage.setItem("weapon4", 1);
+        //cc.sys.localStorage.setItem("weapon1", 1);
+        //cc.sys.localStorage.setItem("weapon2", 1);
+        //cc.sys.localStorage.setItem("weapon3", 1);
+        //cc.sys.localStorage.setItem("weapon4", 1);
     },
 
     //存储数据
@@ -125,12 +132,19 @@ cc.Class({
         temp = this.blood.string.split('/');
         cc.sys.localStorage.setItem("restBlood",parseInt(temp[0]));
         cc.sys.localStorage.setItem("allBlood",parseInt(temp[1]));
-        
+        //获取武器的最高等级
+        temp = this.getUserData("MaxArmRank", 0);
+        //存储各种武器购买的数量
+        for(var i = 0; i <= temp; i++){
+            cc.sys.localStorage.setItem("weapon" + (i + 1), weapon_info.weapon_nums[i]);
+        }
 
-        //存储武器的最高等级
-        //????????????????????
 
-        // //存储各种武器购买的数量
+
+
+
+
+
         // var weaponBuyNum = {
         //     weapon01: 0,
         //     weapon02: 0,

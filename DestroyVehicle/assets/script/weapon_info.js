@@ -2,9 +2,10 @@ var weapon_info={
     weapon_kind:null,
     weapon_num:null,
     level_now:10,
-    weapon_nums:new Array(1,1,1,0,0,0,0,0,0,-1,-1,-1,-1),
+    weapon_nums:new Array(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),
     weapon_time:new Array(6.25,6.25,5.882,5.882,5.882,5.634,5.517,5.387,5.225,5.128,5.004,4.883,4.767,4.648,4.534,4.423,4.316,4.211,4.108,4.008,3.910,3.815,3.724,3.641,3.542,3.458,3.372,3.372,3.372,3.372,3.372),
 }
+
 weapon_info.getPrice=function(weapon_kind,weapon_num){
     var price=0;
     if(weapon_kind==0)
@@ -49,6 +50,7 @@ weapon_info.getPrice=function(weapon_kind,weapon_num){
         }
         price=6750*Math.pow(2.66,weapon_kind-2)*Math.pow(1.18,weapon_num-1);
     }
+    price = Math.ceil(price);
     return price;
 };
 weapon_info.changeweapon=function(){
