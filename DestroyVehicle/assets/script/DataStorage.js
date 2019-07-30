@@ -56,10 +56,10 @@ cc.Class({
             if(leaveTime > 7200){  //设置最大离线收益时间为2小时
                 leaveTime = 7200;
             }
-            read += leaveTime * 5;
+            read += leaveTime * 0.01;
             self.parts.string = read;   //将更新后的零件数保存到label
             //弹窗提示离线收益
-            Popup.show('offLineProfit', 'prefab/OffLineRevenue', (leaveTime * 5)+'','emmm');
+            Popup.show('offLineProfit', 'prefab/OffLineRevenue', (leaveTime * 0.01)+'','emmm');
         }
 
         //读取关卡数，默认值为1
@@ -101,7 +101,7 @@ cc.Class({
 
     InitializationTest: function(){
         cc.sys.localStorage.setItem("level", 1);
-        cc.sys.localStorage.setItem("diamonds", 22);
+        cc.sys.localStorage.setItem("diamonds", 0);
         cc.sys.localStorage.setItem("parts", 0);
         cc.sys.localStorage.setItem("restBlood",100);
         cc.sys.localStorage.setItem("allBlood",100);

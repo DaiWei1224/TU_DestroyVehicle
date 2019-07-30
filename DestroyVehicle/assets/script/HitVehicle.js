@@ -61,7 +61,7 @@ cc.Class({
         //初始化工人打击的位置
         this.workerPos = this.worker.getPosition();
         this.workerPos.x = 45;
-        this.workerPos.y = -25;
+        this.workerPos.y = 25;
         //根据武器等级初始化武器攻击力
         //？？？？？？？？？？？？？？
 
@@ -138,7 +138,7 @@ cc.Class({
             //console.log(pos.x, pos.y);   
    
             //设置武器击打时出现的位置
-            self.weapon.x = pos.x - 50;  
+            self.weapon.x = pos.x + 50;  
             self.weapon.y = pos.y + 200;   
 
             //通过代码设计击打动画
