@@ -227,7 +227,7 @@ cc.Class({
         var CurrentFollowArm=self.FollowArm;
         self.FollowArm=null;
         CurrentFollowArm.runAction(action);
-        Sound.PlaySound("combine");
+        //Sound.PlaySound("combine");
         
     },
 
@@ -387,7 +387,7 @@ cc.Class({
                 //console.log(weapon_info.gettime())      
                 self.schedule(abcc,weapon_info.gettime(self.ArmArry[i]));
                 
-                Sound.PlaySound("buy");
+                //Sound.PlaySound("buy");
                 
                 var flag=1;
                 return flag;

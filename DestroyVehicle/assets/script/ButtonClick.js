@@ -9,22 +9,30 @@ cc.Class({
             var str = '';
             var weaponBuyNum = '';
             var price = 0;
+            //获取当前武器最高等级
+            var MaxArmRank = self.getUserData('MaxArmRank', 0);            
             //初始化商店里所有武器的价格
-            for(var i = 1; i <= 4; i++){
-                str = 'weapon' + i;
-                weaponBuyNum = self.getUserData(str, 0);
-                //价格的设置有待更改------------------------------！！！！！！！！------------------------------
-                price = 250 + weaponBuyNum * 50;
-                var filename = "Canvas/Store/StoreScrollView/view/content/item" + i + "/buyButton/label";
-                //console.log(filename);
-                cc.find(filename).getComponent(cc.Label).string = price;
-
+            for(var i = 0; i <= MaxArmRank; i++){
+                str = 'weapon' + (i + 1);
+                weaponBuyNum = self.getUserData(str, 1);//默认值1代表要购买第1个武器
+                //根据武器等级和购买数量获取当前武器价格
+                price = weapon_info.getPrice(i, parseInt(weaponBuyNum))
+                //设置价格Label
+                var filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/buyButton/label";
+                cc.find(filename).getComponent(cc.Label).string = price;;
+                console.log('已经购买' + weaponBuyNum + '把武器' + (i + 1) + '，当前价格为' + price);
+                //去掉“未解锁”蒙板
+                filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/lockMask";
+                cc.find(filename).active = false;
+                //将武器图片从黑色设为白色
+                filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/weapon";
+                cc.find(filename).color = new cc.Color(255, 255, 255);
+                //判断当前拥有零件数是否大于武器价格，大于则去掉灰色蒙板
                 var parts = cc.find("Canvas/Parts/part_label").getComponent(cc.Label).string;
                 if(parseInt(parts) >= price){
-                    filename = "Canvas/Store/StoreScrollView/view/content/item" + i + "/mask";
+                    filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/mask";
                     cc.find(filename).active = false;
                 }
-
 
             }
 

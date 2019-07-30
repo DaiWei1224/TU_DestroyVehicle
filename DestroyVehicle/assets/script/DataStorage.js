@@ -106,10 +106,10 @@ cc.Class({
         cc.sys.localStorage.setItem("restBlood",100);
         cc.sys.localStorage.setItem("allBlood",100);
         cc.sys.localStorage.setItem("MaxArmRank", 0);
-        cc.sys.localStorage.setItem("weapon1", 0);
-        cc.sys.localStorage.setItem("weapon2", 0);
-        cc.sys.localStorage.setItem("weapon3", 0);
-        cc.sys.localStorage.setItem("weapon4", 0);
+        cc.sys.localStorage.setItem("weapon1", 1);
+        cc.sys.localStorage.setItem("weapon2", 1);
+        cc.sys.localStorage.setItem("weapon3", 1);
+        cc.sys.localStorage.setItem("weapon4", 1);
     },
 
     //存储数据

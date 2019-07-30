@@ -66,14 +66,14 @@ cc.Class({
                 var abc=require("CombineManager");
                 var flag=abc.InstNewArm(self.weapon_kind);
                 console.log(flag);
-                if(flag=='1')
+                if(flag == '1')
                 {
                     self.weapon_kind=weapon_info.changeweapon();
                     console.log("编号为"+self.weapon_kind);
                     self.weapon_num=weapon_info.weapon_nums[self.weapon_kind];
                     console.log(self.weapon_num);
                     price.string=weapon_info.getPrice(self.weapon_kind,self.weapon_num);//更新打击后价格
-                    if(sets_num<parseInt(price.string)){
+                    if(sets_num < parseInt(price.string)){
                         console.log("钱不够再买了")
                         self.mask.active=true;
                     }
