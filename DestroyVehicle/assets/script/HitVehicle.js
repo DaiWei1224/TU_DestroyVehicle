@@ -283,7 +283,8 @@ cc.Class({
 
         self.count++;
         //一秒60帧，120表示工人2秒砸一次
-        if(self.count % 120 == 0){   
+        if(self.count == 120){   
+            self.count = 0;
             var anim = self.worker.getComponent(cc.Animation);
             anim.play();
             

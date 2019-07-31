@@ -301,8 +301,9 @@ cc.Class({
         money.speednum=parseInt(money.speednum)-parseInt(weapon_info.getpart(self.ArmArry[downslot])/weapon_info.gettime(self.ArmArry[downslot]));
         speed.string="+"+money.getlabel(money.speednum)+"/s";
         var part=cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
-       
-        part.string=parseInt(part.string)+Math.floor(0.8*parseInt(weapon_info.getPrice(self.ArmArry[downslot],0)));
+        
+        money.partnum = parseInt(money.partnum)+Math.floor(0.8*parseInt(weapon_info.getPrice(self.ArmArry[downslot],0)));
+        part.string=money.getlabel(money.partnum);
        self.ArmArry[downslot]=-1;
 
         self.DustbinChange=false;

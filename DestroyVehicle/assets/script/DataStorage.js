@@ -56,7 +56,7 @@ cc.Class({
         money.partnum = parseInt(self.getUserData("parts", 0));
         self.parts.string=money.getlabel(money.partnum);
         //读取零件增加速度
-        money.speednum = self.getUserData("partsSpeed", 0);
+        money.speednum = self.getUserData("partsSpeed", 2.5);
         self.speed.string = '+' + money.getlabel(money.speednum) + '/s';
     
         //console.log("零件数"+money.partnum);
@@ -77,7 +77,8 @@ cc.Class({
                 leaveTime = 7200;
             }
             //计算离线收益速率
-            var offLineSpeed = parseInt(money.speednum) - parseInt(weapon_info.getatk(MaxArmRank)) / 2.0;
+            var offLineSpeed = parseFloat(money.speednum) - parseInt(weapon_info.getatk(MaxArmRank)) / 2;
+            //console.log("工人速度" + parseInt(weapon_info.getatk(MaxArmRank)) / 2);
             //console.log("收益速度" + offLineSpeed + "   离线时间" + leaveTime);
             money.partnum += leaveTime * offLineSpeed;
 
@@ -128,12 +129,13 @@ cc.Class({
 
     InitializationTest: function(){
         cc.sys.localStorage.setItem("level", 1);
-        cc.sys.localStorage.setItem("diamonds", 220000000);
-        cc.sys.localStorage.setItem("parts", 1000000);
+        cc.sys.localStorage.setItem("diamonds", 0);
+        cc.sys.localStorage.setItem("parts", 10000);
         cc.sys.localStorage.setItem("restBlood",100);
         cc.sys.localStorage.setItem("allBlood",100);
         cc.sys.localStorage.setItem("MaxArmRank", 0);
         cc.sys.localStorage.setItem("weapon1", 1);
+        cc.sys.localStorage.setItem("partsSpeed", 2.5);
         //cc.sys.localStorage.setItem("weapon2", 1);
         //cc.sys.localStorage.setItem("weapon3", 1);
         //cc.sys.localStorage.setItem("weapon4", 1);

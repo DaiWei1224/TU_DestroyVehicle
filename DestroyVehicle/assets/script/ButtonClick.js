@@ -12,6 +12,12 @@ cc.Class({
             //获取当前武器最高等级
             var MaxArmRank = self.getUserData('MaxArmRank', 0);            
             //初始化商店里所有武器的价格
+            if(MaxArmRank < 5){
+                MaxArmRank = 0;     //6级以下只能买第一级的武器
+            }
+            else{
+                MaxArmRank -= 2;    //6级及以上只能购买低两级的武器
+            }
             for(var i = 0; i <= MaxArmRank; i++){
                 //str = 'weapon' + (i + 1);
                 //weaponBuyNum = self.getUserData(str, 1);//默认值1代表要购买第1个武器
@@ -37,6 +43,7 @@ cc.Class({
                 }
 
             }
+            
 
         });
     },
@@ -93,26 +100,57 @@ cc.Class({
                     weaponImage.spriteFrame = texture;
                 });
 
-
+                var MaxArmRank = parseInt(self.getUserData('MaxArmRank', 0));            
+                //初始化商店里所有武器的价格
+                if(MaxArmRank < 5){
+                    MaxArmRank = 0;     //6级以下只能买第一级的武器
+                }
+                else{
+                    MaxArmRank -= 2;    //6级及以上只能购买低两级的武器
+                }
+                
                 //检查所有购买按钮是否金钱不足需要变灰
-                for(var i = 1; i <= 4; i++){
-                    filename = "Canvas/Store/StoreScrollView/view/content/item" + i +"/buyButton/label";
-                    price = parseInt(cc.find(filename).getComponent(cc.Label).string);
+                for(var i = 1; i <= MaxArmRank + 1; i++){                                   
+                    price = weapon_info.getPrice(i - 1, weapon_info.weapon_nums[i - 1]);
                     if(partsNum < price){
-                        filename = "Canvas/Store/StoreScrollView/view/content/item" + i + "/mask";
-                        cc.find(filename).active = true;
+                        cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/mask").active = true;                                     
                     }
-                } 
+                }
                 
             }else{
                 //console.log('金钱不足');
             }
             
-
         }
         
         
         
+    },
+
+    sleep: function(delay) {
+        var start = (new Date()).getTime();
+        while ((new Date()).getTime() - start < delay) {
+            continue;
+        }
+    },
+
+    onLoad(){
+        this.count = 0;
+    },
+
+    update(dt){
+        this.count++;
+        if(this.count = 60){    //60秒刷新一次商店的按钮
+            this.count = 0;
+            //检查所有购买按钮金钱足够则去掉蒙板
+            var partsNum = money.partnum;
+            for(var i = 1; i <= 30 + 1; i++){
+                 var price = weapon_info.getPrice(i - 1, weapon_info.weapon_nums[i - 1]);
+                if(partsNum >= price){
+                    cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/mask").active = false;
+                }
+            }
+        }
     },
 
     getUserData: function(key, dft) {    
