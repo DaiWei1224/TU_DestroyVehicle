@@ -1,4 +1,5 @@
-var weapon_info={
+window.weapon_info={};
+weapon_info={
     weapon_kind:null,
     weapon_num:null,
     level_now:10,

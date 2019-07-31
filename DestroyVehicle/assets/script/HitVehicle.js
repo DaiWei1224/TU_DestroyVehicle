@@ -183,7 +183,7 @@ cc.Class({
 
             date = new Date();
 
-            var pl = parseInt(self.partsLabel.string);
+            var pl = money.partnum;
 
             if(date.getMilliseconds() % 10 == 0){
                 var decBlood = self.power * 2 / self.allBlood;
@@ -192,7 +192,7 @@ cc.Class({
 
                 self.restBlood -= self.power * 2;
 
-                pl += 50;    //金币+50
+                pl += self.power*10;     //金币+50
                 self.showRollNotice('-' + (self.power * 2));
             }
             else{
@@ -202,7 +202,7 @@ cc.Class({
 
                 self.restBlood -= self.power;
 
-                pl += 5;     //金币+5
+                pl += self.power;      //金币+5
                 self.check(pl);
                 self.showRollNotice('-' + self.power);
             } 
@@ -215,7 +215,8 @@ cc.Class({
                 self.percentageLabel.string=0+"%";
             }
 
-            self.partsLabel.string = pl;   //将更新后的金币数保存到label
+            money.partnum = pl;   //将更新后的金币数保存到label
+            self.partsLabel.string = money.getlabel(pl); 
             if(self.restBlood>=0)
             {
                 self.bloodLabel.string = self.restBlood + "/" + self.allBlood;
@@ -307,13 +308,13 @@ cc.Class({
                 });
             }.bind(self));
 
-            var pl = parseInt(self.partsLabel.string);
+            var pl = money.partnum;
 
             var decBlood = self.power / self.allBlood;
             self.blood.progress -= decBlood;
             self.restBlood -= self.power;
 
-            pl += 5;     //金币+5
+            pl += self.power;     //金币+5
             self.check(pl);
             self.showRollNotice('-' + self.power);
 
@@ -324,7 +325,8 @@ cc.Class({
                 self.percentageLabel.string = 0 + "%";
             }
 
-            self.partsLabel.string = pl;   //将更新后的金币数保存到label
+            money.partnum=pl;
+            self.partsLabel.string = money.getlabel(pl); ;   //将更新后的金币数保存到label
 
             if(self.restBlood >= 0){
                 self.bloodLabel.string = self.restBlood + "/" + self.allBlood;
@@ -347,8 +349,10 @@ cc.Class({
                 'newVehicle', 
                 'prefab/NewVehicle', 
                 str,
-                self.getVehicleName(self.car_level + 2),
-                self.getImageRoute(self.car_level + 2),
+                //self.getVehicleName(self.car_level + 2),
+                self.getVehicleName(1),
+                //self.getImageRoute(self.car_level + 2),
+                self.getImageRoute(1),
                 function(){
                 self.car_level += 1;//车的等级+1（从0开始）
                 self.allBlood = Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
@@ -365,20 +369,21 @@ cc.Class({
                 self.percentageLabel.string = 100+"%";//重置血条百分比
                 self.blood.progress = 1;//重置血条
                 //var filename="/vehicle/vehicle1_"+self.car_level;//申请当前等级的汽车资源
-                var filename = "/vehicle/vehicle" + (self.car_level + 1) + "_1";//申请当前等级的汽车资源
+                var filename = "/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_1";//申请当前等级的汽车资源
                 self.changeVehicle(filename,self);
             });
             var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
-            diamond.string = parseInt(diamond.string) + parseInt(str);
+            money.diamondnum=parseInt(money.diamondnum) + parseInt(str);
+            diamond.string = money.getlabel(money.diamondnum);
 
             self.blood.progress = 1;
             
         }else if(self.blood.progress < 0.25){
-            self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_4", self);
+            self.changeVehicle("/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_4", self);
         }else if(self.blood.progress < 0.5){
-            self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_3", self);
+            self.changeVehicle("/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_3", self);
         }else if(self.blood.progress < 0.75){
-            self.changeVehicle("/vehicle/vehicle" + (self.car_level + 1) + "_2", self);
+            self.changeVehicle("/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_2", self);
         }    
 
     },

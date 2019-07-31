@@ -13,6 +13,11 @@ cc.Class({
             type: cc.Label,
             displayName: "钻石Label"
         },
+        speed: {
+            default: null,
+            type: cc.Label,
+            displayName: "速度Label"
+        },
         level: {
             default: null,
             type: cc.Label,
@@ -44,9 +49,24 @@ cc.Class({
         var date1 = 0; //离线时间
         var date2 = 0; //上线时间
         //读取钻石数
-        self.diamonds.string = self.getUserData("diamonds",0);
+        money.diamondnum=self.getUserData("diamonds",0);
+        //self.diamonds.string = self.getUserData("diamonds",0);
+        self.diamonds.string=money.getlabel(money.diamondnum);
         //读取零件数
-        var read = parseInt(self.getUserData("parts", 0));
+        money.partnum = parseInt(self.getUserData("parts", 0));
+        self.parts.string=money.getlabel(money.partnum);
+        //读取零件增加速度
+        money.speednum = self.getUserData("partsSpeed", 0);
+        self.speed.string = '+' + money.getlabel(money.speednum) + '/s';
+    
+        //console.log("零件数"+money.partnum);
+        //初始化weapon_info.weapon_num数组
+        var MaxArmRank = self.getUserData("MaxArmRank", 0);
+        for(var i = 0; i <= MaxArmRank; i++){
+            weapon_info.weapon_nums[i] = self.getUserData("weapon" + (i + 1), 1);
+
+        }
+
         //计算离线时点收益
         date1 = self.getUserData("leaveDate", 0);
         if(date1 != 0){
@@ -56,23 +76,23 @@ cc.Class({
             if(leaveTime > 7200){  //设置最大离线收益时间为2小时
                 leaveTime = 7200;
             }
-            read += leaveTime * 0.01;
-            self.parts.string = read;   //将更新后的零件数保存到label
+            //计算离线收益速率
+            var offLineSpeed = parseInt(money.speednum) - parseInt(weapon_info.getatk(MaxArmRank)) / 2.0;
+            //console.log("收益速度" + offLineSpeed + "   离线时间" + leaveTime);
+            money.partnum += leaveTime * offLineSpeed;
+
+            self.parts.string = money.getlabel(money.partnum);   //将更新后的零件数保存到label
             //弹窗提示离线收益
-            Popup.show('offLineProfit', 'prefab/OffLineRevenue', (leaveTime * 0.01)+'','emmm');
+            Popup.show('offLineProfit', 'prefab/OffLineRevenue', money.getlabel(leaveTime * offLineSpeed)+'','emmm');
         }
 
-        //初始化weapon_info.weapon_num数组
-        var MaxArmRank = self.getUserData("MaxArmRank", 0);
-        for(var i = 0; i <= MaxArmRank; i++){
-            weapon_info.weapon_nums[i] = self.getUserData("weapon" + (i + 1), 1);
-        }
+        
         
 
         //读取关卡数，默认值为1
         self.level.string = "Lv." + self.getUserData("level", "1");
         //读取剩余血量
-        read = parseInt(self.getUserData("restBlood", 100));
+        var read = parseInt(self.getUserData("restBlood", 100));
         //读取总血量
         var read2 = parseInt(self.getUserData("allBlood", 100));
         //设置血量Label
@@ -108,12 +128,12 @@ cc.Class({
 
     InitializationTest: function(){
         cc.sys.localStorage.setItem("level", 1);
-        cc.sys.localStorage.setItem("diamonds", 0);
+        cc.sys.localStorage.setItem("diamonds", 220000000);
         cc.sys.localStorage.setItem("parts", 1000000);
         cc.sys.localStorage.setItem("restBlood",100);
         cc.sys.localStorage.setItem("allBlood",100);
         cc.sys.localStorage.setItem("MaxArmRank", 0);
-        //cc.sys.localStorage.setItem("weapon1", 1);
+        cc.sys.localStorage.setItem("weapon1", 1);
         //cc.sys.localStorage.setItem("weapon2", 1);
         //cc.sys.localStorage.setItem("weapon3", 1);
         //cc.sys.localStorage.setItem("weapon4", 1);
@@ -123,8 +143,8 @@ cc.Class({
     setUserData: function(){
         //保存离开时的时间(1970 年 1 月 1 日至今的毫秒数)
         cc.sys.localStorage.setItem("leaveDate", new Date().getTime()); 
-        cc.sys.localStorage.setItem("diamonds", parseInt(this.diamonds.string)); 
-        cc.sys.localStorage.setItem("parts", parseInt(this.parts.string)); 
+        cc.sys.localStorage.setItem("diamonds", parseInt(money.partnum)); 
+        cc.sys.localStorage.setItem("parts", parseInt(money.diamondnum)); 
         //将Lv.1根据'.'分成两部分，后面那部分为temp[1]，代表关卡数，取为整型数
         var temp = this.level.string.split('.');
         cc.sys.localStorage.setItem("level", parseInt(temp[1]));
@@ -132,6 +152,7 @@ cc.Class({
         temp = this.blood.string.split('/');
         cc.sys.localStorage.setItem("restBlood",parseInt(temp[0]));
         cc.sys.localStorage.setItem("allBlood",parseInt(temp[1]));
+        cc.sys.localStorage.setItem("partsSpeed",money.speednum);
         //获取武器的最高等级
         temp = this.getUserData("MaxArmRank", 0);
         //存储各种武器购买的数量

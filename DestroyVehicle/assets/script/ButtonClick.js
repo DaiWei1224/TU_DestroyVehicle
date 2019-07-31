@@ -21,7 +21,7 @@ cc.Class({
                 price = weapon_info.getPrice(i, parseInt(weaponBuyNum))
                 //设置价格Label
                 var filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/buyButton/label";
-                cc.find(filename).getComponent(cc.Label).string = price;;
+                cc.find(filename).getComponent(cc.Label).string = money.getlabel(price);
                 console.log('已经购买' + weaponBuyNum + '把武器' + (i + 1) + '，当前价格为' + price);
                 //去掉“未解锁”蒙板
                 filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/lockMask";
@@ -30,7 +30,7 @@ cc.Class({
                 filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/weapon";
                 cc.find(filename).color = new cc.Color(255, 255, 255);
                 //判断当前拥有零件数是否大于武器价格，大于则去掉灰色蒙板
-                var parts = cc.find("Canvas/Parts/part_label").getComponent(cc.Label).string;
+                var parts=money.partnum;
                 if(parseInt(parts) >= price){
                     filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/mask";
                     cc.find(filename).active = false;
@@ -56,11 +56,12 @@ cc.Class({
             //var num = self.getUserData(str, 0);
             var parts = cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
             //parts.string = parseInt(parts.string) - parseInt(weapon_info.getPrice(customEventData,num));
-            var partsNum = parseInt(parts.string);
+            var partsNum =money.partnum;
             var weaponPrice = parseInt(weapon_info.getPrice(customEventData,num));
             if(partsNum >= weaponPrice){
                 partsNum -= weaponPrice;
-                parts.string = partsNum;
+                money.partnum = partsNum;
+                parts.string = money.getlabel(partsNum);
                 var filename="Canvas/Store/StoreScrollView/view/content/item" + parseInt(customEventData + 1)+"/buyButton/label";
                 num ++;
                 //购买后将最新的购买数量存到本地数据区
@@ -69,14 +70,15 @@ cc.Class({
                 console.log(weapon_info.weapon_nums[customEventData]);
                 var price = weapon_info.getPrice(customEventData,num);
                 var pricelabel = cc.find(filename).getComponent(cc.Label);
-                pricelabel.string = price;
+                pricelabel.string = money.getlabel(price);
                 //重新计算最优购买武器
                 var autoBuyBtn = cc.find("Canvas/autobuyButton");
                 autoBuyBtn.weapon_kind = weapon_info.changeweapon();
                 //更新打击后价格
                 var priceLabel = cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
                 autoBuyBtn.weapon_num = weapon_info.weapon_nums[autoBuyBtn.weapon_kind];
-                priceLabel.string = weapon_info.getPrice(autoBuyBtn.weapon_kind, autoBuyBtn.weapon_num);
+                priceLabel.string = money.getlabel(weapon_info.getPrice(autoBuyBtn.weapon_kind, autoBuyBtn.weapon_num));
+                console.log("所需"+autoBuyBtn.weapon_kind+"   "+autoBuyBtn.weapon_num)
                 //更新最优武器图片
                 var weaponImage = cc.find("Canvas/autobuyButton/Sprite").getComponent(cc.Sprite);
                 if(parseInt(autoBuyBtn.weapon_kind) + 1 < 10){

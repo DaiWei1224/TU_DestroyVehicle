@@ -48,7 +48,7 @@ cc.Class({
         self=this;
         //从本地读取当前武器最高等级
         self.MaxArmRank = self.getUserData('MaxArmRank',0);
-        self.ChangeArm(self.MaxArmRank);
+        self.onLoadChangeArm(self.MaxArmRank);
 
         this.DustbinChange=false;
         self.ArmArry=new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1)
@@ -187,11 +187,10 @@ cc.Class({
 
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
         self.ArmArry[upslot]=parseInt(self.ArmArry[upslot])+1;
-        var speednum=parseInt(speed.string);
-        console.log("零件数"+parseInt(weapon_info.getpart(self.ArmArry[downslot]))+"速度"+(weapon_info.gettime(self.ArmArry[downslot])));
-        speednum=speednum-parseInt(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(downslot)));
-        speednum=speednum+parseInt(weapon_info.getpart(self.ArmArry[upslot])/weapon_info.gettime(self.ArmArry[upslot]));
-        speed.string="+"+speednum+"/s";
+        
+        money.speednum=parseInt(money.speednum)-parseInt(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(downslot)));
+        money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(self.ArmArry[upslot])/weapon_info.gettime(self.ArmArry[upslot]));
+        speed.string="+"+money.getlabel(money.speednum)+"/s";
         self.ArmArry[downslot]=-1;
 
         var finished = cc.callFunc(function () {
@@ -239,6 +238,26 @@ cc.Class({
         {
             self.ArmArry[upslot]=self.ArmArry[downslot];
             self.ArmArry[downslot]=-1;
+            var abcc=function(){
+                if(self.ArmArry[upslot]=='-1')
+                {
+                    self.unschedule(abcc);
+                }  
+                else{
+                    var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
+                    money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[upslot]));
+                    part.string=money.getlabel(money.partnum);
+                  
+                    self.erning_parts[upslot].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[upslot]));
+                    console.log(money.getlabel(weapon_info.getpart(self.ArmArry[upslot])));
+                    self.erning_parts[upslot].active=true;
+                    self.erning_parts[upslot].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
+                //if()
+                }
+                
+                };         
+                //console.log(weapon_info.gettime())      
+                self.schedule(abcc,weapon_info.gettime(self.ArmArry[upslot]));
         }
 
         self.FollowArm.destroy();
@@ -278,9 +297,9 @@ cc.Class({
         self.FollowArm.destroy();
         self.ArmImagesArry[downslot].destroy();
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
-        var speednum=parseInt(speed.string);
-        speednum=speednum-parseInt(weapon_info.getpart(self.ArmArry[downslot])/weapon_info.gettime(self.ArmArry[downslot]));
-        speed.string="+"+speednum+"/s";
+        
+        money.speednum=parseInt(money.speednum)-parseInt(weapon_info.getpart(self.ArmArry[downslot])/weapon_info.gettime(self.ArmArry[downslot]));
+        speed.string="+"+money.getlabel(money.speednum)+"/s";
         var part=cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
        
         part.string=parseInt(part.string)+Math.floor(0.8*parseInt(weapon_info.getPrice(self.ArmArry[downslot],0)));
@@ -325,8 +344,21 @@ cc.Class({
         self.MyArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
         self.WorkerArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
         var car=cc.find("Canvas/Vehicle").getComponent("HitVehicle");//改变等级
+        var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
+        
+        money.speednum=parseInt(money.speednum)-parseInt(weapon_info.getatk(parseInt(ArmRank)-1))/2+parseInt(weapon_info.getatk(parseInt(ArmRank)))/2;
+        speed.string="+"+money.getlabel(money.speednum)+"/s";
         car.power=weapon_info.getatk(ArmRank);
     },
+
+    onLoadChangeArm(ArmRank)
+    {
+        self.MyArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
+        self.WorkerArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
+        var car=cc.find("Canvas/Vehicle").getComponent("HitVehicle");//改变等级
+        car.power=weapon_info.getatk(ArmRank);
+    },
+
     destroylab:function(){
         self.label.active=false;
         self.label.runAction(cc.sequence(cc.moveBy(0.01,0,-200),cc.fadeIn(0.01)));
@@ -363,10 +395,10 @@ cc.Class({
                 self.ArmImagesArry[i]=Armi;
                 Armi.setPosition(self.SlotPositionArry[i]);
                 var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
-                var speednum=parseInt(speed.string);
-                speednum=speednum+parseInt(weapon_info.getpart(ArmRank)/weapon_info.gettime(ArmRank));
-                console.log("此时塑料布"+speednum);
-                speed.string="+"+speednum+"/s";
+                
+                money.speednum=money.getlabel(money.speednum)+parseInt(weapon_info.getpart(ArmRank)/weapon_info.gettime(ArmRank));
+                console.log("此时塑料布"+money.speednum);
+                speed.string="+"+money.getlabel(money.speednum)+"/s";
                 var abcc=function(){
                 if(self.ArmArry[i]=='-1')
                 {
@@ -375,9 +407,10 @@ cc.Class({
                 else{
                     var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
                
-                    part.string=parseInt(part.string)+parseInt(weapon_info.getpart(self.ArmArry[i]));
+                    money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[i]));
+                    part.string=money.getlabel(money.partnum);
                     console.log(weapon_info.getpart(self.ArmArry[i]));
-                    self.erning_parts[i].getComponent(cc.Label).string="+$"+weapon_info.getpart(self.ArmArry[i]);
+                    self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i]));
                     self.erning_parts[i].active=true;
                     self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
                 //if()

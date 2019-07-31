@@ -1,8 +1,8 @@
-var Popup = {
+window.Popup={};
+Popup = {
     _type:          null,   // 弹窗的类型
     _popup:         null,   // prefab
     _directButton:  null,   // 直接领取按钮、关闭按钮
-    _doubleButton:  null,   // 双倍领取按钮
     _detailLabel:   null,   // 内容：车等级、武器等级
     _imageRoute:    null,   // 图片的路径
     _profit:        null,   // 收益：钻石数、零件数
@@ -88,9 +88,7 @@ Popup.show = function (
                 });
             }
 
-            Popup._doubleButton = cc.find("double", _popup);
             Popup._directButton = cc.find("direct", _popup);
-            Popup._doubleButton.on('click', self.onButtonClicked, self);
             Popup._directButton.on('click', self.onButtonClicked, self);
 
         }else if(type == 'offLineProfit'){
@@ -102,9 +100,7 @@ Popup.show = function (
                 dl.getComponent(cc.Label).string = profit; // 设置离线收益Label
             }
 
-            Popup._doubleButton = cc.find("double", _popup);
             Popup._directButton = cc.find("direct", _popup);
-            Popup._doubleButton.on('click', self.onButtonClicked, self);
             Popup._directButton.on('click', self.onButtonClicked, self);
 
         }
@@ -177,7 +173,6 @@ Popup.show = function (
         //Popup._enterCallBack = null;
         Popup._popup = null;
         Popup._detailLabel = null;
-        Popup._doubleButton = null;
         Popup._directButton = null;
         Popup._imageRoute = null;
         Popup._profit = null;
