@@ -133,9 +133,9 @@ cc.Class({
         cc.sys.localStorage.setItem("parts", 10000);
         cc.sys.localStorage.setItem("restBlood",100);
         cc.sys.localStorage.setItem("allBlood",100);
-        cc.sys.localStorage.setItem("MaxArmRank", 0);
+        //cc.sys.localStorage.setItem("MaxArmRank", 0);
+        //cc.sys.localStorage.setItem("partsSpeed", 2.5);
         cc.sys.localStorage.setItem("weapon1", 1);
-        cc.sys.localStorage.setItem("partsSpeed", 2.5);
         //cc.sys.localStorage.setItem("weapon2", 1);
         //cc.sys.localStorage.setItem("weapon3", 1);
         //cc.sys.localStorage.setItem("weapon4", 1);
@@ -161,65 +161,25 @@ cc.Class({
         for(var i = 0; i <= temp; i++){
             cc.sys.localStorage.setItem("weapon" + (i + 1), weapon_info.weapon_nums[i]);
         }
+        //存储每个坑位对应的武器
+        var slotState= cc.find("Canvas/SlotManager").getComponent("CombineManager");
+        //console.log(slotState.ArmArry);   
+        var slot = {
+            slot01: slotState.ArmArry[0],
+            slot02: slotState.ArmArry[1],
+            slot03: slotState.ArmArry[2],
+            slot04: slotState.ArmArry[3],
+            slot05: slotState.ArmArry[4],
+            slot06: slotState.ArmArry[5],
+            slot07: slotState.ArmArry[6],
+            slot08: slotState.ArmArry[7],
+            slot09: slotState.ArmArry[8],
+            slot10: slotState.ArmArry[9],
+            slot11: slotState.ArmArry[10],
+            slot12: slotState.ArmArry[11],
+        }   
+        cc.sys.localStorage.setItem('slot',JSON.stringify(slot));
 
-
-
-
-
-
-
-        // var weaponBuyNum = {
-        //     weapon01: 0,
-        //     weapon02: 0,
-        //     weapon03: 0,
-        //     weapon04: 0,
-        //     weapon05: 0,
-        //     weapon06: 0,
-        //     weapon07: 0,
-        //     weapon08: 0,
-        //     weapon09: 0,
-        //     weapon10: 0,
-        //     weapon11: 0,
-        //     weapon12: 0,
-        //     weapon13: 0,
-        //     weapon14: 0,
-        //     weapon15: 0,
-        //     weapon16: 0,
-        //     weapon17: 0,
-        //     weapon18: 0,
-        //     weapon19: 0,
-        //     weapon20: 0,
-        //     weapon21: 0,
-        //     weapon22: 0,
-        //     weapon23: 0,
-        //     weapon24: 0,
-        //     weapon25: 0,
-        //     weapon26: 0,
-        //     weapon27: 0,
-        //     weapon28: 0,
-        //     weapon29: 0,
-        //     weapon30: 0
-        // };
-        // cc.sys.localStorage.setItem('weaponBuyNum',JSON.stringify(weaponBuyNum));
-        // //读取
-        // var weaponBuyNum = JSON.parse(cc.sys.localStorage.getItem('weaponBuyNum'));
-        // console.log(weaponBuyNum.weapon01);
-
-        // //存储每个坑位对应的武器
-        // var slot = {
-        //     slot01: 0,
-        //     slot02: 0,
-        //     slot03: 0,
-        //     slot04: 0,
-        //     slot05: 0,
-        //     slot06: 0,
-        //     slot07: 0,
-        //     slot08: 0,
-        //     slot09: 0,
-        //     slot10: 0,
-        //     slot11: 0,
-        //     slot12: 0,
-        // }        
     },
 
     //获取key对应的数据，为空设为默认值dft
@@ -235,5 +195,6 @@ cc.Class({
             return value;
         }
     },
+
 
 });

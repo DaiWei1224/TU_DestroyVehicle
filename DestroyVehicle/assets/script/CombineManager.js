@@ -1,12 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 let self=this;
 cc.Class({
     extends: cc.Component,
@@ -51,9 +42,30 @@ cc.Class({
         self.onLoadChangeArm(self.MaxArmRank);
 
         this.DustbinChange=false;
-        self.ArmArry=new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1)
+        //载入武器槽信息
+        var slot = JSON.parse(cc.sys.localStorage.getItem('slot'));
+        self.ArmArry = new Array(
+            self.getSlotData(slot.slot01, -1),
+            self.getSlotData(slot.slot02, -1),
+            self.getSlotData(slot.slot03, -1),
+            self.getSlotData(slot.slot04, -1),
+            self.getSlotData(slot.slot05, -1),
+            self.getSlotData(slot.slot06, -1),
+            self.getSlotData(slot.slot07, -1),
+            self.getSlotData(slot.slot08, -1),
+            self.getSlotData(slot.slot09, -1),
+            self.getSlotData(slot.slot10, -1),
+            self.getSlotData(slot.slot11, -1),
+            self.getSlotData(slot.slot12, -1));
+        //console.log("ArmArry = " + self.ArmArry);  
+
+        //读取零件增加速度的值
+        money.speednum = self.getUserData("partsSpeed", 0)
+        var speed = cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
+        speed.string = "+" + money.getlabel(money.speednum) + "/s";
+
         self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
-            console.log("触摸了");
+            //console.log("触摸了");
             self.MouseDownSlot=self.GetSlot(event.getLocation());//得到触摸的是第几块
             console.log(parseInt(self.MouseDownPos));
             self.MouseDownOnSlot(self.MouseDownSlot,self.node.convertToNodeSpaceAR(event.getLocation()));//触摸的位置（x，y），和第几个
@@ -89,9 +101,8 @@ cc.Class({
         }, self.node);
     },
 
-
     start () {
-        //this.ChangeSprites();
+        this.ChangeSprites();
     },
 
     update (dt) {
@@ -327,8 +338,36 @@ cc.Class({
                 self.node.addChild(Armi);
                 self.ArmImagesArry[value]=Armi;
                 Armi.setPosition(self.SlotPositionArry[value]);
+
+                self.selfSchedule(value);
             }
+
         }
+    },
+
+    selfSchedule(i)
+    {
+        console.log("i===="+i);
+        var abcc=function(){
+            if(self.ArmArry[i]=='-1')
+            {
+                self.unschedule(abcc);
+            }  
+            else{
+                var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
+           
+                money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[i]));
+                part.string=money.getlabel(money.partnum);
+                console.log(weapon_info.getpart(self.ArmArry[i]));
+                self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i]));
+                self.erning_parts[i].active=true;
+                self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
+            //if()
+            }
+            
+            };         
+            //console.log(weapon_info.gettime())      
+            self.schedule(abcc,weapon_info.gettime(self.ArmArry[i]));
     },
 
     GetBetterArm(ArmRank)
@@ -378,6 +417,17 @@ cc.Class({
             return value;
         }
     },
+
+    //获取武器槽对应数据，为空设为默认值dft
+    getSlotData: function(key, dft) {    
+
+        if(key == null){     
+            return dft;
+        }else{
+            return key;
+        }
+    },
+
      
 });
 
