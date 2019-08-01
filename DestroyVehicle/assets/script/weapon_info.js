@@ -98,14 +98,16 @@ weapon_info.getdiamondprice=function(weapon_kind,weapon_num)
     var basicprice=0;
     if(weapon_kind>=14)
     {
-        basicprice=251+9*(weapon_kind-14)(weapon_kind-13)/2+(weapon_num-1)*(3+(weapon_kind-4)(weapon_kind-3))+(weapon_num-1)*(3+(weapon_kind-4)(weapon_kind-3));
+        basicprice=251+45*(weapon_kind-14)+9*(weapon_kind-14)*(weapon_kind-13)/2+(weapon_num-1)*(3+(weapon_kind-4)*(weapon_kind-3))+(weapon_num-1)*(3+(weapon_kind-4)*(weapon_kind-3));
     }
-    else if(weapon_kind>=4)
+    else if(weapon_kind>=3)
     {
-        basicprice=20+6*(weapon_kind-4)(weapon_kind-3)/2+(weapon_num-1)*(3+(weapon_kind-4)(weapon_kind-3));
+        basicprice=20+3*(weapon_kind-3)+3*(weapon_kind-3)*(weapon_kind-2)/2+(weapon_num-1)*(3+(weapon_kind-3)*(weapon_kind-2));
     }
-    else if(weapon_kind==3)
+    else if(weapon_kind==2)
     {
         basicprice=15;
     }
+    basicprice=parseInt(basicprice);
+    return basicprice;
 };

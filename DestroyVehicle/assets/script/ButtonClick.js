@@ -12,6 +12,7 @@ cc.Class({
             //获取当前武器最高等级
             var MaxArmRank = self.getUserData('MaxArmRank', 0);            
             //初始化商店里所有武器的价格
+            console.log("MaxArmRank = " + MaxArmRank);
             if(MaxArmRank < 5){     //6级以下只能买第一级的武器
                 var weaponBuyNum = weapon_info.weapon_nums[0];
                 //根据武器等级和购买数量获取当前武器价格
@@ -35,6 +36,7 @@ cc.Class({
             else{
                 MaxArmRank -= 2;    //6级及以上只能购买低两级的武器
                 for(var i = 0; i <= MaxArmRank - 2; i++){       //零件购买
+                    console.log("i = " + i + "，用零件购买");
                     var weaponBuyNum = weapon_info.weapon_nums[i];
                     //根据武器等级和购买数量获取当前武器价格
                     price = weapon_info.getPrice(i, parseInt(weaponBuyNum))
@@ -42,15 +44,6 @@ cc.Class({
                     var filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/buyButton/label";
                     cc.find(filename).getComponent(cc.Label).string = money.getlabel(price);
                     console.log('已经购买' + weaponBuyNum + '把武器' + (i + 1) + '，当前价格为' + price);
-                    //设置icon为零件
-                    var icon = cc.find("Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/buyButton/label/sprite").getComponent(cc.Sprite);
-                    filename = "/store/parts_icon";
-                    cc.loader.loadRes(filename, cc.SpriteFrame, function (err, texture) {
-                        if(err){
-                            console.log(err);
-                        }                   
-                        icon.spriteFrame = texture;
-                    });
                     //去掉“未解锁”蒙板
                     filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/lockMask";
                     cc.find(filename).active = false;
@@ -65,9 +58,11 @@ cc.Class({
                     }
                 }
                 for(var i = MaxArmRank - 1; i <= MaxArmRank; i++){       //钻石购买
+                    console.log("i = " + i + "，用钻石购买");
                     var weaponBuyNum = weapon_info.weapon_nums[i];
                     //根据武器等级和购买数量获取当前武器价格
-                    price = weapon_info.getdiamondprice(i, parseInt(weaponBuyNum))
+                    price = weapon_info.getdiamondprice(i, parseInt(weaponBuyNum)) 
+                    console.log("price =========" + price);              
                     //设置价格Label
                     var filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/buyButton/label";
                     cc.find(filename).getComponent(cc.Label).string = money.getlabel(price);
@@ -80,6 +75,17 @@ cc.Class({
                         }                   
                         icon.spriteFrame = texture;
                     });
+                    //设置icon为钻石
+                    if(i == MaxArmRank){
+                        var icon2 = cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/buyButton/label/sprite").getComponent(cc.Sprite);
+                        filename = "/store/diamonds_icon";
+                        cc.loader.loadRes(filename, cc.SpriteFrame, function (err, texture) {
+                            if(err){
+                                console.log(err);
+                            }                   
+                            icon2.spriteFrame = texture;
+                        });
+                    }
                     //去掉“未解锁”蒙板
                     filename = "Canvas/Store/StoreScrollView/view/content/item" + (i + 1) + "/lockMask";
                     cc.find(filename).active = false;
