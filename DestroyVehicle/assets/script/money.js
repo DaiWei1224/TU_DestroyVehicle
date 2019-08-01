@@ -1,8 +1,9 @@
 window.money={};
 money={
-    diamondnum:10100,
     partnum:0,
-speednum:0};
+    diamondnum:0,
+    speednum:0,
+};
 money.addmoney=function(moneynum){
 
 };
