@@ -229,32 +229,41 @@ cc.Class({
             //检查所有购买按钮金钱足够则去掉蒙板
             var MaxArmRank = this.getUserData('MaxArmRank', 0); 
             //console.log("money.partnum="+money.partnum);
-            if(MaxArmRank < 5){     //小于6级
-                //检查零件购买
-                var Money = money.partnum;
-                var price = weapon_info.getPrice(0, weapon_info.weapon_nums[0]);
-                if(Money >= price){
-                    cc.find("Canvas/Store/StoreScrollView/view/content/item1/mask").active = false;
-                }
-            }else{                  //大于等于6级
-                //检查零件购买
-                var Money = money.partnum;
-                for(var i = 1; i <= MaxArmRank - 3; i++){
-                    var price = weapon_info.getPrice(i - 1, weapon_info.weapon_nums[i - 1]);
+            if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") != null){
+                if(MaxArmRank < 5){     //小于6级
+                    //检查零件购买
+                    var Money = money.partnum;
+                    var price = weapon_info.getPrice(0, weapon_info.weapon_nums[0]);
                     if(Money >= price){
-                        cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/mask").active = false;
+                        if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") != null){
+                            cc.find("Canvas/Store/StoreScrollView/view/content/item1/mask").active = false;
+                        }
                     }
-                }
-                //检查钻石购买
-                Money = money.diamondnum;
-                for(i = MaxArmRank - 2; i <= MaxArmRank - 1; i++){
-                    price = weapon_info.getdiamondprice(i - 1, weapon_info.weapon_nums[i - 1]);
-                    if(Money >= price){
-                        cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/mask").active = false;
+                }else{                  //大于等于6级
+                    //检查零件购买
+                    var Money = money.partnum;
+                    for(var i = 1; i <= MaxArmRank - 3; i++){
+                        var price = weapon_info.getPrice(i - 1, weapon_info.weapon_nums[i - 1]);
+                        if(Money >= price){
+                            if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") == null){
+                                break;
+                            }
+                            cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/mask").active = false;
+                        }
+                    }
+                    //检查钻石购买
+                    Money = money.diamondnum;
+                    for(i = MaxArmRank - 2; i <= MaxArmRank - 1; i++){
+                        price = weapon_info.getdiamondprice(i - 1, weapon_info.weapon_nums[i - 1]);
+                        if(Money >= price){
+                            if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") == null){
+                                break;
+                            }
+                            cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/mask").active = false;
+                        }
                     }
                 }
             }
-        
         }
     },
 

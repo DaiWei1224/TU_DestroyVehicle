@@ -374,8 +374,7 @@ cc.Class({
             Sound.PlaySound("bomb");
             this.CarBreakStage=0;
             //打爆车弹出窗口
-            Popup.show(
-                'newVehicle', 
+            VehiclePopup.show(
                 'prefab/NewVehicle', 
                 str,
                 //self.getVehicleName(self.car_level + 2),

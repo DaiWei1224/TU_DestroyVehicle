@@ -11,7 +11,7 @@ Popup = {
 };
 
 Popup.show = function (
-    type,           // 弹窗类型:store、newVehicle、offLineProfit
+    type,           // 弹窗类型:store、offLineProfit
     prefabRoute,    // 预制体路径
     profit,         // 收益
     detailString,   // 内容 string 类型
@@ -58,38 +58,38 @@ Popup.show = function (
             Popup._directButton.on('click', self.onButtonClicked, self);
             console.log("close button found");
 
-        }else if(type == 'newVehicle'){
+        // }else if(type == 'newVehicle'){
 
-            var dl= cc.find('vehicleName', _popup);
-            if(!dl){
-                console.log("节点为空");
-            }else{
-                //dl.getComponent(cc.Label) = detailString;   //设置新车辆名称
-                dl.getComponent(cc.Label).string = detailString;
-            }
+        //     var dl= cc.find('vehicleName', _popup);
+        //     if(!dl){
+        //         console.log("节点为空");
+        //     }else{
+        //         //dl.getComponent(cc.Label) = detailString;   //设置新车辆名称
+        //         dl.getComponent(cc.Label).string = detailString;
+        //     }
 
-            dl= cc.find('diamNum', _popup);
-            if(!dl){
-                console.log("节点为空");
-            }else{
-                dl.getComponent(cc.Label).string = profit; // 设置钻石数Label
-            }
+        //     dl= cc.find('diamNum', _popup);
+        //     if(!dl){
+        //         console.log("节点为空");
+        //     }else{
+        //         dl.getComponent(cc.Label).string = profit; // 设置钻石数Label
+        //     }
 
-            dl= cc.find('newVehicle', _popup);
-            if(!dl){
-                console.log("节点为空");
-            }else{
-                // 设置新车辆图片
-                cc.loader.loadRes(imageRoute, cc.SpriteFrame, function (err, texture) {
-                    if(err){
-                        console.log(err);
-                    }                   
-                    dl.getComponent(cc.Sprite).spriteFrame = texture;
-                });
-            }
+        //     dl= cc.find('newVehicle', _popup);
+        //     if(!dl){
+        //         console.log("节点为空");
+        //     }else{
+        //         // 设置新车辆图片
+        //         cc.loader.loadRes(imageRoute, cc.SpriteFrame, function (err, texture) {
+        //             if(err){
+        //                 console.log(err);
+        //             }                   
+        //             dl.getComponent(cc.Sprite).spriteFrame = texture;
+        //         });
+        //     }
 
-            Popup._directButton = cc.find("direct", _popup);
-            Popup._directButton.on('click', self.onButtonClicked, self);
+        //     Popup._directButton = cc.find("direct", _popup);
+        //     Popup._directButton.on('click', self.onButtonClicked, self);
 
         }else if(type == 'offLineProfit'){
 
@@ -142,6 +142,18 @@ Popup.show = function (
     // 执行弹出动画
     self.startFadeOut = function () {
         cc.eventManager.pauseTarget(Popup._popup, true);
+
+        var temp;
+        temp = Popup._popup.getChildByName("StoreScrollView");
+        temp = temp.getChildByName("view");
+        temp = temp.getChildByName("content");
+        var temp2;
+        //-------------------------------------------------------------------改成30
+        for(var i = 1; i <= 10; i++){            
+            temp2 = temp.getChildByName("item" + i);
+            temp2.destroy();
+        }
+   
         Popup._popup.runAction(self.actionFadeOut);
     };
 
