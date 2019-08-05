@@ -143,6 +143,9 @@ cc.Class({
                     //重新计算最优购买武器
                     var autoBuyBtn = cc.find("Canvas/autobuyButton");
                     autoBuyBtn.weapon_kind = weapon_info.changeweapon();
+                    weapon_info.weapon_kind = autoBuyBtn.weapon_kind;
+                    console.log("autoBuyBtn.weapon_kind = " + autoBuyBtn.weapon_kind);
+                    console.log("weapon_info.weapon_kind = " + weapon_info.weapon_kind);
                     //更新打击后价格
                     var priceLabel = cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
                     autoBuyBtn.weapon_num = weapon_info.weapon_nums[autoBuyBtn.weapon_kind];
