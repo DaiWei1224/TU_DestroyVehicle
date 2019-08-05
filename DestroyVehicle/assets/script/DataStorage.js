@@ -147,7 +147,7 @@ cc.Class({
         cc.sys.localStorage.setItem("weapon8", 1);
         cc.sys.localStorage.setItem("weapon9", 1);
         cc.sys.localStorage.setItem("weapon10", 1);
-        cc.sys.localStorage.setItem("leaveDate", 0); 
+        //cc.sys.localStorage.setItem("leaveDate", 0); 
         cc.sys.localStorage.setItem("recentReceiveDate", 1);
         cc.sys.localStorage.setItem("receiveDayNum", 0);
 

@@ -143,16 +143,25 @@ Popup.show = function (
     self.startFadeOut = function () {
         cc.eventManager.pauseTarget(Popup._popup, true);
 
-        var temp;
-        temp = Popup._popup.getChildByName("StoreScrollView");
-        temp = temp.getChildByName("view");
-        temp = temp.getChildByName("content");
-        var temp2;
-        //-------------------------------------------------------------------改成30
-        for(var i = 1; i <= 10; i++){            
-            temp2 = temp.getChildByName("item" + i);
-            temp2.destroy();
+        
+        if(type == 'store'){
+            //摧毁scrollview里的所有项
+            var temp;
+            temp = Popup._popup.getChildByName("StoreScrollView");
+            temp = temp.getChildByName("view");
+            temp = temp.getChildByName("content");
+            var temp2;
+            //-------------------------------------------------------------------改成30
+            for(var i = 1; i <= 10; i++){            
+                temp2 = temp.getChildByName("item" + i);
+                temp2.destroy();
+            }
+
+            Sound.PlaySound("touch");
+        }else if(type == 'offLineProfit'){
+            Sound.PlaySound("money");
         }
+        
    
         Popup._popup.runAction(self.actionFadeOut);
     };

@@ -59,14 +59,6 @@ cc.Class({
     },
 
     onLoad () {
-        // //this.allBlood=10000;
-        // this.allBlood=Math.pow(1.23,this.car_level);
-        //this.power=weapon_info.getatk(this.car_level);
-        // this.allBlood=weapon_info.getatk(this.car_level)*20*this.allBlood
-        // this.allBlood=Math.floor(this.allBlood);
-        // this.restBlood=this.allBlood;
-        // this.bloodLabel.string = this.restBlood + "/" + this.allBlood;
-
         var self = this;
         //用于计算工人打击的频率
         this.count = 0; 
@@ -421,8 +413,8 @@ cc.Class({
 
     },
 
-    check:function(pl){
-        pl=parseInt(money.partnum);
+    check: function(pl){
+        pl = parseInt(pl);
         //console.log("签署者"+money.partnum);
         //var price=cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
         var p=weapon_info.getPrice(weapon_info.weapon_kind,parseInt(weapon_info.weapon_nums[weapon_info.weapon_kind]));
