@@ -114,6 +114,7 @@ cc.Class({
         //返回1代表还有空位，可以初始化
         if(flag == "1")
         {
+            Sound.PlaySound("buy");
             //console.log(customEventData);
             customEventData = parseInt(customEventData);
             //当前以及购买的数量

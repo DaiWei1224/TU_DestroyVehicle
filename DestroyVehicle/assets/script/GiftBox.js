@@ -89,6 +89,7 @@ cc.Class({
         {
             var combineM= require("CombineManager");
             var armtype=parseInt(this.InstRandWeapon());
+
             console.log(weapon_info.level_now+"type"+armtype);
             var flag=combineM.InstNewArm(armtype);
             if(flag== "1")

@@ -29,6 +29,7 @@ cc.Class({
         HitVehicle:null,
         WorkerBody:cc.Node,
         WorkerArm:cc.Node,
+        FirstWeapon:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -53,7 +54,7 @@ cc.Class({
         this.WorkerGuideStep=0;
         this.CarMask.active=true;
 
-        this.HitVehicle.count=-8000;
+        this.HitVehicle.count=-100000;
         console.log(this.HitVehicle.count);
         /*this.StopWorker=function(){
             var HitVehicle=cc.find("Canvas/HitVehicle").getComponent("HitVehicle");
@@ -81,6 +82,9 @@ cc.Class({
                     this.AutoBuyMask.active=true;
                     this.GuideLable.getComponent(cc.Label).string="点击购买新武器";
                     this.GuideStep++;
+                    this.FirstWeapon.destroy();
+                    var abc=require("CombineManager");
+                    abc.InstNewArm(0);
                 }
                 break;
             case 1:

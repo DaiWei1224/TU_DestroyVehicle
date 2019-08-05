@@ -52,7 +52,7 @@ cc.Class({
         else{
             var slot = JSON.parse(cc.sys.localStorage.getItem('slot'));
             self.ArmArry = new Array(
-                self.getSlotData(slot.slot01, 0),
+                self.getSlotData(slot.slot01, -1),
                 self.getSlotData(slot.slot02, -1),
                 self.getSlotData(slot.slot03, -1),
                 self.getSlotData(slot.slot04, -1),
@@ -520,7 +520,7 @@ cc.Class({
                 //console.log(weapon_info.gettime())      
                 self.schedule(abcc,weapon_info.gettime(self.ArmArry[i]));
                 
-                Sound.PlaySound("buy");
+                
                 
                 var flag=1;
                 return flag;
