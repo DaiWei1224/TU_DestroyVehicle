@@ -38,6 +38,9 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
     onLoad(){
         self=this;
+
+        self.autobuy=cc.find("Canvas/autobuyButton/mask");
+
         //从本地读取当前武器最高等级
         self.MaxArmRank = self.getUserData('MaxArmRank',0);
         console.log(self.MaxArmRank+"    asd");
@@ -397,6 +400,10 @@ cc.Class({
                 var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
            
                 money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[i]));
+                if(parseInt(money.partnum)>=parseInt(weapon_info.getPrice(weapon_info.weapon_kind,weapon_info.weapon_nums[weapon_info.weapon_kind])))
+                {
+                    self.autobuy.active=false;
+                }
                 part.string=money.getlabel(money.partnum);
                 console.log(weapon_info.getpart(self.ArmArry[i]));
                 self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i]));
@@ -508,6 +515,10 @@ cc.Class({
                     var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
                
                     money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
+                    if(parseInt(money.partnum)>=parseInt(weapon_info.getPrice(weapon_info.weapon_kind,weapon_info.weapon_nums[weapon_info.weapon_kind])))
+                    {
+                        self.autobuy.active=false;
+                    }
                     part.string=money.getlabel(money.partnum);
                     console.log(weapon_info.getpart(self.ArmArry[i]));
                     self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i]*weapon_info.weapon_earningspeed));
