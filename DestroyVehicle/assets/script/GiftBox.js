@@ -75,7 +75,7 @@ cc.Class({
                     this.CanOpen=true;
                     this.TimeNode.getComponent(cc.Label).string="00:00";
                     this.node.getComponent(cc.Sprite).spriteFrame=this.OpenImage;
-                    this.ContentNum=Math.ceil(weapon_info.level_now*2);
+                    this.ContentNum=Math.ceil(weapon_info.level_now/2);
                     this.NumberBG.active=true;
                     this.NumberLabel.getComponent(cc.Label).string=this.ContentNum;
                 }
@@ -89,6 +89,7 @@ cc.Class({
         {
             var combineM= require("CombineManager");
             var armtype=parseInt(this.InstRandWeapon());
+
             console.log(weapon_info.level_now+"type"+armtype);
             var flag=combineM.InstNewArm(armtype);
             if(flag== "1")

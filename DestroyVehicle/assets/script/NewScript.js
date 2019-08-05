@@ -1,12 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 let self=this;
 cc.Class({
     extends: cc.Component,
@@ -24,8 +15,6 @@ cc.Class({
         
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
         this.node.x=0;
         this.node.y=0;
@@ -34,7 +23,7 @@ cc.Class({
     },
 
     start () {
-        console.log(self.level+"!"+this.node.x);
+        //console.log(self.level+"!"+this.node.x);
         //this.node.setPosition((360,640));
         self.NewArmImageNode.getComponent(cc.Sprite).spriteFrame = self.ArmImages[self.level];
         self.NewArmName.getComponent(cc.Label).string=" Lv."+(self.level+1)+" "+self.ArmNameArry[self.level]
@@ -52,7 +41,7 @@ cc.Class({
         self.NewArmImageNode.getComponent(cc.Sprite).spriteFrame = null;
         //加钻石 14+6*self.level
         money.diamondnum=parseInt(money.diamondnum)+14+6*self.level;
-        console.log("钻石改编为"+money.diamondnum);
+        //console.log("钻石改编为"+money.diamondnum);
         cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label).string=money.getlabel(money.diamondnum);
         var finished = cc.callFunc(function () {
             self.node.destroy();

@@ -62,7 +62,7 @@ VehiclePopup.show = function (
             if(!dl){
                 console.log("节点为空");
             }else{
-                dl.getComponent(cc.Label).string = profit; // 设置钻石数Label
+                dl.getComponent(cc.Label).string = 'x ' + profit; // 设置钻石数Label
             }
 
             dl= cc.find('newVehicle', _popup);
