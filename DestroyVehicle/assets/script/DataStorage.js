@@ -132,7 +132,7 @@ cc.Class({
     InitializationTest: function(){
         cc.sys.localStorage.setItem("level", 1);
         cc.sys.localStorage.setItem("diamonds", 0);
-        cc.sys.localStorage.setItem("parts", 9000000);
+        cc.sys.localStorage.setItem("parts", 90);
         cc.sys.localStorage.setItem("restBlood",100);
         cc.sys.localStorage.setItem("allBlood",100);
         cc.sys.localStorage.setItem("MaxArmRank", 0);
