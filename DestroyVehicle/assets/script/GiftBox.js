@@ -93,6 +93,7 @@ cc.Class({
             var flag=combineM.InstNewArm(armtype);
             if(flag== "1")
             {
+                Sound.PlaySound("buy");
                 this.ContentNum-=1;
                 this.NumberLabel.getComponent(cc.Label).string=this.ContentNum;
                 if(this.ContentNum==0)

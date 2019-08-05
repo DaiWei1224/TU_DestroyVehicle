@@ -71,6 +71,7 @@ cc.Class({
 
     //点击签到按钮
     clickSignInBtn: function() {
+        Sound.PlaySound("touch");
         var self = this;
         self.SignInWindow.active = true;
         //窗口进入动画
@@ -90,6 +91,7 @@ cc.Class({
         //读取已领取天数, 默认值为0
         var receiveDayNum = this.getUserData("receiveDayNum", 0);
         //加钻石
+        Sound.PlaySound("diamond");
         if(receiveDayNum == 6){
             money.diamondnum += 80;
             this.diamondLabel.string = money.getlabel(money.diamondnum);
@@ -111,6 +113,7 @@ cc.Class({
     //点击签到窗口关闭按钮
     clickCloseBtn: function() {
         //窗口退出动画
+        Sound.PlaySound("touch");
         var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(this.windowSpeed, 0), cc.scaleTo(this.windowSpeed, 2)),null);//, cbFadeOut);
         this.SignInWindow.runAction(actionFadeOut);
         this.scheduleOnce(function(){

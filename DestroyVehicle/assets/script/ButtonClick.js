@@ -4,7 +4,7 @@ cc.Class({
     //点击商店按钮
     storeBtnClick: function(){
         var self = this;
-
+        Sound.PlaySound("touch");
         Popup.show("store","prefab/Store","1","2","3",function(){
             //var str = '';
             var weaponBuyNum = '';

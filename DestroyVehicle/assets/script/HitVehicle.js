@@ -7,6 +7,7 @@ cc.Class({
 
         layerBg: cc.Node,
         labelPfb: cc.Prefab,
+        CarBreakStage:Number,
 
         blood: {
             default: null,
@@ -97,7 +98,7 @@ cc.Class({
             }                   
             self.node.getComponent(cc.Sprite).spriteFrame = texture;
         });
-       
+        this.CarBreakStage=0;
     },
 
     newClickNode(position, callBack) {
@@ -211,6 +212,7 @@ cc.Class({
                 //self.showRollNotice('-' + (self.power * 2));
                 self.check(pl);
                 self.showRollNotice('-' + self.clickPower*2);
+                Sound.PlaySound("Crash");
             }
             else{
                 //var decBlood = self.power / self.allBlood;
@@ -226,6 +228,7 @@ cc.Class({
                 self.check(pl);
                 //self.showRollNotice('-' + self.power);
                 self.showRollNotice('-' + self.clickPower);
+                Sound.PlaySound("hit");
             } 
 
             if(self.blood.progress>=0)
@@ -261,6 +264,7 @@ cc.Class({
     },
 
     changeVehicle (fileName, self){
+        Sound.PlaySound("break");
         cc.loader.loadRes(fileName, cc.SpriteFrame, function (err, texture) {
             if(err){
                 console.log(err);
@@ -308,8 +312,8 @@ cc.Class({
             self.count = 0;
             var anim = self.worker.getComponent(cc.Animation);
             anim.play();
-            
             //击打火花
+            Sound.PlaySound("hit");
             self.newClickNode(self.workerPos, function (node) {
     
                 if (!node) return
@@ -367,6 +371,8 @@ cc.Class({
             {
                 str="10";
             }
+            Sound.PlaySound("bomb");
+            this.CarBreakStage=0;
             //打爆车弹出窗口
             Popup.show(
                 'newVehicle', 
@@ -402,11 +408,14 @@ cc.Class({
 
             self.blood.progress = 1;
             
-        }else if(self.blood.progress < 0.25){
+        }else if(self.blood.progress < 0.25&&this.CarBreakStage==2){
             self.changeVehicle("/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_4", self);
-        }else if(self.blood.progress < 0.5){
+            this.CarBreakStage=3;
+        }else if(self.blood.progress < 0.5&&this.CarBreakStage==1){
             self.changeVehicle("/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_3", self);
-        }else if(self.blood.progress < 0.75){
+            this.CarBreakStage=2;
+        }else if(self.blood.progress < 0.75&&this.CarBreakStage==0){
+            this.CarBreakStage=1;
             self.changeVehicle("/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_2", self);
         }    
 

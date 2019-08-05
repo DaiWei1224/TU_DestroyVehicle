@@ -42,7 +42,7 @@ cc.Class({
 
     onLoad () {
         //这个调用记得删！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！1111111
-        //this.InitializationTest();
+        this.InitializationTest();
 
         //登陆读取用户数据
         var self = this;

@@ -202,6 +202,7 @@ cc.Class({
 
     ArmCombine(downslot,upslot)
     {
+        Sound.PlaySound("combine");
         self.ArmImagesArry[downslot].destroy();
 
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
@@ -490,12 +491,13 @@ cc.Class({
                     self.unschedule(abcc);
                 }  
                 else{
+                    Sound.PlaySound("money");
                     var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
                
-                    money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[i]));
+                    money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
                     part.string=money.getlabel(money.partnum);
                     console.log(weapon_info.getpart(self.ArmArry[i]));
-                    self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i]));
+                    self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i]*weapon_info.weapon_earningspeed));
                     self.erning_parts[i].active=true;
                     self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
                 //if()
@@ -505,7 +507,7 @@ cc.Class({
                 //console.log(weapon_info.gettime())      
                 self.schedule(abcc,weapon_info.gettime(self.ArmArry[i]));
                 
-                //Sound.PlaySound("buy");
+                Sound.PlaySound("buy");
                 
                 var flag=1;
                 return flag;

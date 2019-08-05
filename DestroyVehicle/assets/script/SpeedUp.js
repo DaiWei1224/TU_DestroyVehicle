@@ -57,7 +57,7 @@ cc.Class({
 
     PopWindow()
     {
-        //Sound.PlaySound("touch");
+        Sound.PlaySound("touch");
         var window = cc.instantiate(this.SpeedUpWindow);
         this.node.parent.addChild(window);
         

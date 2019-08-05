@@ -43,10 +43,12 @@ cc.Class({
 
         var actionFadeIn = cc.spawn(cc.fadeTo(Popup._animSpeed, 255), cc.scaleTo(Popup._animSpeed, 1));
         self.node.runAction(actionFadeIn);
+        Sound.PlaySound("new weapon");
     },
 
     DestroyItSelf()
     {
+        Sound.PlaySound("diamond");
         self.NewArmImageNode.getComponent(cc.Sprite).spriteFrame = null;
         //加钻石 14+6*self.level
         money.diamondnum=parseInt(money.diamondnum)+14+6*self.level;

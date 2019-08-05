@@ -26,7 +26,9 @@ cc.Class({
 
                 self.mask.active = true;
 
-                IsListOut = true; 
+                IsListOut = true;
+                
+                Sound.PlaySound("touch");
             }
             else
             {
@@ -38,12 +40,14 @@ cc.Class({
 
                 IsListOut = false;
                 
+                Sound.PlaySound("touch");
             }
         },self)
     },
 
     shareButtonClick()
     {
+        Sound.PlaySound("touch");
         cc.loader.loadRes("share", function (err, data) {
             wx.shareAppMessage({
                 title: "智商不足？快来充值！",

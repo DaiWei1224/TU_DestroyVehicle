@@ -67,6 +67,7 @@ cc.Class({
             //console.log(flag);
             if(flag == '1')
             {
+                
                 self.weapon_kind = weapon_info.changeweapon();
                 //console.log("编号为"+self.weapon_kind);
                 self.weapon_num = weapon_info.weapon_nums[self.weapon_kind];
