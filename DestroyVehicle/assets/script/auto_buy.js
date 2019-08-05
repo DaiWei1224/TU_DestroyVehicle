@@ -6,10 +6,7 @@ cc.Class({
         weapon_num:1,
         mask:cc.Node,
         label:cc.Node,
-
     },
-
-    //
 
     onLoad () {
         //console.log("这个程序开始执行了");
@@ -63,8 +60,8 @@ cc.Class({
            //扣钱//扣钱
             //console.log("现在还剩"+sets.string+"个零件");
             var abc=require("CombineManager");
-            var flag=abc.InstNewArm(self.weapon_kind);
-            //console.log(flag);
+            //var flag=abc.InstNewArm(self.weapon_kind);
+            var flag=abc.InstNewArm(weapon_info.weapon_kind);
             if(flag == '1')
             {
                 
