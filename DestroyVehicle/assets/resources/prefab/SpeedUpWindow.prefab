@@ -867,7 +867,7 @@
     },
     "_enabled": true,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 0.8,
     "clickEvents": [
       {
         "__id__": 25
@@ -875,8 +875,8 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": true,
-    "_N$transition": 1,
-    "transition": 1,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 214,

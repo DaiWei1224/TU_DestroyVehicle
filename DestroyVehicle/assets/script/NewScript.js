@@ -38,8 +38,8 @@ cc.Class({
         //this.node.setPosition((360,640));
         self.NewArmImageNode.getComponent(cc.Sprite).spriteFrame = self.ArmImages[self.level];
         self.NewArmName.getComponent(cc.Label).string=" Lv."+(self.level+1)+" "+self.ArmNameArry[self.level]
-        self.NewArmAttack.getComponent(cc.Label).string="攻击力 "+Math.floor(5*Math.pow(1.8,self.level))+"k";
-        self.NewArmDio.getComponent(cc.Label).string=" +"+(14+6*self.level);
+        self.NewArmAttack.getComponent(cc.Label).string="攻击力 "+Math.floor(5*Math.pow(1.8,self.level));
+        self.NewArmDio.getComponent(cc.Label).string="x " + money.getlabel(14+6*self.level);
 
         var actionFadeIn = cc.spawn(cc.fadeTo(Popup._animSpeed, 255), cc.scaleTo(Popup._animSpeed, 1));
         self.node.runAction(actionFadeIn);

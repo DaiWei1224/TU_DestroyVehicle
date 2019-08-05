@@ -60,7 +60,10 @@ cc.Class({
             var mul2Button=cc.find('Canvas/mul2Button');console.log("nnn"+mul2Button.name);
             mul2Button.getComponent("SpeedUp").DoubleIncomeTime+=60;
             //mul2Button.getComponent("SpeedUp").AddDoubleIncomeTime(60);
-            money.diamondnum-=10;
+            money.diamondnum -= 10;
+
+            cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label).string = money.getlabel(money.diamondnum);
+
             if(money.diamondnum<10)
             self.button.interactable =false;
         }

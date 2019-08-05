@@ -359,10 +359,10 @@ cc.Class({
         //根据血量换车的图片和弹出弹窗
         if(self.blood.progress <0.00001){
             
-            var str = 14+9*(self.car_level);
+            var str = 'x ' + money.getlabel(14+9*(self.car_level));
             if(self.car_level==0)
             {
-                str="10";
+                str="x 10";
             }
             Sound.PlaySound("bomb");
             this.CarBreakStage=0;

@@ -644,7 +644,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 224.53,
+      "width": 197.85,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -689,8 +689,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "攻击力 100K",
-    "_N$string": "攻击力 100K",
+    "_string": "攻击力 100",
+    "_N$string": "攻击力 100",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -938,7 +938,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 11.11,
+      "width": 97.85,
       "height": 50.4
     },
     "_anchorPoint": {
@@ -1014,7 +1014,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -46.05500000000001,
+      "x": -79.425,
       "y": 0,
       "z": 0
     },
@@ -1078,7 +1078,7 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 8,
-    "_left": -60,
+    "_left": -50,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
@@ -1115,8 +1115,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": " ",
-    "_N$string": " ",
+    "_string": "x 666",
+    "_N$string": "x 666",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1202,7 +1202,7 @@
       "菜刀",
       "锤子",
       "板砖",
-      "凳子",
+      "滑板",
       "折叠椅",
       "诺基亚",
       "斧头",
@@ -1236,12 +1236,24 @@
       {
         "__uuid__": "af1459d9-59ac-4115-b04b-f2e792981f89"
       },
-      null,
-      null,
-      null,
-      null,
-      null,
-      null,
+      {
+        "__uuid__": "234906de-4b05-4f92-80e1-31c51a91b01b"
+      },
+      {
+        "__uuid__": "c6c6c9ba-1786-441c-83ce-d5128b8d2447"
+      },
+      {
+        "__uuid__": "5ad3e111-26bd-491f-a8ac-ad5f232e9458"
+      },
+      {
+        "__uuid__": "68d16524-42f3-4984-8711-91883b1a17e5"
+      },
+      {
+        "__uuid__": "06404283-a8cc-4c0a-9628-a71c92a53bf5"
+      },
+      {
+        "__uuid__": "5b9e7b78-2a59-474e-81fb-f536c49c57c2"
+      },
       null,
       null,
       null,

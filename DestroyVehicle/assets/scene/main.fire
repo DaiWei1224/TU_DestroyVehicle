@@ -34686,7 +34686,7 @@
         "__id__": 971
       }
     ],
-    "_active": false,
+    "_active": true,
     "_level": 1,
     "_components": [],
     "_prefab": {
@@ -35367,7 +35367,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -89.425,
+      "x": -79.425,
       "y": 0,
       "z": 0
     },
@@ -35431,7 +35431,7 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 8,
-    "_left": -60,
+    "_left": -50,
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
@@ -37526,9 +37526,7 @@
     "root": {
       "__id__": 1021
     },
-    "asset": {
-      "__uuid__": "6fb72e35-bad0-4095-ac02-c4ac4102b15f"
-    },
+    "asset": null,
     "fileId": "507HCsBQVP/aSMQ6zbTTiw",
     "sync": false
   },
