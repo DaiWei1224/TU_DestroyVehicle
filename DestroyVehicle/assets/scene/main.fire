@@ -454,8 +454,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 720,
-      "height": 1280
+      "width": 1000,
+      "height": 1500
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -530,80 +530,6 @@
       -1,
       -1,
       -1
-    ],
-    "ArmPrefabArry": [
-      {
-        "__uuid__": "f29a2278-1423-483e-a686-5355ba877b4c"
-      },
-      {
-        "__uuid__": "0a571565-19a3-474a-aaab-08765cde3f62"
-      },
-      {
-        "__uuid__": "505fafb4-70d2-414c-81c0-82e739401f90"
-      },
-      {
-        "__uuid__": "5acfc78b-b80f-4d8b-9deb-3f0df4710bbd"
-      },
-      {
-        "__uuid__": "a054472d-e683-44d5-901c-ec6dd213e2b0"
-      },
-      {
-        "__uuid__": "4902ef17-a6d7-47ca-9860-a72ee41611ef"
-      },
-      {
-        "__uuid__": "7e4288ce-59c6-42ad-91e4-cab3d33fd2f3"
-      },
-      {
-        "__uuid__": "cb366378-80ca-439c-a22b-479fd4272457"
-      },
-      {
-        "__uuid__": "06d19743-25e7-429f-b847-db71e04aa8b3"
-      },
-      {
-        "__uuid__": "7cf7cc19-a4fc-4263-9b10-2609af534e6a"
-      },
-      {
-        "__uuid__": "225c3077-5fae-40a7-9668-24924e05df53"
-      },
-      {
-        "__uuid__": "972ec5dc-23c9-44d2-aba2-6ae21aaf9ab4"
-      },
-      {
-        "__uuid__": "9a08f669-bb8f-4a38-a87f-466155aecc4c"
-      },
-      {
-        "__uuid__": "64843e29-70e3-41d4-a720-5ead5e768b24"
-      },
-      {
-        "__uuid__": "cc004ad7-43a5-4a72-8af5-061f886ac6e1"
-      },
-      {
-        "__uuid__": "3da479c6-5de9-4dd4-a35b-ee9be11bb065"
-      },
-      {
-        "__uuid__": "b749e03f-dbfa-4d57-9dde-a36e6997d1eb"
-      },
-      {
-        "__uuid__": "b3356fe0-9178-4442-b587-cc54fb8516b8"
-      },
-      {
-        "__uuid__": "d7a8117a-c526-4d3d-a6ba-ee6e0f19b375"
-      },
-      {
-        "__uuid__": "b629f1bf-f6c1-4769-9818-bc88e15eac3f"
-      },
-      {
-        "__uuid__": "3376fffe-0052-4c26-b57a-8e1bd0601f10"
-      },
-      {
-        "__uuid__": "93f5f11a-6ae0-4b42-90f4-17d84fc245bf"
-      },
-      {
-        "__uuid__": "1c8cb430-eb81-401b-b592-612fd54a2189"
-      },
-      {
-        "__uuid__": "6fb72e35-bad0-4095-ac02-c4ac4102b15f"
-      }
     ],
     "SlotPositionArry": [
       {
@@ -840,6 +766,9 @@
       "__id__": 95
     },
     "DustbinChange": null,
+    "WeaponNode": {
+      "__uuid__": "f29a2278-1423-483e-a686-5355ba877b4c"
+    },
     "_id": "36VFm0KF9CS7VwhJi5S+/o"
   },
   {

@@ -212,7 +212,8 @@ cc.Class({
                 //self.showRollNotice('-' + (self.power * 2));
                 self.check(pl);
                 self.showRollNotice('-' + self.clickPower*2);
-                Sound.PlaySound("Crash");
+                //Sound.PlaySound("Crash");
+                Sound.PlaySound("hit");
             }
             else{
                 //var decBlood = self.power / self.allBlood;

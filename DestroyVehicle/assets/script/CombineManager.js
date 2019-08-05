@@ -15,7 +15,6 @@ cc.Class({
         NewArmWindow:cc.Prefab,
 
         ArmArry:[cc.Integer],//？？
-        ArmPrefabArry:[cc.Prefab],
         SlotPositionArry:[cc.Vec2],
 
         SlotRangeXArry:[cc.Vec2],
@@ -32,6 +31,8 @@ cc.Class({
         DustbinNode:cc.Node,
 
         DustbinChange:Boolean,
+
+        WeaponNode:cc.Prefab,
     },
     
     // LIFE-CYCLE CALLBACKS:
@@ -51,7 +52,7 @@ cc.Class({
         else{
             var slot = JSON.parse(cc.sys.localStorage.getItem('slot'));
             self.ArmArry = new Array(
-                self.getSlotData(slot.slot01, -1),
+                self.getSlotData(slot.slot01, 0),
                 self.getSlotData(slot.slot02, -1),
                 self.getSlotData(slot.slot03, -1),
                 self.getSlotData(slot.slot04, -1),
@@ -82,7 +83,7 @@ cc.Class({
             if(self.FollowArm)
             {
                 self.FollowArm.setPosition(self.node.convertToNodeSpaceAR(event.getLocation()));
-                console.log(event.getLocation().sub(self.node.convertToWorldSpaceAR(self.DustbinNode.position)).mag());
+                //console.log(event.getLocation().sub(self.node.convertToWorldSpaceAR(self.DustbinNode.position)).mag());
                 if(event.getLocation().sub(self.node.convertToWorldSpaceAR(self.DustbinNode.position)).mag()<=50)
                 {
                     if(self.DustbinChange==false)
@@ -158,7 +159,7 @@ cc.Class({
     MouseDownOnSlot(slotnum,position)
     {
         if(self.ArmArry[slotnum]>-1){
-            self.SpawnFollowArm(self.ArmArry[slotnum],position);
+            self.SpawnFollowArm(slotnum,position);
             self.ArmImagesArry[slotnum].opacity = 100;
 
             //dustbineffect
@@ -167,8 +168,13 @@ cc.Class({
     },
 
 
-    SpawnFollowArm(Armnum,position){
-        var FArm = cc.instantiate(self.ArmPrefabArry[Armnum]);
+    SpawnFollowArm(Armseq,position){
+        var FArm = cc.instantiate(self.ArmImagesArry[Armseq]);
+        //new cc.Node('newarm'+Armnum);//self.ArmPrefabArry[self.ArmArry[value]
+        /*const sprite=FArm.addComponent(cc.Sprite);
+        sprite.spriteFrame=self.ArmSpritFrameArry[Armnum];
+        FArm.width=FArm.width/2;
+        FArm.height=FArm.height/2;*/
         self.node.addChild(FArm);
         FArm.setPosition(position);
         self.FollowArm=FArm;
@@ -222,7 +228,10 @@ cc.Class({
             
 
             self.ArmImagesArry[upslot].destroy();
-            var Armi = cc.instantiate(self.ArmPrefabArry[self.ArmArry[upslot]]);console.log(upslot+" "+self.ArmArry[upslot]);
+            var Armi =cc.instantiate(self.WeaponNode);
+            Armi.getComponent(cc.Sprite).spriteFrame=self.ArmSpritFrameArry[self.ArmArry[upslot]];
+            //var Armi = cc.instantiate(self.ArmPrefabArry[self.ArmArry[upslot]]);
+            //console.log(upslot+" "+self.ArmArry[upslot]);
             self.node.addChild(Armi);
             self.ArmImagesArry[upslot]=Armi;
             
@@ -262,6 +271,7 @@ cc.Class({
         {
             self.ArmArry[upslot]=self.ArmArry[downslot];
             self.ArmArry[downslot]=-1;
+
             var nodepath="Canvas/Slot/Slot"+(parseInt(downslot)+1)+"/level_num/num";
         // console.log(nodepath);
          cc.find(nodepath).getComponent(cc.Label).string=0;
@@ -291,7 +301,8 @@ cc.Class({
 
         self.FollowArm.destroy();
         self.FollowArm=null;
-
+            //self.ArmImagesArry[upslot]=self.ArmImagesArry[downslot];
+            //self.ArmImagesArry[downslot]=null;
         self.ArmImagesArry[upslot]=self.ArmImagesArry[downslot];
         self.ArmImagesArry[downslot]=null;
         self.ArmImagesArry[upslot].setPosition(self.SlotPositionArry[upslot]);
@@ -356,7 +367,8 @@ cc.Class({
             //console.log(nodepath);
             if(self.ArmArry[value]>-1)
             {
-                var Armi = cc.instantiate(self.ArmPrefabArry[self.ArmArry[value]]);
+                var Armi =cc.instantiate(self.WeaponNode);
+                Armi.getComponent(cc.Sprite).spriteFrame=self.ArmSpritFrameArry[self.ArmArry[value]];
                 self.node.addChild(Armi);
                 self.ArmImagesArry[value]=Armi;
                 Armi.setPosition(self.SlotPositionArry[value]);
@@ -474,7 +486,8 @@ cc.Class({
             if(self.ArmArry[i]==-1)
             {
                 self.ArmArry[i]=ArmRank;
-                var Armi = cc.instantiate(self.ArmPrefabArry[self.ArmArry[i]]);
+                var Armi =cc.instantiate(self.WeaponNode);
+                Armi.getComponent(cc.Sprite).spriteFrame=self.ArmSpritFrameArry[self.ArmArry[i]];
                 self.node.addChild(Armi);
                 self.ArmImagesArry[i]=Armi;
                 Armi.setPosition(self.SlotPositionArry[i]);
@@ -491,7 +504,7 @@ cc.Class({
                     self.unschedule(abcc);
                 }  
                 else{
-                    Sound.PlaySound("money");
+                    //Sound.PlaySound("money");
                     var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
                
                     money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
