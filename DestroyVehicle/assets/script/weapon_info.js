@@ -69,7 +69,7 @@ weapon_info.changeweapon=function(){
         var bestprice=price;
         var temp=max;
         var i=0;
-        for(i=0;i<temp;i++){
+        for(i=0;i<4 && max >= 0;i++){
             max=max-1;
              price=weapon_info.getPrice(max,weapon_info.weapon_nums[max])*Math.pow(2,parseInt(i+1));
              console.log("编号为"+max+"的价格我饿"+price);
