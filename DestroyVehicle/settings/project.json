@@ -7,7 +7,13 @@
   ],
   "design-resolution-height": 1080,
   "design-resolution-width": 720,
-  "excluded-modules": [],
+  "excluded-modules": [
+    "Collider",
+    "Physics",
+    "Geom Utils",
+    "3D",
+    "3D Primitive"
+  ],
   "facebook": {
     "appID": "",
     "audience": {
@@ -23,13 +29,12 @@
   "group-list": [
     "default"
   ],
-  "last-module-event-record-time": 1564372503595,
+  "last-module-event-record-time": 1565057451611,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,
     "width": 960
   },
-  "start-scene": "current",
   "use-customize-simulator": true,
   "use-project-simulator-setting": false
 }

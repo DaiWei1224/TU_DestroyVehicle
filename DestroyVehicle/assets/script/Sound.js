@@ -1,5 +1,5 @@
 window.Sound={};
-var Sound={
+Sound={
     //SoundClips:[cc.AudioClip],
     SoundVolume:Number,
 };
