@@ -65,7 +65,7 @@ cc.Class({
         //初始化工人打击的位置
         this.workerPos = this.worker.getPosition();
         this.workerPos.x = 45;
-        this.workerPos.y = 25;
+        this.workerPos.y = 0;
         //根据武器等级初始化武器攻击力
         this.power = weapon_info.getatk(this.getUserData("MaxArmRank", 0));
         //关卡数变量为读取的关卡数-1
