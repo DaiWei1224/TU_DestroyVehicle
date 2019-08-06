@@ -1,0 +1,300 @@
+
+zache.png
+size: 977,977
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+weapon_01
+  rotate: false
+  xy: 372, 7
+  size: 172, 157
+  orig: 172, 157
+  offset: 0, 0
+  index: -1
+weapon_02
+  rotate: false
+  xy: 2, 532
+  size: 238, 215
+  orig: 238, 215
+  offset: 0, 0
+  index: -1
+weapon_03
+  rotate: false
+  xy: 726, 255
+  size: 135, 134
+  orig: 135, 134
+  offset: 0, 0
+  index: -1
+weapon_04
+  rotate: true
+  xy: 572, 182
+  size: 173, 144
+  orig: 173, 144
+  offset: 0, 0
+  index: -1
+weapon_05
+  rotate: true
+  xy: 685, 33
+  size: 147, 136
+  orig: 147, 136
+  offset: 0, 0
+  index: -1
+weapon_06
+  rotate: true
+  xy: 863, 269
+  size: 128, 99
+  orig: 128, 99
+  offset: 0, 0
+  index: -1
+weapon_07
+  rotate: false
+  xy: 726, 391
+  size: 120, 122
+  orig: 120, 122
+  offset: 0, 0
+  index: -1
+weapon_08
+  rotate: false
+  xy: 558, 357
+  size: 166, 156
+  orig: 166, 156
+  offset: 0, 0
+  index: -1
+weapon_09
+  rotate: true
+  xy: 667, 515
+  size: 168, 180
+  orig: 168, 180
+  offset: 0, 0
+  index: -1
+weapon_10
+  rotate: true
+  xy: 546, 8
+  size: 157, 137
+  orig: 157, 137
+  offset: 0, 0
+  index: -1
+weapon_11
+  rotate: false
+  xy: 472, 626
+  size: 193, 172
+  orig: 193, 172
+  offset: 0, 0
+  index: -1
+weapon_12
+  rotate: false
+  xy: 247, 615
+  size: 194, 163
+  orig: 194, 163
+  offset: 0, 0
+  index: -1
+weapon_13
+  rotate: false
+  xy: 848, 399
+  size: 114, 111
+  orig: 114, 111
+  offset: 0, 0
+  index: -1
+weapon_14
+  rotate: false
+  xy: 393, 335
+  size: 163, 178
+  orig: 163, 178
+  offset: 0, 0
+  index: -1
+weapon_15
+  rotate: true
+  xy: 686, 810
+  size: 165, 206
+  orig: 165, 206
+  offset: 0, 0
+  index: -1
+weapon_16
+  rotate: true
+  xy: 472, 800
+  size: 175, 212
+  orig: 175, 212
+  offset: 0, 0
+  index: -1
+weapon_17
+  rotate: false
+  xy: 205, 166
+  size: 187, 167
+  orig: 187, 167
+  offset: 0, 0
+  index: -1
+weapon_18
+  rotate: true
+  xy: 2, 100
+  size: 214, 197
+  orig: 214, 197
+  offset: 0, 0
+  index: -1
+weapon_19
+  rotate: true
+  xy: 205, 335
+  size: 195, 186
+  orig: 195, 186
+  offset: 0, 0
+  index: -1
+weapon_20
+  rotate: true
+  xy: 201, 2
+  size: 162, 169
+  orig: 162, 169
+  offset: 0, 0
+  index: -1
+weapon_21
+  rotate: false
+  xy: 2, 316
+  size: 201, 214
+  orig: 201, 214
+  offset: 0, 0
+  index: -1
+zc_arm_l
+  rotate: false
+  xy: 766, 187
+  size: 70, 66
+  orig: 70, 66
+  offset: 0, 0
+  index: -1
+zc_arm_r
+  rotate: false
+  xy: 301, 559
+  size: 61, 54
+  orig: 61, 54
+  offset: 0, 0
+  index: -1
+zc_body
+  rotate: true
+  xy: 849, 512
+  size: 171, 120
+  orig: 171, 120
+  offset: 0, 0
+  index: -1
+zc_eye01
+  rotate: true
+  xy: 871, 194
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: -1
+zc_eye02
+  rotate: false
+  xy: 164, 57
+  size: 35, 41
+  orig: 35, 41
+  offset: 0, 0
+  index: -1
+zc_face
+  rotate: true
+  xy: 394, 167
+  size: 166, 176
+  orig: 166, 176
+  offset: 0, 0
+  index: -1
+zc_foot_l
+  rotate: false
+  xy: 894, 818
+  size: 70, 37
+  orig: 70, 37
+  offset: 0, 0
+  index: -1
+zc_foot_r
+  rotate: false
+  xy: 894, 857
+  size: 73, 46
+  orig: 73, 46
+  offset: 0, 0
+  index: -1
+zc_fore_l
+  rotate: false
+  xy: 2, 23
+  size: 79, 75
+  orig: 79, 75
+  offset: 0, 0
+  index: -1
+zc_fore_r
+  rotate: false
+  xy: 894, 905
+  size: 78, 70
+  orig: 78, 70
+  offset: 0, 0
+  index: -1
+zc_hand_l
+  rotate: false
+  xy: 242, 551
+  size: 57, 62
+  orig: 57, 62
+  offset: 0, 0
+  index: -1
+zc_hand_r
+  rotate: false
+  xy: 364, 557
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
+zc_huzi
+  rotate: false
+  xy: 686, 685
+  size: 190, 123
+  orig: 190, 123
+  offset: 0, 0
+  index: -1
+zc_leg_l
+  rotate: true
+  xy: 718, 182
+  size: 71, 46
+  orig: 71, 46
+  offset: 0, 0
+  index: -1
+zc_leg_r
+  rotate: false
+  xy: 83, 40
+  size: 79, 58
+  orig: 79, 58
+  offset: 0, 0
+  index: -1
+zc_maozi01
+  rotate: false
+  xy: 247, 780
+  size: 223, 195
+  orig: 223, 195
+  offset: 0, 0
+  index: -1
+zc_maozi02
+  rotate: false
+  xy: 2, 749
+  size: 243, 226
+  orig: 243, 226
+  offset: 0, 0
+  index: -1
+zc_meimao01
+  rotate: false
+  xy: 871, 228
+  size: 62, 39
+  orig: 62, 39
+  offset: 0, 0
+  index: -1
+zc_meimao02
+  rotate: true
+  xy: 838, 189
+  size: 64, 31
+  orig: 64, 31
+  offset: 0, 0
+  index: -1
+zc_mouth
+  rotate: true
+  xy: 443, 719
+  size: 59, 21
+  orig: 59, 21
+  offset: 0, 0
+  index: -1
+zc_nose
+  rotate: true
+  xy: 83, 2
+  size: 36, 30
+  orig: 36, 30
+  offset: 0, 0
+  index: -1
