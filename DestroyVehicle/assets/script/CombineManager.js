@@ -33,6 +33,8 @@ cc.Class({
         DustbinChange:Boolean,
 
         WeaponNode:cc.Prefab,
+
+        Touchid:Number,
     },
     
     // LIFE-CYCLE CALLBACKS:
@@ -78,13 +80,18 @@ cc.Class({
 
         self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             //console.log("触摸了");
-            self.MouseDownSlot=self.GetSlot(event.getLocation());//得到触摸的是第几块
-            console.log(parseInt(self.MouseDownPos));
-            self.MouseDownOnSlot(self.MouseDownSlot,self.node.convertToNodeSpaceAR(event.getLocation()));//触摸的位置（x，y），和第几个
+            if(self.Touchid==-1)
+            {
+                self.Touchid=event.getID();
+                self.MouseDownSlot=self.GetSlot(event.getLocation());//得到触摸的是第几块
+                console.log(parseInt(self.MouseDownPos));
+                self.MouseDownOnSlot(self.MouseDownSlot,self.node.convertToNodeSpaceAR(event.getLocation()));//触摸的位置（x，y），和第几个
+            }
         }, self.node);
         self.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
-            if(self.FollowArm)
+            if(self.FollowArm&&event.getID()==self.Touchid)
             {
+                console.log(event.getID()+"touchid"+self.Touchid);
                 self.FollowArm.setPosition(self.node.convertToNodeSpaceAR(event.getLocation()));
                 //console.log(event.getLocation().sub(self.node.convertToWorldSpaceAR(self.DustbinNode.position)).mag());
                 if(event.getLocation().sub(self.node.convertToWorldSpaceAR(self.DustbinNode.position)).mag()<=50)
@@ -107,10 +114,15 @@ cc.Class({
             }
         }, self.node);
         self.node.on(cc.Node.EventType.TOUCH_END, function (event) {
-            
+            if(event.getID()==self.Touchid)
+            {
             self.MouseUpSlot=self.GetSlot(event.getLocation());
             self.MouseUpOnSlot(self.MouseUpSlot);
+            self.Touchid=-1;
+            }
         }, self.node);
+
+        self.Touchid=-1;
     },
 
     start () {
@@ -164,7 +176,7 @@ cc.Class({
         if(self.ArmArry[slotnum]>-1){
             self.SpawnFollowArm(slotnum,position);
             self.ArmImagesArry[slotnum].opacity = 100;
-
+            self.FindEqualArms(slotnum,true);
             //dustbineffect
             
         }
@@ -185,7 +197,7 @@ cc.Class({
     MouseUpOnSlot(slotnum)
     {
         if(self.MouseDownSlot==-1||self.MouseDownSlot==-2||self.ArmArry[self.MouseDownSlot]==-1) return;
-        
+        self.FindEqualArms(self.MouseDownSlot,false);
         if(slotnum==-2)
         {
             self.ArmDelet(self.MouseDownSlot);
@@ -221,11 +233,12 @@ cc.Class({
         money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(self.ArmArry[upslot])/weapon_info.gettime(self.ArmArry[upslot]));
         speed.string="+"+money.getlabel(money.speednum)+"/s";
         self.ArmArry[downslot]=-1;
-        var nodepath="Canvas/Slot/Slot"+(parseInt(downslot)+1)+"/level_num/num";
+        //var nodepath="Canvas/Slot/Slot"+(parseInt(downslot)+1)+"/level_num/num";
         // console.log(nodepath);
-         cc.find(nodepath).getComponent(cc.Label).string=0;
-         nodepath="Canvas/Slot/Slot"+(parseInt(upslot)+1)+"/level_num/num";
-         cc.find(nodepath).getComponent(cc.Label).string=parseInt(self.ArmArry[upslot])+1;
+         //cc.find(nodepath).getComponent(cc.Label).string=0;
+         //nodepath="Canvas/Slot/Slot"+(parseInt(upslot)+1)+"/level_num/num";
+         //cc.find(nodepath).getComponent(cc.Label).string=parseInt(self.ArmArry[upslot])+1;
+        
         var finished = cc.callFunc(function () {
             CurrentFollowArm.destroy();
             
@@ -235,6 +248,8 @@ cc.Class({
             Armi.getComponent(cc.Sprite).spriteFrame=self.ArmSpritFrameArry[self.ArmArry[upslot]];
             //var Armi = cc.instantiate(self.ArmPrefabArry[self.ArmArry[upslot]]);
             //console.log(upslot+" "+self.ArmArry[upslot]);
+            var Num=Armi.getChildByName("num");
+            Num.getComponent(cc.Label).string=parseInt(self.ArmArry[upslot])+1;
             self.node.addChild(Armi);
             self.ArmImagesArry[upslot]=Armi;
             
@@ -275,11 +290,11 @@ cc.Class({
             self.ArmArry[upslot]=self.ArmArry[downslot];
             self.ArmArry[downslot]=-1;
 
-            var nodepath="Canvas/Slot/Slot"+(parseInt(downslot)+1)+"/level_num/num";
+            //var nodepath="Canvas/Slot/Slot"+(parseInt(downslot)+1)+"/level_num/num";
         // console.log(nodepath);
-         cc.find(nodepath).getComponent(cc.Label).string=0;
-         nodepath="Canvas/Slot/Slot"+(parseInt(upslot)+1)+"/level_num/num";
-         cc.find(nodepath).getComponent(cc.Label).string=parseInt(self.ArmArry[upslot])+1;
+         //cc.find(nodepath).getComponent(cc.Label).string=0;
+         //nodepath="Canvas/Slot/Slot"+(parseInt(upslot)+1)+"/level_num/num";
+         //cc.find(nodepath).getComponent(cc.Label).string=parseInt(self.ArmArry[upslot])+1;
             var abcc=function(){
                 if(self.ArmArry[upslot]=='-1')
                 {
@@ -304,8 +319,6 @@ cc.Class({
 
         self.FollowArm.destroy();
         self.FollowArm=null;
-            //self.ArmImagesArry[upslot]=self.ArmImagesArry[downslot];
-            //self.ArmImagesArry[downslot]=null;
         self.ArmImagesArry[upslot]=self.ArmImagesArry[downslot];
         self.ArmImagesArry[downslot]=null;
         self.ArmImagesArry[upslot].setPosition(self.SlotPositionArry[upslot]);
@@ -375,14 +388,16 @@ cc.Class({
                 self.node.addChild(Armi);
                 self.ArmImagesArry[value]=Armi;
                 Armi.setPosition(self.SlotPositionArry[value]);
-                var nodepath="Canvas/Slot/Slot"+(parseInt(value)+1)+"/level_num/num";
+                /*var nodepath="Canvas/Slot/Slot"+(parseInt(value)+1)+"/level_num/num";
                 console.log(nodepath);
-                cc.find(nodepath).getComponent(cc.Label).string=parseInt(self.ArmArry[value])+1;
+                cc.find(nodepath).getComponent(cc.Label).string=parseInt(self.ArmArry[value])+1;*/
+                var Num=Armi.getChildByName("num");
+                Num.getComponent(cc.Label).string=parseInt(self.ArmArry[value])+1;
                 self.selfSchedule(value);
             }
             else{
-                var nodepath="Canvas/Slot/Slot"+(parseInt(value)+1)+"/level_num/num";
-                cc.find(nodepath).getComponent(cc.Label).string=0;
+                //var nodepath="Canvas/Slot/Slot"+(parseInt(value)+1)+"/level_num/num";
+                //cc.find(nodepath).getComponent(cc.Label).string=0;
             }
 
         }
@@ -429,19 +444,19 @@ cc.Class({
     ChangeArm(ArmRank)
     {
         self.MyArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
-       // self.WorkerArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
-       var numstring="";
-       if(parseInt(ArmRank)<9)
-       {
-           numstring='0'+parseInt(parseInt(ArmRank)+1);
-       }
-       else
-       {
-           numstring=parseInt(ArmRank)+1;
-       }
-       console.log("numstring="+numstring);
-       self.WorkerArmNode.getComponent(sp.Skeleton).setAttachment("weapon","weapon_"+numstring); 
-       var car=cc.find("Canvas/Vehicle").getComponent("HitVehicle");//改变等级
+        //self.WorkerArmNode.getComponent(cc.Sprite).spriteFrame = self.ArmSpritFrameArry[ArmRank];
+        var numstring="";
+        if(parseInt(ArmRank)<9)
+        {
+            numstring='0'+parseInt(ArmRank+1);
+        }
+        else
+        {
+            numstring=parseInt(ArmRank+1);
+        }
+        console.log("numstring="+numstring);
+        self.WorkerArmNode.getComponent(sp.Skeleton).setAttachment("weapon","weapon_"+numstring);
+        var car=cc.find("Canvas/Vehicle").getComponent("HitVehicle");//改变等级
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
         
         money.speednum=parseInt(money.speednum)-parseInt(weapon_info.getatk(parseInt(ArmRank)-1))/2+parseInt(weapon_info.getatk(parseInt(ArmRank)))/2;
@@ -502,8 +517,26 @@ cc.Class({
         }
     },
 
-     
+    FindEqualArms(DragSlot,TouchDown)
+    {
+        var rank=self.ArmArry[DragSlot];
+        for(var i=0;i<12;i++)
+        {
+            if(i!=DragSlot&&rank==self.ArmArry[i])
+            {
+                if(TouchDown)
+                    self.ArmImagesArry[i].runAction(cc.scaleBy(0.1,1.1));
+                else    self.ArmImagesArry[i].runAction(cc.scaleBy(0.1,1/1.1));
+            }
+        }
+    }
+
 });
+
+
+    
+
+
 
 
     module.exports.InstNewArm=function(ArmRank)
@@ -525,8 +558,11 @@ cc.Class({
                 money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(ArmRank)/weapon_info.gettime(ArmRank));
                 console.log("此时塑料布"+money.speednum);
                 speed.string="+"+money.getlabel(money.speednum)+"/s";
-                var nodepath="Canvas/Slot/Slot"+(parseInt(i)+1)+"/level_num/num";
-                cc.find(nodepath).getComponent(cc.Label).string=parseInt(ArmRank)+1;
+                var Armi =cc.instantiate(self.WeaponNode);
+                var Num=Armi.getChildByName("num");
+                Num.getComponent(cc.Label).string=parseInt(ArmRank)+1;
+                //var nodepath="Canvas/Slot/Slot"+(parseInt(i)+1)+"/level_num/num";
+                //cc.find(nodepath).getComponent(cc.Label).string=parseInt(ArmRank)+1;
                 var abcc=function(){
                 if(self.ArmArry[i]=='-1')
                 {

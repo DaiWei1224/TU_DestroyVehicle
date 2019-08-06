@@ -73,11 +73,13 @@ cc.Class({
                     this.TimeNode.getComponent(cc.Label).string=min+":0"+sec;
                 if(this.Time==0){
                     this.CanOpen=true;
-                    this.TimeNode.getComponent(cc.Label).string="00:00";
+                    this.TimeNode.getComponent(cc.Label).string=" ";
                     this.node.getComponent(cc.Sprite).spriteFrame=this.OpenImage;
-                    this.ContentNum=Math.ceil(weapon_info.level_now/2);
+                    this.ContentNum=Math.ceil(weapon_info.level_now/2)+1;
                     this.NumberBG.active=true;
                     this.NumberLabel.getComponent(cc.Label).string=this.ContentNum;
+                    var ShakeEffact=cc.repeatForever(cc.sequence(cc.rotateTo(0.05,20),cc.rotateTo(0.1,-20),cc.rotateTo(0.1,20),cc.rotateTo(0.05,0),cc.delayTime(1.5)));
+                    this.node.runAction(ShakeEffact);
                 }
             }
         },1);
@@ -103,6 +105,8 @@ cc.Class({
                     this.NumberBG.active=false;
                     this.CanOpen=false;
                     this.Time=300;
+                    this.node.stopAllActions();
+                    this.node.runAction(cc.rotateTo(0.05,0));
                 }
             }
             /*else

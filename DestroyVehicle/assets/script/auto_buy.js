@@ -63,7 +63,7 @@ cc.Class({
            //扣钱//扣钱
             //console.log("现在还剩"+sets.string+"个零件");
             var abc=require("CombineManager");
-            var flag=abc.InstNewArm(self.weapon_kind);
+            var flag=abc.InstNewArm(weapon_info.weapon_kind);
             //console.log(flag);
             if(flag == '1')
             {
@@ -72,7 +72,7 @@ cc.Class({
                 //console.log("编号为"+self.weapon_kind);
                 self.weapon_num = weapon_info.weapon_nums[self.weapon_kind];
                 //更新打击后价格
-                price.string = money.getlabel(weapon_info.getPrice(self.weapon_kind,self.weapon_num));
+                price.string = money.getlabel(weapon_info.getPrice(self.weapon_kind,weapon_info.weapon_nums[weapon_info.weapon_kind]));
                 //更新最优武器图片
                 var weaponImage = cc.find("Canvas/autobuyButton/Sprite").getComponent(cc.Sprite);
                 if(parseInt(self.weapon_kind) + 1 < 10){

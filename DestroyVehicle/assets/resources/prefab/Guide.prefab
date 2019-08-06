@@ -27,7 +27,7 @@
         "__id__": 44
       }
     ],
-    "_active": true,
+    "_active": false,
     "_level": 1,
     "_components": [
       {
@@ -177,9 +177,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "1fFIIeHtFM07vaMIq09Ila",
+    "fileId": "2dD2VRtVlEuISItRCt6gLy",
     "sync": false
   },
   {
@@ -430,9 +430,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "f37onryRBBSZJSuhEXqz8G",
+    "fileId": "52vx4GswhG37fpUqp4cFJt",
     "sync": false
   },
   {
@@ -457,9 +457,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "bcXobE2xRFYr+n0ZNf6UBJ",
+    "fileId": "776ix4NcFMTrJArTyxADoc",
     "sync": false
   },
   {
@@ -637,9 +637,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "4f0+vWr29AwL3P8Zx5HkQt",
+    "fileId": "c9GkE2RZxGBYEh2I7HrSGj",
     "sync": false
   },
   {
@@ -664,9 +664,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "54uK1rjXRLE593Wk4VenbB",
+    "fileId": "76mJHzxNNAFI51/cqDMvd4",
     "sync": false
   },
   {
@@ -844,9 +844,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "68xI1iwmZPl7oc6ZkuPBem",
+    "fileId": "57x0KcQ8xBK6diQjIy+k+g",
     "sync": false
   },
   {
@@ -871,9 +871,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "7dXcQNladJsoZfHSr0eW01",
+    "fileId": "b1hhJQ8oJGIZjgVQOawrOS",
     "sync": false
   },
   {
@@ -1121,9 +1121,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "dbOe2HCJdFZq5RNglWHdul",
+    "fileId": "bavT83Z7NKm5h60LYYQLQ3",
     "sync": false
   },
   {
@@ -1148,9 +1148,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "77KmE9KepNhJbl5aQOnrd2",
+    "fileId": "0d4ksuKYpCm65QRrFEdEVh",
     "sync": false
   },
   {
@@ -1186,7 +1186,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 640,
-      "height": 400
+      "height": 450
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1196,7 +1196,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -243.032,
+      "y": -225,
       "z": 0
     },
     "_scale": {
@@ -1398,9 +1398,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "d8xBav0mlIj45EpvvA9DDd",
+    "fileId": "9901OMTkZOiJEhJXGSEW09",
     "sync": false
   },
   {
@@ -1425,9 +1425,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "1auTijfydH7q7hBgg6XbS2",
+    "fileId": "458mBpWR9MMpYO9Jdp03cS",
     "sync": false
   },
   {
@@ -1436,9 +1436,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "91jfQxLyRCnZw0Jjjju7uL",
+    "fileId": "2eu4OFLmhCirFqiVD+ulAi",
     "sync": false
   },
   {
@@ -1470,7 +1470,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 300,
-      "height": 63
+      "height": 100.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1517,7 +1517,7 @@
     "_string": "点击车辆砸车",
     "_N$string": "点击车辆砸车",
     "_fontSize": 50,
-    "_lineHeight": 50,
+    "_lineHeight": 80,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1536,9 +1536,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "2a42P92JVK6751JVgb6Vfh",
+    "fileId": "04/lgs0d5KDZ0lRBzg0i7g",
     "sync": false
   },
   {
@@ -1585,9 +1585,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "75268dcd-6490-47d0-9781-93da0c966868"
+      "__uuid__": "ec11b175-dc45-4eaa-9c8c-4046e52a47c6"
     },
-    "fileId": "b76vEOjfFO/I8Nlyvg/Ael",
+    "fileId": "b58kEhH7BMG6N0Th/lxriL",
     "sync": false
   }
 ]

@@ -28,7 +28,7 @@ cc.Class({
 
         HitVehicle:null,
         WorkerBody:cc.Node,
-        WorkerArm:cc.Node,
+        //WorkerArm:cc.Node,
         FirstWeapon:cc.Node,
     },
 
@@ -36,9 +36,9 @@ cc.Class({
     onLoad () {
         self=this;
         this.HitVehicle=cc.find("Canvas/Vehicle").getComponent("HitVehicle");
-        this.WorkerArm=cc.find("Canvas/WorkerHit");
-        this.WorkerBody=cc.find("Canvas/WorkerBody");
-        this.WorkerArm.active=false;
+        //this.WorkerArm=cc.find("Canvas/WorkerHit");
+        this.WorkerBody=cc.find("Canvas/zache");
+        //this.WorkerArm.active=false;
         this.WorkerBody.active=false;
     },
     StopWorker(){
@@ -64,6 +64,7 @@ cc.Class({
             else this.unschedule(StopWorker);
         }*/
         this.schedule(this.StopWorker,800);
+        this.GuideLable.getComponent(cc.Label).string="点击车辆砸车";
     },
 
     
@@ -81,6 +82,7 @@ cc.Class({
                     this.CarMask.active=false;
                     this.AutoBuyMask.active=true;
                     this.GuideLable.getComponent(cc.Label).string="点击购买新武器";
+                    this.GuideLable.setPosition(75,-375);
                     this.GuideStep++;
                     this.FirstWeapon.destroy();
                     var abc=require("CombineManager");
@@ -95,6 +97,7 @@ cc.Class({
                         this.AutoBuyMask.destroy();
                         this.CombineMask.active=true;
                         this.GuideLable.getComponent(cc.Label).string="拖动一个武器至同名武器\n合成更高等级武器";
+                        this.GuideLable.setPosition(0,-275);
                         this.GuideStep++;
                     }
                     break;
@@ -106,6 +109,7 @@ cc.Class({
                         this.CombineMask.destroy();
                         this.CarMask.active=true;
                         this.GuideLable.getComponent(cc.Label).string="快来试试新武器的威力吧";
+                        this.GuideLable.setPosition(0,-50);
                         this.GuideStep++;
                     }
                     break;
@@ -116,11 +120,12 @@ cc.Class({
                     if(Carlevel==2)
                     {
                         this.CarMask.destroy();
-                        this.WorkerArm.active=true;
+                        //this.WorkerArm.active=true;
                         this.WorkerBody.active=true;
                         this.WorkerMask.active=true;
                         self.node.setContentSize(1200,1800);
                         this.GuideLable.getComponent(cc.Label).string="恭喜您解锁了工人";
+                        this.GuideLable.setPosition(0,25);
                         this.GuideStep++;
                         //var HitVehicle=cc.find("Canvas/Vehicle").getComponent("HitVehicle");
                         this.HitVehicle.count=0;
@@ -158,7 +163,8 @@ cc.Class({
                     /*if(this.CombineManager.ArmArry[0]==1)
                         this.CombineManager.selfSchedule(0);
                     else this.CombineManager.selfSchedule(1);*/
-                    this.GuideLable.getComponent(cc.Label).string="武器会自动产生金钱即便您已离线";
+                    this.GuideLable.getComponent(cc.Label).string="武器会自动产生金钱\n即便您已离线";
+                    this.GuideLable.setPosition(0,100);
                 }
             }
             else if(this.GuideStep==5)

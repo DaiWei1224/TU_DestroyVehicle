@@ -79,7 +79,7 @@ cc.Class({
         self.SignInWindow.runAction(actionFadeIn);
 
         self.listBtn.getComponent('LeftListClick').OuterClick = true;
-        self.LeftList.runAction(cc.moveBy(0.1,-200,0));    
+        self.LeftList.runAction(cc.moveBy(0.1,-150,0));    
         self.scheduleOnce(function(){
             self.mask.active = false;
         },0.1);

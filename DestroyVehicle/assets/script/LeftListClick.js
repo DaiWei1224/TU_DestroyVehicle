@@ -6,7 +6,7 @@ cc.Class({
     properties: {
         list: cc.Node,
         mask: cc.Node,
-
+        soundTexture: cc.Node,
         OuterClick: {
             default: false, //点击其他按钮左侧栏自动收回的判断标志
         },
@@ -22,7 +22,7 @@ cc.Class({
             {
                 self.OuterClick = false;
 
-                self.list.runAction(cc.moveBy(0.1,200,0));
+                self.list.runAction(cc.moveBy(0.1,150,0));
 
                 self.mask.active = true;
 
@@ -32,7 +32,7 @@ cc.Class({
             }
             else
             {
-                self.list.runAction(cc.moveBy(0.1,-200,0));    
+                self.list.runAction(cc.moveBy(0.1,-150,0));    
 
                 self.scheduleOnce(function(){
                     self.mask.active = false;
@@ -62,6 +62,27 @@ cc.Class({
         });
         console.log("分享");
     },
+
+    soundSettings() {
+        var self = this;
+        if(Sound.SoundVolume == 1){
+            Sound.SoundVolume = 0;
+            cc.loader.loadRes('Sound/soundClose', cc.SpriteFrame, function (err, texture) {
+                if(err){
+                    console.log(err);
+                }                   
+                self.soundTexture.getComponent(cc.Sprite).spriteFrame = texture;
+            });
+        }else{
+            Sound.SoundVolume = 1;
+            cc.loader.loadRes('Sound/soundOpen', cc.SpriteFrame, function (err, texture) {
+                if(err){
+                    console.log(err);
+                }                   
+                self.soundTexture.getComponent(cc.Sprite).spriteFrame = texture;
+            });
+        }
+    }
 
     // update (dt) {
     //     console.log(this.OuterClick);
