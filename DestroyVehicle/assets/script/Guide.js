@@ -30,6 +30,7 @@ cc.Class({
         WorkerBody:cc.Node,
         //WorkerArm:cc.Node,
         FirstWeapon:cc.Node,
+        ClickMask:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -40,6 +41,7 @@ cc.Class({
         this.WorkerBody=cc.find("Canvas/zache");
         //this.WorkerArm.active=false;
         this.WorkerBody.active=false;
+        this.ClickMask.active=false;
     },
     StopWorker(){
         if(this.HitVehicle.count>=-5000&&this.GuideStep<4000){
@@ -125,6 +127,7 @@ cc.Class({
                         this.WorkerMask.active=true;
                         self.node.setContentSize(1200,1800);
                         this.GuideLable.getComponent(cc.Label).string="恭喜您解锁了工人";
+                        this.ClickMask.active=true;
                         this.GuideLable.setPosition(0,25);
                         this.GuideStep++;
                         //var HitVehicle=cc.find("Canvas/Vehicle").getComponent("HitVehicle");

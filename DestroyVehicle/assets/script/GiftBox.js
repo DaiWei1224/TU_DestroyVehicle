@@ -22,6 +22,9 @@ cc.Class({
         OpenImage:cc.SpriteFrame,
 
         RankToArmRank:[Number],
+
+        GiftWindow:cc.Node,
+        WindowConfirmed:Boolean,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -61,8 +64,10 @@ cc.Class({
             15,16,17,
             16,17,17);
         this.CanOpen=false;
-        this.Time=300;
+        this.WindowConfirmed=false;
+        this.Time=10;
         this.schedule(function(){
+            
             if(this.Time>0){
                 this.Time-=1;
                 var min=Math.floor(this.Time/60);
@@ -78,17 +83,23 @@ cc.Class({
                     this.ContentNum=Math.ceil(weapon_info.level_now/2)+1;
                     this.NumberBG.active=true;
                     this.NumberLabel.getComponent(cc.Label).string=this.ContentNum;
-                    var ShakeEffact=cc.repeatForever(cc.sequence(cc.rotateTo(0.05,20),cc.rotateTo(0.1,-20),cc.rotateTo(0.1,20),cc.rotateTo(0.05,0),cc.delayTime(1.5)));
+                    var ShakeEffact=cc.repeatForever(cc.sequence(cc.rotateTo(0.05,20),cc.rotateTo(0.1,-20),cc.rotateTo(0.1,20),cc.rotateTo(0.05,0),cc.delayTime(1)));
                     this.node.runAction(ShakeEffact);
+                    //this.GiftWindow.active=true;
+                    //var actionFadeIn = cc.spawn(cc.fadeTo(Popup._animSpeed, 255), cc.scaleTo(Popup._animSpeed, 1));
+                    //this.GiftWindow.runAction(actionFadeIn);
                 }
             }
         },1);
+        
     },
 
     OpenBox()
     {
         if(this.CanOpen==true)
         {
+            if(this.WindowConfirmed==true)
+            {
             var combineM= require("CombineManager");
             var armtype=parseInt(this.InstRandWeapon());
 
@@ -104,15 +115,19 @@ cc.Class({
                     this.node.getComponent(cc.Sprite).spriteFrame=this.CloseImage;
                     this.NumberBG.active=false;
                     this.CanOpen=false;
-                    this.Time=300;
+                    this.Time=10;
                     this.node.stopAllActions();
                     this.node.runAction(cc.rotateTo(0.05,0));
+                    this.WindowConfirmed=false;
                 }
             }
-            /*else
+            }
+            else
             {
-                Sound.PlaySound("Buzzer1");
-            }*/
+                this.GiftWindow.active=true;
+                var actionFadeIn = cc.spawn(cc.fadeTo(Popup._animSpeed, 255), cc.scaleTo(Popup._animSpeed, 1));
+                this.GiftWindow.runAction(actionFadeIn);
+            }
         }
     },
 
@@ -141,4 +156,23 @@ cc.Class({
             return this.RankToArmRank[parseInt(weapon_info.level_now*3)+2];
         }
     },
+
+    CloseGiftWindow()
+    {
+        var finished = cc.callFunc(function () {
+            this.GiftWindow.active=false;
+        }, this);
+        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), finished);
+        this.GiftWindow.runAction(actionFadeOut);
+    },
+
+    ConfirmGiftWindow()
+    {
+        var finished = cc.callFunc(function () {
+            this.GiftWindow.active=false;
+            this.WindowConfirmed=true;
+        }, this);
+        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), finished);
+        this.GiftWindow.runAction(actionFadeOut);
+    }
 });

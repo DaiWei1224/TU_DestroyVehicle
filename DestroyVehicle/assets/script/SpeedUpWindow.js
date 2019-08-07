@@ -47,7 +47,7 @@ cc.Class({
 
     DestroyItSelf()
     {
-        Sound.PlaySound("touch");
+        Sound.PlaySound("Buzzer1");
         self.mask.destroy();
         var finished = cc.callFunc(function () {
             self.node.destroy();

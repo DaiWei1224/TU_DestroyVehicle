@@ -350,6 +350,7 @@ cc.Class({
 
     ArmDelet(downslot)
     {
+        Sound.PlaySound("switch");
         self.FollowArm.destroy();
         self.ArmImagesArry[downslot].destroy();
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
@@ -361,9 +362,9 @@ cc.Class({
         money.partnum = parseInt(money.partnum)+Math.floor(0.8*parseInt(weapon_info.getPrice(self.ArmArry[downslot],0)));
         part.string=money.getlabel(money.partnum);
        self.ArmArry[downslot]=-1;
-       var nodepath="Canvas/Slot/Slot"+(parseInt(downslot)+1)+"/level_num/num";
+       //var nodepath="Canvas/Slot/Slot"+(parseInt(downslot)+1)+"/level_num/num";
       // console.log(nodepath);
-       cc.find(nodepath).getComponent(cc.Label).string=0;
+       //cc.find(nodepath).getComponent(cc.Label).string=0;
         self.DustbinChange=false;
         self.DustbinNode.opacity=200;
         var action = cc.scaleTo(0.15, 1,1);
@@ -550,6 +551,8 @@ cc.Class({
                 self.ArmArry[i]=ArmRank;
                 var Armi =cc.instantiate(self.WeaponNode);
                 Armi.getComponent(cc.Sprite).spriteFrame=self.ArmSpritFrameArry[self.ArmArry[i]];
+                var Num=Armi.getChildByName("num");
+                Num.getComponent(cc.Label).string=parseInt(ArmRank)+1;
                 self.node.addChild(Armi);
                 self.ArmImagesArry[i]=Armi;
                 Armi.setPosition(self.SlotPositionArry[i]);
@@ -558,11 +561,7 @@ cc.Class({
                 money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(ArmRank)/weapon_info.gettime(ArmRank));
                 console.log("此时塑料布"+money.speednum);
                 speed.string="+"+money.getlabel(money.speednum)+"/s";
-                var Armi =cc.instantiate(self.WeaponNode);
-                var Num=Armi.getChildByName("num");
-                Num.getComponent(cc.Label).string=parseInt(ArmRank)+1;
-                //var nodepath="Canvas/Slot/Slot"+(parseInt(i)+1)+"/level_num/num";
-                //cc.find(nodepath).getComponent(cc.Label).string=parseInt(ArmRank)+1;
+
                 var abcc=function(){
                 if(self.ArmArry[i]=='-1')
                 {
