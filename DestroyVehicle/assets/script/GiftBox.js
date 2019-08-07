@@ -65,7 +65,7 @@ cc.Class({
             16,17,17);
         this.CanOpen=false;
         this.WindowConfirmed=false;
-        this.Time=10;
+        this.Time=300;
         this.schedule(function(){
             
             if(this.Time>0){
@@ -115,7 +115,7 @@ cc.Class({
                     this.node.getComponent(cc.Sprite).spriteFrame=this.CloseImage;
                     this.NumberBG.active=false;
                     this.CanOpen=false;
-                    this.Time=10;
+                    this.Time=300;
                     this.node.stopAllActions();
                     this.node.runAction(cc.rotateTo(0.05,0));
                     this.WindowConfirmed=false;
@@ -162,8 +162,9 @@ cc.Class({
         var finished = cc.callFunc(function () {
             this.GiftWindow.active=false;
         }, this);
-        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), finished);
+        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 2)), finished);
         this.GiftWindow.runAction(actionFadeOut);
+        Sound.PlaySound("Buzzer1");
     },
 
     ConfirmGiftWindow()
@@ -172,7 +173,8 @@ cc.Class({
             this.GiftWindow.active=false;
             this.WindowConfirmed=true;
         }, this);
-        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), finished);
+        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 2)), finished);
         this.GiftWindow.runAction(actionFadeOut);
+        Sound.PlaySound("touch");
     }
 });

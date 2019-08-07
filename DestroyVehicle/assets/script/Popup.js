@@ -156,8 +156,8 @@ Popup.show = function (
                 temp2 = temp.getChildByName("item" + i);
                 temp2.destroy();
             }
-
-            Sound.PlaySound("touch");
+            Sound.PlaySound("Buzzer1");
+            //Sound.PlaySound("touch");
         }else if(type == 'offLineProfit'){
             Sound.PlaySound("money");
         }

@@ -53,7 +53,7 @@ cc.Class({
         //self.diamonds.string = self.getUserData("diamonds",0);
         self.diamonds.string=money.getlabel(money.diamondnum);
         //读取零件数
-        money.partnum = parseInt(self.getUserData("parts", 90));
+        money.partnum = parseInt(self.getUserData("parts", 50));
         self.parts.string=money.getlabel(money.partnum);
         //读取零件增加速度
         money.speednum = self.getUserData("partsSpeed", 2.5);
@@ -132,7 +132,7 @@ cc.Class({
     InitializationTest: function(){
         cc.sys.localStorage.setItem("level", 1);
         cc.sys.localStorage.setItem("diamonds", 0);
-        cc.sys.localStorage.setItem("parts", 90);
+        cc.sys.localStorage.setItem("parts", 50);
         cc.sys.localStorage.setItem("restBlood",100);
         cc.sys.localStorage.setItem("allBlood",100);
         cc.sys.localStorage.setItem("MaxArmRank", 0);

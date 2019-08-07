@@ -50,8 +50,8 @@ cc.Class({
 
         this.DustbinChange=false;
         //载入武器槽信息，通过零件数判断是否第一次进入游戏
-        var temp = self.getUserData("parts",90);
-        if(temp == 90){
+        var temp = self.getUserData("parts",50);
+        if(temp == 50){
             self.ArmArry = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
         }
         else{
@@ -362,9 +362,6 @@ cc.Class({
         money.partnum = parseInt(money.partnum)+Math.floor(0.8*parseInt(weapon_info.getPrice(self.ArmArry[downslot],0)));
         part.string=money.getlabel(money.partnum);
        self.ArmArry[downslot]=-1;
-       //var nodepath="Canvas/Slot/Slot"+(parseInt(downslot)+1)+"/level_num/num";
-      // console.log(nodepath);
-       //cc.find(nodepath).getComponent(cc.Label).string=0;
         self.DustbinChange=false;
         self.DustbinNode.opacity=200;
         var action = cc.scaleTo(0.15, 1,1);
