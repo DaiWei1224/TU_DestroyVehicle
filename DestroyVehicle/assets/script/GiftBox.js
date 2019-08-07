@@ -26,11 +26,6 @@ cc.Class({
         GiftWindow:cc.Node,
         WindowConfirmed:Boolean,
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
-
     
     start () {
         this.RankToArmRank=new Array(0,0,0
@@ -80,14 +75,14 @@ cc.Class({
                     this.CanOpen=true;
                     this.TimeNode.getComponent(cc.Label).string=" ";
                     this.node.getComponent(cc.Sprite).spriteFrame=this.OpenImage;
-                    this.ContentNum=Math.ceil(weapon_info.level_now/2)+1;
+                    if(weapon_info.level_now<=10)
+                        this.ContentNum=6;
+                    else{
+                        this.ContentNum=Math.ceil(weapon_info.level_now/2)+1;}
                     this.NumberBG.active=true;
                     this.NumberLabel.getComponent(cc.Label).string=this.ContentNum;
                     var ShakeEffact=cc.repeatForever(cc.sequence(cc.rotateTo(0.05,20),cc.rotateTo(0.1,-20),cc.rotateTo(0.1,20),cc.rotateTo(0.05,0),cc.delayTime(1)));
                     this.node.runAction(ShakeEffact);
-                    //this.GiftWindow.active=true;
-                    //var actionFadeIn = cc.spawn(cc.fadeTo(Popup._animSpeed, 255), cc.scaleTo(Popup._animSpeed, 1));
-                    //this.GiftWindow.runAction(actionFadeIn);
                 }
             }
         },1);
@@ -131,28 +126,23 @@ cc.Class({
         }
     },
 
-    // update (dt) {},
 
     InstRandWeapon()
     {
-        //console.log("aaa"+this.RankToArmRank[20]);
         if(weapon_info.level_now<=1)
         return 0;
         var rand=Math.random();
         if(rand<=0.05){
-            //console.log(this.RankToArmRank[1]);
             return this.RankToArmRank[parseInt(weapon_info.level_now*3)];
             
         }
 
         else   if(rand<=0.2)
         {
-            //console.log(this.RankToArmRank[10]);
         return this.RankToArmRank[parseInt(weapon_info.level_now*3)+1];
         }
         else 
         {
-            //console.log(this.RankToArmRank[19]);
             return this.RankToArmRank[parseInt(weapon_info.level_now*3)+2];
         }
     },

@@ -54,7 +54,6 @@ VehiclePopup.show = function (
         if(!dl){
             console.log("节点为空");
             }else{
-                //dl.getComponent(cc.Label) = detailString;   //设置新车辆名称
                 dl.getComponent(cc.Label).string = detailString;
             }
 
@@ -83,28 +82,8 @@ VehiclePopup.show = function (
 
         // 展现 alert
         self.startFadeIn();
-
-        // 参数
-        //self.configAlert(detailString, enterCallBack, needCancel, animSpeed);
         
     });
-
-    // 参数
-    // self.configAlert = function (detailString, enterCallBack, needCancel, animSpeed) {
-
-    //     // 回调
-    //     Popup._enterCallBack = enterCallBack;
-
-    //     // 内容
-    //     Popup._detailLabel.string = detailString;
-    //     // 是否需要取消按钮
-    //     if (needCancel || needCancel == undefined) { // 显示
-    //         Popup._doubleButton.active = true;
-    //     } else {  // 隐藏
-    //         Popup._doubleButton.active = false;
-    //         Popup._directButton.x = 0;
-    //     }
-    // };
 
     // 执行弹进动画
     self.startFadeIn = function () {
@@ -133,9 +112,6 @@ VehiclePopup.show = function (
 
     // 按钮点击事件
     self.onButtonClicked = function(event){
-       /* if(name=="ok"){
-        console.log("确定按钮被电击");}
-        }*/
         enterCallBack();  //执行回调函数
         
         self.startFadeOut();
@@ -145,13 +121,11 @@ VehiclePopup.show = function (
     self.onDestory = function () {
         VehiclePopup._popup.destroy();
         VehiclePopup._type = null;
-        //Popup._enterCallBack = null;
         VehiclePopup._popup = null;
         VehiclePopup._detailLabel = null;
         VehiclePopup._directButton = null;
         VehiclePopup._imageRoute = null;
         VehiclePopup._profit = null;
-        //Popup._animSpeed = 0.3;
     };
 };
 

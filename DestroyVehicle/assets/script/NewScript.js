@@ -23,8 +23,6 @@ cc.Class({
     },
 
     start () {
-        //console.log(self.level+"!"+this.node.x);
-        //this.node.setPosition((360,640));
         self.NewArmImageNode.getComponent(cc.Sprite).spriteFrame = self.ArmImages[self.level];
         self.NewArmName.getComponent(cc.Label).string=" Lv."+(self.level+1)+" "+self.ArmNameArry[self.level]
         self.NewArmAttack.getComponent(cc.Label).string="攻击力 "+Math.floor(5*Math.pow(1.8,self.level));
@@ -39,33 +37,17 @@ cc.Class({
     {
         Sound.PlaySound("diamond");
         self.NewArmImageNode.getComponent(cc.Sprite).spriteFrame = null;
-        //加钻石 14+6*self.level
         money.diamondnum=parseInt(money.diamondnum)+14+6*self.level;
-        //console.log("钻石改编为"+money.diamondnum);
         cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label).string=money.getlabel(money.diamondnum);
         var finished = cc.callFunc(function () {
             self.node.destroy();
         }, this);
         var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), finished);
         self.node.runAction(actionFadeOut);
-        //this.node.destroy();
-    },
-
-    DestroyItSelf_double()
-    {
-        self.NewArmImageNode.getComponent(cc.Sprite).spriteFrame = null;
-        //加双倍钻石 28+12*self.level
-        var finished = cc.callFunc(function () {
-            self.node.destroy();
-        }, this);
-        var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), finished);
-        self.node.runAction(actionFadeOut);
-        //this.node.destroy();
     },
 
     SetArmLevel(armlevel)
     {
         self.level=armlevel;
     },
-    // update (dt) {},
 });

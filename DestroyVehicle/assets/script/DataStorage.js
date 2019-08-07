@@ -50,7 +50,6 @@ cc.Class({
         var date2 = 0; //上线时间
         //读取钻石数
         money.diamondnum=self.getUserData("diamonds",0);
-        //self.diamonds.string = self.getUserData("diamonds",0);
         self.diamonds.string=money.getlabel(money.diamondnum);
         //读取零件数
         money.partnum = parseInt(self.getUserData("parts", 50));
@@ -59,8 +58,6 @@ cc.Class({
         money.speednum = self.getUserData("partsSpeed", 2.5);
         self.speed.string = '+' + money.getlabel(money.speednum) + '/s';
         console.log("读取的速率"+money.speednum);
-    
-        //console.log("零件数"+money.partnum);
         //初始化weapon_info.weapon_num数组
         var MaxArmRank = self.getUserData("MaxArmRank", 0);
         weapon_info.level_now =parseInt(MaxArmRank);
@@ -80,8 +77,6 @@ cc.Class({
             }
             //计算离线收益速率
             var offLineSpeed = parseFloat(money.speednum) - parseInt(weapon_info.getatk(MaxArmRank)) / 2;
-            //console.log("工人速度" + parseInt(weapon_info.getatk(MaxArmRank)) / 2);
-            //console.log("收益速度" + offLineSpeed + "   离线时间" + leaveTime);
             money.partnum += leaveTime * offLineSpeed;
 
             self.parts.string = money.getlabel(money.partnum);   //将更新后的零件数保存到label
@@ -175,7 +170,6 @@ cc.Class({
         }
         //存储每个坑位对应的武器
         var slotState= cc.find("Canvas/SlotManager").getComponent("CombineManager");
-        //console.log(slotState.ArmArry);   
         var slot = {
             slot01: slotState.ArmArry[0],
             slot02: slotState.ArmArry[1],
@@ -200,10 +194,10 @@ cc.Class({
         var value = cc.sys.localStorage.getItem(key);
 
         if(value == "" || value == null){         
-            //console.log("no exist");
+            //no exist
             return dft;
         }else{
-            //console.log("exist");
+            //exist
             return value;
         }
     },

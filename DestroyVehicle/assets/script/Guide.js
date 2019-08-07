@@ -28,18 +28,14 @@ cc.Class({
 
         HitVehicle:null,
         WorkerBody:cc.Node,
-        //WorkerArm:cc.Node,
         FirstWeapon:cc.Node,
         ClickMask:cc.Node,
     },
 
-    // LIFE-CYCLE CALLBACKS:
     onLoad () {
         self=this;
         this.HitVehicle=cc.find("Canvas/Vehicle").getComponent("HitVehicle");
-        //this.WorkerArm=cc.find("Canvas/WorkerHit");
         this.WorkerBody=cc.find("Canvas/zache");
-        //this.WorkerArm.active=false;
         this.WorkerBody.active=false;
         this.ClickMask.active=false;
     },
@@ -57,14 +53,6 @@ cc.Class({
         this.CarMask.active=true;
 
         this.HitVehicle.count=-100000;
-        console.log(this.HitVehicle.count);
-        /*this.StopWorker=function(){
-            var HitVehicle=cc.find("Canvas/HitVehicle").getComponent("HitVehicle");
-            if(count>=-500&&this.GuideStep<4){
-                HitVehicle.count=-600;
-            }
-            else this.unschedule(StopWorker);
-        }*/
         this.schedule(this.StopWorker,800);
         this.GuideLable.getComponent(cc.Label).string="点击车辆砸车";
     },
@@ -118,11 +106,9 @@ cc.Class({
             case 3:
                 var levelstring=this.DataStorage.level.getComponent(cc.Label).string;
                     var Carlevel=parseInt(levelstring.slice(3));
-                    //console.log(levelstring+" level "+Carlevel);
                     if(Carlevel==2)
                     {
                         this.CarMask.destroy();
-                        //this.WorkerArm.active=true;
                         this.WorkerBody.active=true;
                         this.WorkerMask.active=true;
                         self.node.setContentSize(1200,1800);
@@ -130,7 +116,6 @@ cc.Class({
                         this.ClickMask.active=true;
                         this.GuideLable.setPosition(0,25);
                         this.GuideStep++;
-                        //var HitVehicle=cc.find("Canvas/Vehicle").getComponent("HitVehicle");
                         this.HitVehicle.count=0;
                     }
                     break;
@@ -144,10 +129,8 @@ cc.Class({
 
     TouchDown()
     {
-        console.log("dianji");
             if(this.GuideStep==4)
             {
-                console.log(this.WorkerGuideStep+"WorkerGuideStep"+this.GuideLable.name)
                 if(this.WorkerGuideStep==0)
                 {
                     this.GuideLable.getComponent(cc.Label).string="工人会使用您的武器为您砸车";
@@ -163,9 +146,6 @@ cc.Class({
                     this.WorkerMask.destroy();
                     this.GuideStep++;
                     this.SlotsMask.active=true;
-                    /*if(this.CombineManager.ArmArry[0]==1)
-                        this.CombineManager.selfSchedule(0);
-                    else this.CombineManager.selfSchedule(1);*/
                     this.GuideLable.getComponent(cc.Label).string="武器会自动产生金钱\n即便您已离线";
                     this.GuideLable.setPosition(0,100);
                 }

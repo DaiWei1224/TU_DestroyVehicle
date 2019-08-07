@@ -6,10 +6,7 @@ cc.Class({
         mask:cc.Node,
         ButtonNode:cc.Node,
         button:cc.Button,
-        //ButtunMask:cc.Node,
     },
-
-    // onLoad () {},
 
     start () {
         self=this;
@@ -19,7 +16,6 @@ cc.Class({
             self.button.interactable =false;
         }
         else self.button.interactable = true ;
-        //console.log("SUW");
         var actionFadeIn = cc.spawn(cc.fadeTo(Popup._animSpeed, 255), cc.scaleTo(Popup._animSpeed, 1));
         this.node.runAction(actionFadeIn);
     },
@@ -33,7 +29,6 @@ cc.Class({
             
             var mul2Button=cc.find('Canvas/mul2Button');console.log("nnn"+mul2Button.name);
             mul2Button.getComponent("SpeedUp").DoubleIncomeTime+=60;
-            //mul2Button.getComponent("SpeedUp").AddDoubleIncomeTime(60);
             money.diamondnum -= 10;
 
             cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label).string = money.getlabel(money.diamondnum);
@@ -55,5 +50,4 @@ cc.Class({
         var actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 0)), finished);
         self.node.runAction(actionFadeOut);
     },
-    // update (dt) {},
 });

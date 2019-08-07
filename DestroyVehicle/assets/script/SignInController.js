@@ -127,15 +127,10 @@ cc.Class({
         var value = cc.sys.localStorage.getItem(key);
 
         if(value == "" || value == null){         
-            //console.log("no exist");
             return dft;
         }else{
-            //console.log("exist");
             return value;
         }
     },
 
-    // start () {},
-
-    // update (dt) {},
 });

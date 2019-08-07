@@ -56,13 +56,9 @@ weapon_info.getPrice=function(weapon_kind,weapon_num){
     return price;
 };
 weapon_info.changeweapon=function(){
-    //console.log("当前等级为"+weapon_info)
     var max=0;
-    console.log("当前等级"+weapon_info.level_now);
     if(parseInt(weapon_info.level_now)>=4)
     {
-        console.log("更换武器");
-        
         max=weapon_info.level_now-4;
         var best=max;
         var price=weapon_info.getPrice(max,weapon_info.weapon_nums[max]);
@@ -72,15 +68,12 @@ weapon_info.changeweapon=function(){
         for(i=0;i<4 && max >= 0;i++){
             max=max-1;
              price=weapon_info.getPrice(max,weapon_info.weapon_nums[max])*Math.pow(2,parseInt(i+1));
-             console.log("编号为"+max+"的价格我饿"+price);
-             console.log("编号为"+best+"的价格我饿"+bestprice);
              if(price<bestprice)
              {
                  best=max;
                  bestprice=price;
              }
         }
-        console.log(best);
         weapon_info.weapon_kind=best;
         return best;
     }
@@ -91,12 +84,8 @@ weapon_info.changeweapon=function(){
     
    
 };
-/*weapon_info.getatk=function(weapon_kind){
-    var atk=(parseInt(weapon_kind)+2)*10; 
-    return atk;
-};*/
 weapon_info.getatk=function(weapon_kind){
-    var atk=10*Math.pow(1.81,weapon_kind); 
+    var atk=10*Math.pow(1.51,weapon_kind); 
     return Math.floor(atk);
 };
 weapon_info.getattack=function(weapon_kind)

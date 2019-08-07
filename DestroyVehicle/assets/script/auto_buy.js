@@ -9,10 +9,7 @@ cc.Class({
 
     },
 
-    //
-
     onLoad () {
-        //console.log("这个程序开始执行了");
         var self = this;
 
         //初始化按键信息
@@ -47,30 +44,26 @@ cc.Class({
         }
 
         self.node.on("touchstart",function(){
-            //console.log("触摸程序执行了");
 
-            self.weapon_num = parseInt(weapon_info.weapon_nums[self.weapon_kind]);
-
+            self.weapon_num = parseInt(weapon_info.weapon_nums[weapon_info.weapon_kind]);
+            self.weapon_kind=weapon_info.weapon_kind;
             var sets=cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
             var sets_num=money.partnum;
             
-            //var price=cc.find("New Canvas/auto_buy/auto_lable").getComponent(cc.Label);
             sets_num -= parseInt(weapon_info.getPrice(self.weapon_kind,self.weapon_num));
 
-            //console.log("已经购买了编号为"+self.weapon_kind+"的武器，此时已经购买了"+self.weapon_num+"把");
             self.weapon_num+=1;
             weapon_info.weapon_nums[self.weapon_kind] = self.weapon_num;
-           //扣钱//扣钱
-            //console.log("现在还剩"+sets.string+"个零件");
+            console.log("已经购买了"+self.weapon_num);
+           //扣钱
             var abc=require("CombineManager");
             var flag=abc.InstNewArm(weapon_info.weapon_kind);
-            //console.log(flag);
             if(flag == '1')
             {
                 Sound.PlaySound("buy");
                 self.weapon_kind = weapon_info.changeweapon();
-                //console.log("编号为"+self.weapon_kind);
                 self.weapon_num = weapon_info.weapon_nums[self.weapon_kind];
+                console.log("等级是"+self.weapon_kind+"数量是"+self.weapon_num);
                 //更新打击后价格
                 price.string = money.getlabel(weapon_info.getPrice(self.weapon_kind,weapon_info.weapon_nums[weapon_info.weapon_kind]));
                 //更新最优武器图片
@@ -91,21 +84,16 @@ cc.Class({
                 sets.string = money.getlabel(sets_num);
 
                 if(sets_num < parseInt(weapon_info.getPrice(self.weapon_kind,self.weapon_num))){
-                    //console.log("钱不够再买了")
-                    console.log(sets_num+"   "+weapon_info.getPrice(self.weapon_kind,self.weapon_num));
+                    //钱不够再买了
                     self.mask.active=true;
                 }
-                else{
-                  
-                    // console.log(sets_num);
-                    // console.log(price.string);
-                    // console.log("金钱充足");
+                else{//金钱充足
                 }
                     
             }
             else{
                 if(sets_num <  parseInt(weapon_info.getPrice(self.weapon_kind,self.weapon_num))){
-                    //console.log("钱不够再买了")
+                    //钱不够再买了
                     self.mask.active=true;
                 }
             }
@@ -121,10 +109,8 @@ cc.Class({
         var value = cc.sys.localStorage.getItem(key);
 
         if(value == "" || value == null){         
-            //console.log("no exist");
             return dft;
         }else{
-            //console.log("exist");
             return value;
         }
     },

@@ -2,11 +2,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // item_prefab: {
-        //     type: cc.Prefab,
-        //     default: null,
-        // },
-
         opt_item_prefab: {
             type: cc.Prefab,
             default: null,
@@ -19,9 +14,6 @@ cc.Class({
     },
 
     onLoad: function () {
-        // var item = cc.instantiate(this.item_prefab);
-        // this.node.addChild(item);
-
 
         for(var i = 0; i < 10; i ++) {
             var opt_item = cc.instantiate(this.opt_item_prefab);

@@ -12,8 +12,6 @@ cc.Class({
         },
     },
 
-    // onLoad () {},
-
     start () {
         var self=this;
 
@@ -83,8 +81,4 @@ cc.Class({
             });
         }
     }
-
-    // update (dt) {
-    //     console.log(this.OuterClick);
-    // },
 });

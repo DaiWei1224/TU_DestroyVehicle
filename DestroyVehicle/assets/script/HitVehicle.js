@@ -138,17 +138,11 @@ cc.Class({
             //获取当前点击的全局坐标
             var pos = event.getLocation();
             //获取当前点击的局部坐标
-            pos=self.node.convertToNodeSpaceAR(pos);
-            //console.log(pos.x, pos.y);   
+            pos=self.node.convertToNodeSpaceAR(pos);   
    
             //设置武器击打时出现的位置
             self.weapon.x = pos.x + 50;  
             self.weapon.y = pos.y + 200;   
-
-            //通过代码设计击打动画
-            //self.weapon.angle = -80;
-            //let act1 = cc.sequence(cc.rotateTo(0.1,-20),cc.rotateTo(0.1,-80));
-            //self.weapon.runAction(act1);    
             
             //播放击打动画
             var anim = self.weapon.getComponent(cc.Animation);
@@ -166,7 +160,6 @@ cc.Class({
                 if (!node) return
                 //杀死所有存在的粒子，然后重新启动粒子发射器。
                 node.getComponent(cc.ParticleSystem).resetSystem();
-                //cc.log("子节点数:" + this.node.children.length);
                 this.node.children.forEach(element => {
                     if (element.name === 'clickNode') {        
                         //获取粒子系统组件
@@ -175,7 +168,6 @@ cc.Class({
                         if (particle.stopped) {
                             //特效播放完毕的节点放入对象池
                             this._clickPool.put(element);
-                            //cc.log("顺利回收...");
                         }
                     }
                 });
@@ -189,44 +181,32 @@ cc.Class({
 
             var pl = money.partnum;
 
-            if(date.getMilliseconds() % 10 == 0){
-               // var decBlood = self.power * 2 / self.allBlood;
-                //console.log(decBlood);    
+            if(date.getMilliseconds() % 10 == 0){  
                 var decBlood = self.clickPower*2/ self.allBlood;            
                 self.blood.progress -= decBlood;     //暴击，耐久度-0.1
 
-                //self.restBlood -= self.power * 2;
-                //self.restBlood -= 5 * 2;
                 self.restBlood -= self.clickPower * 2;
 
-                //pl += self.power*10;     //金币+50
                 pl += 5*2*10; 
-                //self.showRollNotice('-' + (self.power * 2));
+
                 self.check(pl);
                 self.showRollNotice('-' + self.clickPower*2);
-                //Sound.PlaySound("Crash");
                 Sound.PlaySound("hit");
             }
             else{
-                //var decBlood = self.power / self.allBlood;
-                //console.log(decBlood);
                 var decBlood = self.clickPower / self.allBlood;
                 self.blood.progress -= decBlood;    //耐久度-0.01
 
-                //self.restBlood -= self.power;
                 self.restBlood -= self.clickPower;
-                console.log("攻击力"+self.power);
-                //pl += self.power;      //金币+5
                 pl+=5*2;
                 self.check(pl);
-                //self.showRollNotice('-' + self.power);
                 self.showRollNotice('-' + self.clickPower);
                 Sound.PlaySound("hit");
             } 
 
             if(self.blood.progress>=0)
             {
-                self.percentageLabel.string = /*parseInt*/Math.ceil(self.blood.progress * 100) + "%";
+                self.percentageLabel.string = Math.ceil(self.blood.progress * 100) + "%";
             }
             else{
                 self.percentageLabel.string=0+"%";
@@ -241,9 +221,6 @@ cc.Class({
             else{
                 self.bloodLabel.string = "0/" + self.allBlood;
             }
-
-            //module.exports.partsLabel = partsLabel;
-
         });
         
     },
@@ -266,16 +243,12 @@ cc.Class({
         });
     },
     showRollNotice(str) {
-        //console.log("开始执行主程序");
         let label = this.createShowNode(str);
 
         //时间 秒数
         let holdTime = 1;
 
-         // var callback = cc.callFunc(this.onComplete, this);
         let sequence = cc.sequence(cc.spawn(cc.fadeTo(holdTime, 0),cc.moveTo(holdTime,0,500)), cc.callFunc(function(target, score) {
-            //this.rollNoticeList.shift();
-            // target.removeFromParent(false)
             target.destroy();
         }, this))//动作完成后删除
         label.runAction(sequence);
@@ -288,10 +261,10 @@ cc.Class({
         var value = cc.sys.localStorage.getItem(key);
 
         if(value == "" || value == null){         
-            //console.log("no exist");
+            //no exist
             return dft;
         }else{
-            //console.log("exist");
+            //exist
             return value;
         }
     },
@@ -303,8 +276,6 @@ cc.Class({
         //一秒60帧，120表示工人2秒砸一次
         if(self.count == 60){   
             self.count = 0;
-            //var anim = self.worker.getComponent(cc.Animation);
-            //anim.play();
             var anim = self.worker.getComponent(sp.Skeleton);    
             anim.clearTracks();
             anim.addAnimation(0,'zache',false,0);
@@ -315,7 +286,6 @@ cc.Class({
                 if (!node) return
                 //杀死所有存在的粒子，然后重新启动粒子发射器。
                 node.getComponent(cc.ParticleSystem).resetSystem();
-                //cc.log("子节点数:" + this.node.children.length);
                 this.node.children.forEach(element => {
                     if (element.name === 'clickNode') {        
                         //获取粒子系统组件
@@ -324,7 +294,6 @@ cc.Class({
                         if (particle.stopped) {
                             //特效播放完毕的节点放入对象池
                             this._clickPool.put(element);
-                            //cc.log("顺利回收...");
                         }
                     }
                 });
@@ -337,12 +306,11 @@ cc.Class({
             self.restBlood -= self.power;
 
             pl += self.power;     //金币+5
-            console.log("攻击力"+self.power);
             self.check(pl);
             self.showRollNotice('-' + self.power);
 
             if(self.blood.progress>=0){
-                self.percentageLabel.string = /*parseInt*/Math.ceil(self.blood.progress * 100) + "%";
+                self.percentageLabel.string = Math.ceil(self.blood.progress * 100) + "%";
             }
             else{
                 self.percentageLabel.string = 0 + "%";
@@ -358,7 +326,20 @@ cc.Class({
                 self.bloodLabel.string = "0/" + self.allBlood;
             }
         }
-
+        /////////////////////////////////////////////////////
+        var nextLevel = self.car_level + 2;
+        if(nextLevel > 30){
+            nextLevel = 30;
+        }
+        var thisImage = (nextLevel - 1)% 3;
+        if(thisImage == 0){
+            thisImage = 3;
+        }
+        var nextImage = nextLevel % 3;
+        if(nextImage == 0){
+            nextImage = 3;
+        }
+        /////////////////////////////////////////////////////
         //根据血量换车的图片和弹出弹窗
         if(self.blood.progress <0.00001){
             
@@ -370,31 +351,25 @@ cc.Class({
             Sound.PlaySound("bomb");
             this.CarBreakStage=0;
             //打爆车弹出窗口
+            
             VehiclePopup.show(
                 'prefab/NewVehicle', 
                 str,
-                //self.getVehicleName(self.car_level + 2),
-                self.getVehicleName(1),
-                //self.getImageRoute(self.car_level + 2),
-                self.getImageRoute(1),
+                self.getVehicleName(nextLevel),
+                self.getImageRoute(nextImage),
                 function(){
                 self.car_level += 1;//车的等级+1（从0开始）
                 self.allBlood = Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
 
-                self.allBlood = weapon_info.getatk(self.car_level)*10*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
-                //self.allBlood=200*Math.pow(1.35,self.car_level);
+                self.allBlood = weapon_info.getattack(self.car_level)*10*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
                 self.allBlood = Math.floor(self.allBlood);//取整
                 self.restBlood = self.allBlood;
                 self.bloodLabel.string = self.restBlood + "/" + self.allBlood;//血量
                 var car = cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
-                // var templevle=self.car_level+1;
-                // var temp="Lv."+templevle;
-                // car.string = temp;
                 car.string = "Lv." + (self.car_level + 1);
                 self.percentageLabel.string = 100+"%";//重置血条百分比
                 self.blood.progress = 1;//重置血条
-                //var filename="/vehicle/vehicle1_"+self.car_level;//申请当前等级的汽车资源
-                var filename = "/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_1";//申请当前等级的汽车资源
+                var filename = "/vehicle/vehicle" + nextImage + "_1";//申请当前等级的汽车资源
                 self.changeVehicle(filename,self);
             });
             var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
@@ -404,31 +379,27 @@ cc.Class({
             self.blood.progress = 1;
             
         }else if(self.blood.progress < 0.25&&this.CarBreakStage==2){
-            self.changeVehicle("/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_4", self);
+            self.changeVehicle("/vehicle/vehicle" + thisImage + "_4", self);
             this.CarBreakStage=3;
         }else if(self.blood.progress < 0.5&&this.CarBreakStage==1){
-            self.changeVehicle("/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_3", self);
+            self.changeVehicle("/vehicle/vehicle" + thisImage + "_3", self);
             this.CarBreakStage=2;
         }else if(self.blood.progress < 0.75&&this.CarBreakStage==0){
             this.CarBreakStage=1;
-            self.changeVehicle("/vehicle/vehicle" + ((self.car_level + 1) % 3 + 1) + "_2", self);
+            self.changeVehicle("/vehicle/vehicle" + thisImage + "_2", self);
         }    
 
     },
 
     check: function(pl){
         pl = parseInt(pl);
-        //console.log("签署者"+money.partnum);
-        //var price=cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
         var p=weapon_info.getPrice(weapon_info.weapon_kind,parseInt(weapon_info.weapon_nums[weapon_info.weapon_kind]));
         if(pl>=parseInt(p))
         {
-            console.log(pl+"  "+ weapon_info.weapon_kind+"  "+weapon_info.weapon_nums[weapon_info.weapon_kind]);
-            console.log(parseInt(weapon_info.getPrice(weapon_info.weapon_kind,weapon_info.weapon_nums[weapon_info.weapon_kind])+1));
             cc.find("Canvas/autobuyButton/mask").active=false;
         }
         else{
-            console.log("当前的钱为"+ pl + "价格为" + p);
+
         }
     },
 

@@ -58,39 +58,6 @@ Popup.show = function (
             Popup._directButton.on('click', self.onButtonClicked, self);
             console.log("close button found");
 
-        // }else if(type == 'newVehicle'){
-
-        //     var dl= cc.find('vehicleName', _popup);
-        //     if(!dl){
-        //         console.log("节点为空");
-        //     }else{
-        //         //dl.getComponent(cc.Label) = detailString;   //设置新车辆名称
-        //         dl.getComponent(cc.Label).string = detailString;
-        //     }
-
-        //     dl= cc.find('diamNum', _popup);
-        //     if(!dl){
-        //         console.log("节点为空");
-        //     }else{
-        //         dl.getComponent(cc.Label).string = profit; // 设置钻石数Label
-        //     }
-
-        //     dl= cc.find('newVehicle', _popup);
-        //     if(!dl){
-        //         console.log("节点为空");
-        //     }else{
-        //         // 设置新车辆图片
-        //         cc.loader.loadRes(imageRoute, cc.SpriteFrame, function (err, texture) {
-        //             if(err){
-        //                 console.log(err);
-        //             }                   
-        //             dl.getComponent(cc.Sprite).spriteFrame = texture;
-        //         });
-        //     }
-
-        //     Popup._directButton = cc.find("direct", _popup);
-        //     Popup._directButton.on('click', self.onButtonClicked, self);
-
         }else if(type == 'offLineProfit'){
 
             var dl= cc.find('diamNum', _popup);
@@ -109,26 +76,8 @@ Popup.show = function (
         self.startFadeIn();
 
         // 参数
-        //self.configAlert(detailString, enterCallBack, needCancel, animSpeed);
         
     });
-
-    // 参数
-    // self.configAlert = function (detailString, enterCallBack, needCancel, animSpeed) {
-
-    //     // 回调
-    //     Popup._enterCallBack = enterCallBack;
-
-    //     // 内容
-    //     Popup._detailLabel.string = detailString;
-    //     // 是否需要取消按钮
-    //     if (needCancel || needCancel == undefined) { // 显示
-    //         Popup._doubleButton.active = true;
-    //     } else {  // 隐藏
-    //         Popup._doubleButton.active = false;
-    //         Popup._directButton.x = 0;
-    //     }
-    // };
 
     // 执行弹进动画
     self.startFadeIn = function () {
@@ -157,7 +106,6 @@ Popup.show = function (
                 temp2.destroy();
             }
             Sound.PlaySound("Buzzer1");
-            //Sound.PlaySound("touch");
         }else if(type == 'offLineProfit'){
             Sound.PlaySound("money");
         }
@@ -178,9 +126,6 @@ Popup.show = function (
 
     // 按钮点击事件
     self.onButtonClicked = function(event){
-       /* if(name=="ok"){
-        console.log("确定按钮被电击");}
-        }*/
         if(type == 'newVehicle'){
             enterCallBack();  //执行回调函数
         }
@@ -191,13 +136,11 @@ Popup.show = function (
     self.onDestory = function () {
         Popup._popup.destroy();
         Popup._type = null;
-        //Popup._enterCallBack = null;
         Popup._popup = null;
         Popup._detailLabel = null;
         Popup._directButton = null;
         Popup._imageRoute = null;
         Popup._profit = null;
-        //Popup._animSpeed = 0.3;
     };
 };
 
