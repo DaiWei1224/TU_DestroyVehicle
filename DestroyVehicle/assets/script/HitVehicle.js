@@ -216,7 +216,7 @@ cc.Class({
             self.partsLabel.string = money.getlabel(pl); 
             if(self.restBlood>=0)
             {
-                self.bloodLabel.string = self.restBlood + "/" + self.allBlood;
+                self.bloodLabel.string = money.getlabel(self.restBlood) + "/" + money.getlabel(self.allBlood);
             }
             else{
                 self.bloodLabel.string = "0/" + self.allBlood;
@@ -280,6 +280,11 @@ cc.Class({
             anim.clearTracks();
             anim.addAnimation(0,'zache',false,0);
             //击打火花
+            
+                let act2 = cc.sequence(cc.moveBy(0.1,0,0),cc.moveBy(0.1,-5,0),cc.moveBy(0.2,10,0),cc.moveBy(0.1,-5,0));
+                self.node.runAction(act2);
+        
+           
             Sound.PlaySound("hit");
             self.newClickNode(self.workerPos, function (node) {
     
@@ -320,10 +325,10 @@ cc.Class({
             self.partsLabel.string = money.getlabel(pl); ;   //将更新后的金币数保存到label
 
             if(self.restBlood >= 0){
-                self.bloodLabel.string = self.restBlood + "/" + self.allBlood;
+                self.bloodLabel.string = money.getlabel(self.restBlood) + "/" + money.getlabel(self.allBlood);
             }
             else{
-                self.bloodLabel.string = "0/" + self.allBlood;
+                self.bloodLabel.string = "0/" + money.getlabel(self.allBlood);
             }
         }
         /////////////////////////////////////////////////////
@@ -351,7 +356,7 @@ cc.Class({
             Sound.PlaySound("bomb");
             this.CarBreakStage=0;
             //打爆车弹出窗口
-            
+            self.count=-600000;
             VehiclePopup.show(
                 'prefab/NewVehicle', 
                 str,
@@ -361,16 +366,17 @@ cc.Class({
                 self.car_level += 1;//车的等级+1（从0开始）
                 self.allBlood = Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
 
-                self.allBlood = weapon_info.getattack(self.car_level)*10*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
+                self.allBlood = weapon_info.getattack(self.car_level)*20*self.allBlood;//根据公式计算的总血量 是跟车同等级的武器砸20*1.23的n-1次方
                 self.allBlood = Math.floor(self.allBlood);//取整
                 self.restBlood = self.allBlood;
-                self.bloodLabel.string = self.restBlood + "/" + self.allBlood;//血量
+                self.bloodLabel.string = money.getlabel(self.restBlood) + "/" + money.getlabel(self.allBlood);//血量
                 var car = cc.find("Canvas/Blood/level").getComponent(cc.Label);//改变等级
                 car.string = "Lv." + (self.car_level + 1);
                 self.percentageLabel.string = 100+"%";//重置血条百分比
                 self.blood.progress = 1;//重置血条
                 var filename = "/vehicle/vehicle" + nextImage + "_1";//申请当前等级的汽车资源
                 self.changeVehicle(filename,self);
+                self.count=0;
             });
             var diamond = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
             money.diamondnum=parseInt(money.diamondnum) + parseInt(str);

@@ -1,0 +1,56 @@
+{
+  "ver": "1.2.4",
+  "uuid": "c071f94d-ae4e-4740-87e1-1e8e612bf854",
+  "rawTextureUuid": "ef6e97ca-0bfe-4064-bc45-f6f0d882a6b6",
+  "size": {
+    "width": 1017,
+    "height": 802
+  },
+  "type": "Texture Packer",
+  "subMetas": {
+    "底.jpg": {
+      "ver": "1.0.4",
+      "uuid": "46c53cb6-338a-47a5-b219-cd5dd21c91d1",
+      "rawTextureUuid": "ef6e97ca-0bfe-4064-bc45-f6f0d882a6b6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 550,
+      "height": 800,
+      "rawWidth": 550,
+      "rawHeight": 800,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "spriteType": "normal",
+      "subMetas": {}
+    },
+    "整体.png": {
+      "ver": "1.0.4",
+      "uuid": "05a4acdf-3851-4a12-82f0-008e921deb43",
+      "rawTextureUuid": "ef6e97ca-0bfe-4064-bc45-f6f0d882a6b6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": true,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 553,
+      "trimY": 1,
+      "width": 531,
+      "height": 463,
+      "rawWidth": 531,
+      "rawHeight": 463,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "spriteType": "normal",
+      "subMetas": {}
+    }
+  }
+}

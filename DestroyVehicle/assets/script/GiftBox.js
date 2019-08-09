@@ -60,7 +60,7 @@ cc.Class({
             16,17,17);
         this.CanOpen=false;
         this.WindowConfirmed=false;
-        this.Time=300;
+        this.Time=180;
         this.schedule(function(){
             
             if(this.Time>0){
@@ -110,7 +110,7 @@ cc.Class({
                     this.node.getComponent(cc.Sprite).spriteFrame=this.CloseImage;
                     this.NumberBG.active=false;
                     this.CanOpen=false;
-                    this.Time=300;
+                    this.Time=180;
                     this.node.stopAllActions();
                     this.node.runAction(cc.rotateTo(0.05,0));
                     this.WindowConfirmed=false;

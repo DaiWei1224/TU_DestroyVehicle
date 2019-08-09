@@ -92,13 +92,24 @@ cc.Class({
         var receiveDayNum = this.getUserData("receiveDayNum", 0);
         //加钻石
         Sound.PlaySound("diamond");
-        if(receiveDayNum == 6){
+        /*if(receiveDayNum == 6){
             money.diamondnum += 80;
             this.diamondLabel.string = money.getlabel(money.diamondnum);
         }else{
             money.diamondnum += 10;
             this.diamondLabel.string = money.getlabel(money.diamondnum);
-        }
+        }*/
+        switch(receiveDayNum){
+            case '0':money.diamondnum += 400; break;
+            case '1':money.diamondnum += 450; break;
+            case '2':money.diamondnum += 500; break;
+            case '3':money.diamondnum += 550; break;
+            case '4':money.diamondnum += 600; break;
+            case '5':money.diamondnum += 650; break;
+            case '6':money.diamondnum += 800; break;
+            }
+            this.diamondLabel.string = money.getlabel(money.diamondnum);				
+          
         //将领取消光圈取后的项改为已领取并添加蒙板
         cc.find("SignIn/aWeek/day" + (parseInt(receiveDayNum) + 1) + "/light").active = false;
         cc.find("SignIn/aWeek/day" + (parseInt(receiveDayNum) + 1) + "/title").getComponent(cc.Label).string = "已领取";

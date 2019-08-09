@@ -25,6 +25,10 @@ cc.Class({
                 this.DoubleIncomeTime-=1;
                 if(this.DoubleIncomeTime==0){
                     weapon_info.weapon_earningspeed=1;
+                    console.log("sudu1="+money.speednum);
+                    money.speednum=(parseInt(money.speednum)+parseInt(weapon_info.getatk(weapon_info.level_now)))/2;
+                    console.log("sudu="+money.speednum);
+                    cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label).string="+"+money.getlabel(money.speednum)+"/s";
                     this.SpeedUpTime.getComponent(cc.Label).string="双倍金币";
                 }
             }

@@ -6,6 +6,7 @@ cc.Class({
         weapon_num:1,
         mask:cc.Node,
         label:cc.Node,
+        atlas:cc.SpriteAtlas,
 
     },
 
@@ -22,23 +23,23 @@ cc.Class({
         //更新最优武器图片
         var weaponImage = cc.find("Canvas/autobuyButton/Sprite").getComponent(cc.Sprite);
         if(parseInt(self.weapon_kind) + 1 < 10){
-            var filename = "/weapon/weapon0" + (parseInt(self.weapon_kind) + 1);
+            var filename = "weapon0" + (parseInt(self.weapon_kind) + 1);
         }else{
-            var filename = "/weapon/weapon" + (parseInt(self.weapon_kind) + 1);
+            var filename = "weapon" + (parseInt(self.weapon_kind) + 1);
         }
-        cc.loader.loadRes(filename, cc.SpriteFrame, function (err, texture) {
+        /*cc.loader.loadRes(filename, cc.SpriteFrame, function (err, texture) {
             if(err){
                 console.log(err);
             }                   
             weaponImage.spriteFrame = texture;
-        });
-
+        });*/
+        weaponImage.spriteFrame=self.atlas.getSpriteFrame(filename);
 
         var price=cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
         price.string = money.getlabel(weapon_info.getPrice(self.weapon_kind,self.weapon_num));
 
         money.partnum=parseInt(money.partnum);
-        if(money.partnum>parseInt(weapon_info.getPrice(self.weapon_kind,self.weapon_num)))
+        if(money.partnum>parseInt(weapon_info.getPrice(self.weapon_kind,weapon_info.weapon_nums[self.weapon_kind])))
         {
             cc.find("Canvas/autobuyButton/mask").active=false;
         }
@@ -69,21 +70,21 @@ cc.Class({
                 //更新最优武器图片
                 var weaponImage = cc.find("Canvas/autobuyButton/Sprite").getComponent(cc.Sprite);
                 if(parseInt(self.weapon_kind) + 1 < 10){
-                    var filename = "/weapon/weapon0" + (parseInt(self.weapon_kind) + 1);
+                    var filename = "weapon0" + (parseInt(self.weapon_kind) + 1);
                 }else{
-                    var filename = "/weapon/weapon" + (parseInt(self.weapon_kind) + 1);
+                    var filename = "weapon" + (parseInt(self.weapon_kind) + 1);
                 }
-                cc.loader.loadRes(filename, cc.SpriteFrame, function (err, texture) {
+               /* cc.loader.loadRes(filename, cc.SpriteFrame, function (err, texture) {
                     if(err){
                         console.log(err);
                     }                   
                     weaponImage.spriteFrame = texture;
-                });
-
+                });*/
+                weaponImage.spriteFrame=self.atlas.getSpriteFrame(filename);
                 money.partnum=sets_num;
                 sets.string = money.getlabel(sets_num);
 
-                if(sets_num < parseInt(weapon_info.getPrice(self.weapon_kind,self.weapon_num))){
+                if(sets_num < parseInt(weapon_info.getPrice(self.weapon_kind,weapon_info.weapon_nums[self.weapon_kind]))){
                     //钱不够再买了
                     self.mask.active=true;
                 }

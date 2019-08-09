@@ -1,8 +1,10 @@
+
 cc.Class({
     extends: cc.Component,
     properties: {
         atlas:cc.SpriteAtlas,
     },
+
     //点击商店按钮
     storeBtnClick: function(){
         var self = this;
@@ -114,9 +116,11 @@ cc.Class({
         var self = this;
         var CM = require("CombineManager");
         var flag = CM.InstNewArm(customEventData);
+        console.log("fshengle点击事件");
         //返回1代表还有空位，可以初始化
         if(flag == "1")
         {
+            console.log("成功购买");
             Sound.PlaySound("buy");
             //console.log(customEventData);
             customEventData = parseInt(customEventData);
@@ -180,9 +184,10 @@ cc.Class({
             }else if((customEventData > MaxArmRank - 4) && (customEventData < MaxArmRank - 1)){
                 //钻石购买
                 var diamonds = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
-
+                console.log("钻石购买");
                 var diamondsNum =money.diamondnum;
                 var weaponPrice = parseInt(weapon_info.getdiamondprice(customEventData,num));
+                console.log('weapondiamondprice='+weaponPrice);
                 if(diamondsNum >= weaponPrice){
                     diamondsNum -= weaponPrice;
                     money.diamondnum = diamondsNum;
@@ -192,6 +197,7 @@ cc.Class({
                     //购买后将最新的购买数量保存
                     weapon_info.weapon_nums[customEventData] = num;
                     var price = weapon_info.getdiamondprice(customEventData,num);
+                    console.log("钻石购买的价格hi"+price);
                     var pricelabel = cc.find(filename).getComponent(cc.Label);
                     pricelabel.string = money.getlabel(price);
                     //检查所有购买按钮是否金钱不足需要变灰    

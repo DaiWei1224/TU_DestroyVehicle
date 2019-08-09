@@ -1,7 +1,7 @@
 {
   "ver": "1.2.4",
   "uuid": "f8f09ef3-6d11-453c-941b-3e018a60c365",
-  "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+  "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
   "size": {
     "width": 1000,
     "height": 2026
@@ -11,7 +11,7 @@
     "weapon01.png": {
       "ver": "1.0.4",
       "uuid": "1f10966f-a39b-490e-9f35-5c3a9d06be4a",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": true,
@@ -33,7 +33,7 @@
     "weapon02.png": {
       "ver": "1.0.4",
       "uuid": "508d42d9-d87b-4c4c-b2c2-e6f3fa1251df",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -55,7 +55,7 @@
     "weapon03.png": {
       "ver": "1.0.4",
       "uuid": "b27cb972-7af3-4c62-9dfb-acb8c49d25a0",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": true,
@@ -77,7 +77,7 @@
     "weapon04.png": {
       "ver": "1.0.4",
       "uuid": "4532fd65-a58f-4cb9-8dc7-8bacad007c18",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": true,
@@ -99,7 +99,7 @@
     "weapon05.png": {
       "ver": "1.0.4",
       "uuid": "a8a2ede2-85ef-474d-996b-f3cdcc1cc462",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -121,7 +121,7 @@
     "weapon06.png": {
       "ver": "1.0.4",
       "uuid": "64a84615-963d-435b-9754-df5062ee9773",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": true,
@@ -143,7 +143,7 @@
     "weapon07.png": {
       "ver": "1.0.4",
       "uuid": "11a82a91-cd61-4099-b607-c971af607cac",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -165,7 +165,7 @@
     "weapon08.png": {
       "ver": "1.0.4",
       "uuid": "993760d7-b68e-49fa-9a6e-ff0f9736a27a",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": true,
@@ -187,7 +187,7 @@
     "weapon09.png": {
       "ver": "1.0.4",
       "uuid": "df5b22b2-ecb5-43ae-b6cb-87e5392c1d69",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -209,7 +209,7 @@
     "weapon10.png": {
       "ver": "1.0.4",
       "uuid": "778033d8-df63-47c9-aace-0357b29bca69",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": true,
@@ -231,7 +231,7 @@
     "weapon11.png": {
       "ver": "1.0.4",
       "uuid": "0c4b7c58-f3e7-4430-8bbb-ebef249769cb",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -253,7 +253,7 @@
     "weapon12.png": {
       "ver": "1.0.4",
       "uuid": "c74291d2-24de-4096-8860-ff0e8479905a",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -275,7 +275,7 @@
     "weapon13.png": {
       "ver": "1.0.4",
       "uuid": "cdbd7717-d297-4834-b77c-7186ade2ccd5",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -297,7 +297,7 @@
     "weapon14.png": {
       "ver": "1.0.4",
       "uuid": "8938cb65-ae2a-47a9-b4e2-f3463a1d027d",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -319,7 +319,7 @@
     "weapon15.png": {
       "ver": "1.0.4",
       "uuid": "fc79c17c-a9e3-4cb1-862c-efa073d6a9be",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -341,7 +341,7 @@
     "weapon16.png": {
       "ver": "1.0.4",
       "uuid": "f0993d5d-362a-4bc0-9302-66b19f4f5d3e",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -363,7 +363,7 @@
     "weapon17.png": {
       "ver": "1.0.4",
       "uuid": "2d15c9b6-fe8f-4e27-afee-ba10a3abcd37",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -385,7 +385,7 @@
     "weapon18.png": {
       "ver": "1.0.4",
       "uuid": "efc3bccd-9de1-4bd7-9c63-0ec998c735b2",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": true,
@@ -407,7 +407,7 @@
     "weapon19.png": {
       "ver": "1.0.4",
       "uuid": "df95ee7e-e1b0-468d-9890-cd06d1b91b06",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": true,
@@ -429,7 +429,7 @@
     "weapon20.png": {
       "ver": "1.0.4",
       "uuid": "558115d5-5790-43c6-986d-86c1bbd5014b",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -451,7 +451,7 @@
     "weapon21.png": {
       "ver": "1.0.4",
       "uuid": "99a54282-bb0d-4e42-9276-c5ef9db3d5db",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -473,7 +473,7 @@
     "weapon22.png": {
       "ver": "1.0.4",
       "uuid": "b9d284f7-88c5-47e2-8e1d-99898c2129b0",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -495,7 +495,7 @@
     "weapon23.png": {
       "ver": "1.0.4",
       "uuid": "b9ed8eb9-1408-4b74-8bca-2710e2fca5c5",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -517,7 +517,7 @@
     "weapon24.png": {
       "ver": "1.0.4",
       "uuid": "2f76c562-c507-49a7-9dae-554f30080a69",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -539,7 +539,7 @@
     "weapon25.png": {
       "ver": "1.0.4",
       "uuid": "ab4ab3cc-6e2b-4e73-b1ea-c1d403484c04",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -561,7 +561,7 @@
     "weapon26.png": {
       "ver": "1.0.4",
       "uuid": "cf527310-6f76-4ed5-b071-37dcc63baad7",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -583,7 +583,7 @@
     "weapon27.png": {
       "ver": "1.0.4",
       "uuid": "05e60231-aadd-4377-87f2-a651d888ea9f",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -605,7 +605,7 @@
     "weapon28.png": {
       "ver": "1.0.4",
       "uuid": "fb724ef5-f4d5-4616-b1aa-2e1b3ad8f3c0",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -627,7 +627,7 @@
     "weapon29.png": {
       "ver": "1.0.4",
       "uuid": "e622e427-1051-41ef-ae00-c08da8a25105",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": true,
@@ -649,7 +649,7 @@
     "weapon30.png": {
       "ver": "1.0.4",
       "uuid": "bc211fbb-06d5-4530-99a0-27c002293bbb",
-      "rawTextureUuid": "5b0b8531-9d38-423b-bc4e-60030c3d088d",
+      "rawTextureUuid": "aebfa2c6-fc36-4537-8a7c-bef41a02f482",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

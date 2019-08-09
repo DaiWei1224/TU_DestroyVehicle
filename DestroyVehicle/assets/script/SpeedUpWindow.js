@@ -30,7 +30,8 @@ cc.Class({
             var mul2Button=cc.find('Canvas/mul2Button');console.log("nnn"+mul2Button.name);
             mul2Button.getComponent("SpeedUp").DoubleIncomeTime+=60;
             money.diamondnum -= 10;
-
+            money.speednum=parseFloat(money.speednum)*2-parseInt(weapon_info.getatk(weapon_info.level_now));
+            cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label).string="+"+money.getlabel(money.speednum)+"/s";
             cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label).string = money.getlabel(money.diamondnum);
 
             if(money.diamondnum<10)

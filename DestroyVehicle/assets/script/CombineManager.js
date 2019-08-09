@@ -36,6 +36,8 @@ cc.Class({
 
         Touchid:Number,
         atlas:cc.SpriteAtlas,
+
+        Guide: cc.Node,
     },
     
     // LIFE-CYCLE CALLBACKS:
@@ -53,6 +55,7 @@ cc.Class({
         var temp = self.getUserData("parts",50);
         if(temp == 50){
             self.ArmArry = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+            self.Guide.active = true;
         }
         else{
             var slot = JSON.parse(cc.sys.localStorage.getItem('slot'));
@@ -70,6 +73,8 @@ cc.Class({
                 self.getSlotData(slot.slot11, -1),
                 self.getSlotData(slot.slot12, -1));
         }
+
+        weaponImage.spriteFrame=self.atlas.getSpriteFrame(filename);
 
         //读取零件增加速度的值
         money.speednum = self.getUserData("partsSpeed", 0)
@@ -216,8 +221,9 @@ cc.Class({
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
         
         
-        money.speednum=parseInt(money.speednum)-parseInt(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(downslot)));
-        money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(self.ArmArry[upslot])/weapon_info.gettime(self.ArmArry[upslot]));
+        money.speednum=parseInt(money.speednum)-parseInt(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(downslot)))*weapon_info.weapon_earningspeed*2;
+        console.log("jiude jiandiao "+money.speednum);
+        money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(self.ArmArry[upslot])/weapon_info.gettime(self.ArmArry[upslot]))*weapon_info.weapon_earningspeed;
         speed.string="+"+money.getlabel(money.speednum)+"/s";
         self.ArmArry[downslot]=-1;
         
@@ -327,7 +333,7 @@ cc.Class({
         self.ArmImagesArry[downslot].destroy();
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
         
-        money.speednum=parseInt(money.speednum)-parseInt(weapon_info.getpart(self.ArmArry[downslot])/weapon_info.gettime(self.ArmArry[downslot]));
+        money.speednum=parseInt(money.speednum)-parseInt(weapon_info.getpart(self.ArmArry[downslot])/weapon_info.gettime(self.ArmArry[downslot]))*weapon_info.weapon_earningspeed;
         speed.string="+"+money.getlabel(money.speednum)+"/s";
         var part=cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
         
@@ -371,17 +377,18 @@ cc.Class({
             if(self.ArmArry[i]=='-1')
             {
                 self.unschedule(abcc);
+                self.erning_parts[i].active=false;
             }  
             else{
                 var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
            
-                money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[i]));
+                money.partnum=parseInt(money.partnum)+parseInt(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
                 if(parseInt(money.partnum)>=parseInt(weapon_info.getPrice(weapon_info.weapon_kind,weapon_info.weapon_nums[weapon_info.weapon_kind])))
                 {
                     self.autobuy.active=false;
                 }
                 part.string=money.getlabel(money.partnum);
-                self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i]));
+                self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
                 self.erning_parts[i].active=true;
                 self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
             }
@@ -414,12 +421,6 @@ cc.Class({
         }else{
             filename = "weapon" + (parseInt(autoBuyBtn.weapon_kind) + 1);
         }
-        /*cc.loader.loadRes(filename, cc.SpriteFrame, function (err, texture) {
-            if(err){
-                console.log(err);
-            }                   
-            weaponImage.spriteFrame = texture;
-        });*/
         weaponImage.spriteFrame=self.atlas.getSpriteFrame(filename);
     },
 
@@ -439,7 +440,7 @@ cc.Class({
         var car=cc.find("Canvas/Vehicle").getComponent("HitVehicle");//改变等级
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
         
-        money.speednum=parseInt(money.speednum)-parseInt(weapon_info.getatk(parseInt(ArmRank)-1))/2+parseInt(weapon_info.getatk(parseInt(ArmRank)))/2;
+        money.speednum=parseInt(money.speednum)-parseInt(weapon_info.getatk(parseInt(ArmRank)-1))+parseInt(weapon_info.getatk(parseInt(ArmRank)));
         speed.string="+"+money.getlabel(money.speednum)+"/s";
         car.power=weapon_info.getatk(ArmRank);
         car.clickPower=weapon_info.getattack(ArmRank);
@@ -530,13 +531,14 @@ cc.Class({
                 Armi.setPosition(self.SlotPositionArry[i]);
                 var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
                 
-                money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(ArmRank)/weapon_info.gettime(ArmRank));
+                money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(ArmRank)/weapon_info.gettime(ArmRank))*weapon_info.weapon_earningspeed;
                 speed.string="+"+money.getlabel(money.speednum)+"/s";
 
                 var abcc=function(){
                 if(self.ArmArry[i]=='-1')
                 {
                     self.unschedule(abcc);
+                    self.erning_parts[i].active=false;
                 }  
                 else{
                     var part =cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
@@ -547,7 +549,7 @@ cc.Class({
                         self.autobuy.active=false;
                     }
                     part.string=money.getlabel(money.partnum);
-                    self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i]*weapon_info.weapon_earningspeed));
+                    self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
                     self.erning_parts[i].active=true;
                     self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
                 }

@@ -42,7 +42,7 @@ cc.Class({
 
     onLoad () {
         //这个调用记得删！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！1111111
-        this.InitializationTest();
+        //this.InitializationTest();
 
         //登陆读取用户数据
         var self = this;
@@ -76,7 +76,7 @@ cc.Class({
                 leaveTime = 7200;
             }
             //计算离线收益速率
-            var offLineSpeed = parseFloat(money.speednum) - parseInt(weapon_info.getatk(MaxArmRank)) / 2;
+            var offLineSpeed = parseFloat(money.speednum) - parseInt(weapon_info.getatk(MaxArmRank)) ;
             money.partnum += leaveTime * offLineSpeed;
 
             self.parts.string = money.getlabel(money.partnum);   //将更新后的零件数保存到label
@@ -115,9 +115,9 @@ cc.Class({
                 date2 = new Date().getTime(); //返回页面的时间
                 var leaveTime = parseInt((date2 - date1) / 1000);
                 console.log("离线 " + leaveTime + " 秒");
-                read= parseInt(self.parts.string);
-                read += leaveTime * 5;
-                self.parts.string = read;   //将更新后的零件数保存到label
+                money.partnum= parseInt(money.partnum);
+                money.partnum += leaveTime * 5;
+                self.parts.string = money.getlabel(money.partnum);   //将更新后的零件数保存到label
                 cc.sys.localStorage.setItem("parts", read);
             }
         });
@@ -131,7 +131,7 @@ cc.Class({
         cc.sys.localStorage.setItem("restBlood",100);
         cc.sys.localStorage.setItem("allBlood",100);
         cc.sys.localStorage.setItem("MaxArmRank", 0);
-        cc.sys.localStorage.setItem("partsSpeed", 5);
+        cc.sys.localStorage.setItem("partsSpeed", 8);
         cc.sys.localStorage.setItem("weapon1", 1);
         cc.sys.localStorage.setItem("weapon2", 1);
         cc.sys.localStorage.setItem("weapon3", 1);
@@ -161,6 +161,11 @@ cc.Class({
         temp = this.blood.string.split('/');
         cc.sys.localStorage.setItem("restBlood",parseInt(temp[0]));
         cc.sys.localStorage.setItem("allBlood",parseInt(temp[1]));
+       
+       if(weapon_info.weapon_earningspeed=='2')
+       {
+           money.speednum=(parseInt(money.speednum)+parseInt(weapon_info.getatk(weapon_info.level_now)))/2;
+       }
         cc.sys.localStorage.setItem("partsSpeed",money.speednum);
         //获取武器的最高等级
         temp = this.getUserData("MaxArmRank", 0);

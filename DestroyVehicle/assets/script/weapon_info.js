@@ -85,7 +85,7 @@ weapon_info.changeweapon=function(){
    
 };
 weapon_info.getatk=function(weapon_kind){
-    var atk=10*Math.pow(1.51,weapon_kind); 
+    var atk=8*Math.pow(1.51,weapon_kind); 
     return Math.floor(atk);
 };
 weapon_info.getattack=function(weapon_kind)
@@ -95,7 +95,7 @@ weapon_info.getattack=function(weapon_kind)
 };
 
 weapon_info.getpart=function(weapon_kind){
-    var part=25*Math.pow(2,weapon_kind);
+    var part=25*Math.pow(2.13,weapon_kind);
     return part;
 };
 weapon_info.gettime=function(weapon_kind){
