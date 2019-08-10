@@ -33,11 +33,11 @@ cc.Class({
     },
 
     onLoad () {
-        self=this;
-        this.HitVehicle=cc.find("Canvas/Vehicle").getComponent("HitVehicle");
-        this.WorkerBody=cc.find("Canvas/zache");
-        this.WorkerBody.active=false;
-        this.ClickMask.active=false;
+        // self=this;
+        // this.HitVehicle=cc.find("Canvas/Vehicle").getComponent("HitVehicle");
+        // this.WorkerBody=cc.find("Canvas/zache");
+        // this.WorkerBody.active=false;
+        // this.ClickMask.active=false;
     },
     StopWorker(){
         if(this.HitVehicle.count>=-5000&&this.GuideStep<4000){
@@ -46,6 +46,12 @@ cc.Class({
         else this.unschedule(StopWorker);
     },
     start () {
+        self=this;
+        this.HitVehicle=cc.find("Canvas/Vehicle").getComponent("HitVehicle");
+        this.WorkerBody=cc.find("Canvas/zache");
+        this.WorkerBody.active=false;
+        this.ClickMask.active=false;
+
         this.CombineManager=cc.find("Canvas/SlotManager").getComponent("CombineManager");
         this.DataStorage=cc.find("Canvas").getComponent("DataStorage");
         this.GuideStep=0;

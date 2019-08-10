@@ -82,10 +82,7 @@ cc.Class({
             self.parts.string = money.getlabel(money.partnum);   //将更新后的零件数保存到label
             //弹窗提示离线收益
             Popup.show('offLineProfit', 'prefab/OffLineRevenue', money.getlabel(leaveTime * offLineSpeed)+'','emmm');
-        }
-
-        
-        
+        }        
 
         //读取关卡数，默认值为1
         self.level.string = "Lv." + self.getUserData("level", "1");
@@ -116,7 +113,13 @@ cc.Class({
                 var leaveTime = parseInt((date2 - date1) / 1000);
                 console.log("离线 " + leaveTime + " 秒");
                 money.partnum= parseInt(money.partnum);
-                money.partnum += leaveTime * 5;
+                
+                var speedoff=money.speednum;
+                money.partnum += leaveTime * (speedoff-parseInt(weapon_info.getatk(weapon_info.level_now)));
+                if(weapon_info.weapon_earningspeed=='2'){
+                    money.speednum=(parseInt(money.speednum)-parseInt(weapon_info.getatk(weapon_info.level_now)))*2;                  
+                }
+
                 self.parts.string = money.getlabel(money.partnum);   //将更新后的零件数保存到label
                 cc.sys.localStorage.setItem("parts", read);
             }
@@ -142,7 +145,7 @@ cc.Class({
         cc.sys.localStorage.setItem("weapon8", 1);
         cc.sys.localStorage.setItem("weapon9", 1);
         cc.sys.localStorage.setItem("weapon10", 1);
-        //cc.sys.localStorage.setItem("leaveDate", 0); 
+        cc.sys.localStorage.setItem("leaveDate", 0); 
         cc.sys.localStorage.setItem("recentReceiveDate", 1);
         cc.sys.localStorage.setItem("receiveDayNum", 0);
 
@@ -152,8 +155,8 @@ cc.Class({
     setUserData: function(){
         //保存离开时的时间(1970 年 1 月 1 日至今的毫秒数)
         cc.sys.localStorage.setItem("leaveDate", new Date().getTime()); 
-        cc.sys.localStorage.setItem("diamonds", parseInt(money.partnum)); 
-        cc.sys.localStorage.setItem("parts", parseInt(money.diamondnum)); 
+        cc.sys.localStorage.setItem("diamonds", parseInt(money.diamondnum)); 
+        cc.sys.localStorage.setItem("parts", parseInt(money.partnum)); 
         //将Lv.1根据'.'分成两部分，后面那部分为temp[1]，代表关卡数，取为整型数
         var temp = this.level.string.split('.');
         cc.sys.localStorage.setItem("level", parseInt(temp[1]));

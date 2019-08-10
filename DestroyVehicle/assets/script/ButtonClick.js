@@ -13,7 +13,10 @@ cc.Class({
             var weaponBuyNum = '';
             var price = 0;
             //获取当前武器最高等级
-            var MaxArmRank = self.getUserData('MaxArmRank', 0);            
+            var MaxArmRank = parseInt(self.getUserData('MaxArmRank', 0)); 
+            if(MaxArmRank == 29){
+                MaxArmRank = 31;
+            }           
             //初始化商店里所有武器的价格
             if(MaxArmRank < 5){     //6级以下只能买第一级的武器
                 var weaponBuyNum = weapon_info.weapon_nums[0];
@@ -38,7 +41,7 @@ cc.Class({
             else{
                 MaxArmRank -= 2;    //6级及以上只能购买低两级的武器
                 //////////////////////////////////////////////////////////////////////////////i < 8 delete!!!!!!!!
-                for(var i = 0; i <= MaxArmRank - 2 && i < 8; i++){       //零件购买
+                for(var i = 0; i <= MaxArmRank - 2/* && i < 8*/; i++){       //零件购买
                     var weaponBuyNum = weapon_info.weapon_nums[i];
                     //根据武器等级和购买数量获取当前武器价格
                     price = weapon_info.getPrice(i, parseInt(weaponBuyNum))
@@ -60,10 +63,10 @@ cc.Class({
                 }
                 //////////////////////////////////////////////////////////////////////////////i < 10 delete!!!!!!!!
                 var i = MaxArmRank - 1;
-                if(i > 8){
-                    i = 8;
-                }
-                for(; i <= MaxArmRank && i < 10; i++){       //钻石购买
+                // if(i > 8){
+                //     i = 8;
+                // }
+                for(; i <= MaxArmRank/* && i < 10*/; i++){       //钻石购买
                     var weaponBuyNum = weapon_info.weapon_nums[i];
                     //根据武器等级和购买数量获取当前武器价格
                     price = weapon_info.getdiamondprice(i, parseInt(weaponBuyNum))              
@@ -81,7 +84,7 @@ cc.Class({
                     });
                     //设置icon为钻石
                     //////////////////////////////////////////////////////////////////////////////MaxArmRank > 9 change!!!!!!!!
-                    if(i == MaxArmRank || MaxArmRank > 9){
+                    if(i == MaxArmRank/* || MaxArmRank > 9*/){
                         var icon2 = cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/buyButton/label/sprite").getComponent(cc.Sprite);
                         filename = "/store/diamonds_icon";
                         cc.loader.loadRes(filename, cc.SpriteFrame, function (err, texture) {
@@ -127,7 +130,10 @@ cc.Class({
             //当前以及购买的数量
             var num = weapon_info.weapon_nums[customEventData];
             //获取当前最高武器等级
-            var MaxArmRank = self.getUserData('MaxArmRank', 0);
+            var MaxArmRank = parseInt(self.getUserData('MaxArmRank', 0));
+            if(MaxArmRank == 29){
+                MaxArmRank = 31;
+            }
             if(MaxArmRank < 5 || (customEventData < MaxArmRank - 3)){
                 //零件购买
                 var parts = cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
@@ -171,7 +177,7 @@ cc.Class({
                     }
                     else{
                         //////////////////////////////////////////////////////////////////////////////i < 9 delete!!!!!!!!
-                        for(var i = 1; i < MaxArmRank - 2 && i < 9; i++){                                   
+                        for(var i = 1; i < MaxArmRank - 2/* && i < 9*/; i++){                                   
                             price = weapon_info.getPrice(i - 1, weapon_info.weapon_nums[i - 1]);
                             if(partsNum < price){
                                 cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/mask").active = true;                                     
@@ -203,10 +209,10 @@ cc.Class({
                     //检查所有购买按钮是否金钱不足需要变灰    
                     //////////////////////////////////////////////////////////////////////////////i < 11 delete!!!!!!!!
                     var i = MaxArmRank - 2;
-                    if(i > 9){
-                        i = 9;
-                    }
-                    for(; i < MaxArmRank && i < 11; i++){                                   
+                    // if(i > 9){
+                    //     i = 9;
+                    // }
+                    for(; i < MaxArmRank/* && i < 11*/; i++){                                   
                         price = weapon_info.getdiamondprice(i - 1, weapon_info.weapon_nums[i - 1]);
                         if(diamondsNum < price){
                             cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/mask").active = true;                                     
@@ -231,7 +237,10 @@ cc.Class({
         if(this.count = 60){    //60秒刷新一次商店的按钮
             this.count = 0;
             //检查所有购买按钮金钱足够则去掉蒙板
-            var MaxArmRank = this.getUserData('MaxArmRank', 0); 
+            var MaxArmRank = parseInt(this.getUserData('MaxArmRank', 0)); 
+            if(MaxArmRank == 29){
+                MaxArmRank  = 31;
+            }
             //console.log("money.partnum="+money.partnum);
             if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") != null){
                 if(MaxArmRank < 5){     //小于6级
@@ -247,7 +256,7 @@ cc.Class({
                     //检查零件购买
                     var Money = money.partnum;
                     //////////////////////////////////////////////////////////////////////////////i < 9 delete!!!!!!!!
-                    for(var i = 1; i <= MaxArmRank - 3 && i < 9; i++){
+                    for(var i = 1; i <= MaxArmRank - 3/* && i < 9*/; i++){
                         var price = weapon_info.getPrice(i - 1, weapon_info.weapon_nums[i - 1]);
                         if(Money >= price){
                             if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") == null){
@@ -260,10 +269,10 @@ cc.Class({
                     Money = money.diamondnum;
                     //////////////////////////////////////////////////////////////////////////////i < 11 delete!!!!!!!!
                     var i = MaxArmRank - 2;
-                    if(i > 9){
-                        i = 9;
-                    }
-                    for(; i <= MaxArmRank - 1 && i < 11; i++){
+                    // if(i > 9){
+                    //     i = 9;
+                    // }
+                    for(; i <= MaxArmRank - 1/* && i < 11*/; i++){
                         price = weapon_info.getdiamondprice(i - 1, weapon_info.weapon_nums[i - 1]);
                         if(Money >= price){
                             if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") == null){

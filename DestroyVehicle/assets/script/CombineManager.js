@@ -74,8 +74,6 @@ cc.Class({
                 self.getSlotData(slot.slot12, -1));
         }
 
-        weaponImage.spriteFrame=self.atlas.getSpriteFrame(filename);
-
         //读取零件增加速度的值
         money.speednum = self.getUserData("partsSpeed", 0)
         var speed = cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
@@ -200,7 +198,10 @@ cc.Class({
         }
         else if(self.ArmArry[slotnum]==self.ArmArry[self.MouseDownSlot]&&self.ArmArry[slotnum]!=-1)
         {
-            self.ArmCombine(self.MouseDownSlot,slotnum);
+            if(self.MaxArmRank==29&&self.ArmArry[slotnum]==29)
+                self.ArmChangePlace(self.MouseDownSlot,slotnum);
+            else
+                self.ArmCombine(self.MouseDownSlot,slotnum);
         }
         else if(self.ArmArry[self.MouseDownSlot]>-1&&self.ArmArry[slotnum]==-1)
         {
@@ -413,6 +414,9 @@ cc.Class({
         autoBuyBtn.weapon_num = weapon_info.weapon_nums[autoBuyBtn.weapon_kind];
         priceLabel.string = money.getlabel(weapon_info.getPrice(autoBuyBtn.weapon_kind, autoBuyBtn.weapon_num));
         //console.log("所需"+autoBuyBtn.weapon_kind+"   "+autoBuyBtn.weapon_num)
+        if(parseInt(money.partnum)<parseInt(weapon_info.getPrice(autoBuyBtn.weapon_kind, autoBuyBtn.weapon_num))){
+            self.autobuy.active=true;
+        }
         //更新最优武器图片
         var weaponImage = cc.find("Canvas/autobuyButton/Sprite").getComponent(cc.Sprite);
         var filename="";
@@ -434,7 +438,7 @@ cc.Class({
         }
         else
         {
-            numstring=parseInt(ArmRank+1);
+            numstring=parseInt(ArmRank)+1;
         }
         self.WorkerArmNode.getComponent(sp.Skeleton).setAttachment("weapon","weapon_"+numstring);
         var car=cc.find("Canvas/Vehicle").getComponent("HitVehicle");//改变等级
@@ -452,11 +456,11 @@ cc.Class({
         var numstring="";
         if(parseInt(ArmRank)<9)
         {
-            numstring='0'+parseInt(ArmRank+1);
+            numstring='0'+parseInt(parseInt(ArmRank) + 1);
         }
         else
         {
-            numstring=parseInt(ArmRank+1);
+            numstring=parseInt(ArmRank)+1;
         }
         self.WorkerArmNode.getComponent(sp.Skeleton).setAttachment("weapon","weapon_"+numstring);
         var car=cc.find("Canvas/Vehicle").getComponent("HitVehicle");//改变等级

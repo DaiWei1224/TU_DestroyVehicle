@@ -73,10 +73,7 @@ Popup.show = function (
         }
 
         // 展现 alert
-        self.startFadeIn();
-
-        // 参数
-        
+        self.startFadeIn();        
     });
 
     // 执行弹进动画
@@ -100,11 +97,12 @@ Popup.show = function (
             temp = temp.getChildByName("view");
             temp = temp.getChildByName("content");
             var temp2;
-            //-------------------------------------------------------------------改成30
-            for(var i = 1; i <= 10; i++){            
+            
+            for(var i = 1; i <= 30; i++){            
                 temp2 = temp.getChildByName("item" + i);
                 temp2.destroy();
             }
+            
             Sound.PlaySound("touch");
         }else if(type == 'offLineProfit'){
             Sound.PlaySound("money");

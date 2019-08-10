@@ -58,6 +58,7 @@ cc.Class({
             14,15,15,
             15,16,17,
             16,17,17);
+        this.GiftWindow.setScale(2);
         this.CanOpen=false;
         this.WindowConfirmed=false;
         this.Time=180;

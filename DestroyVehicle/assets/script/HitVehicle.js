@@ -73,7 +73,7 @@ cc.Class({
         this.level.string = "Lv." + (this.car_level + 1);
         this.allBlood = parseInt(this.getUserData("allBlood", 100));
         this.restBlood = parseInt(this.getUserData("restBlood", 100));
-        //加载车图片
+        //加载车图片//////////////////////////////////////////////////////////////////////////////////////////////
         var routeName = '/vehicle/vehicle' + ((this.car_level)%3 + 1);
         if(this.restBlood / this. allBlood < 0.25){
             routeName += '_4';

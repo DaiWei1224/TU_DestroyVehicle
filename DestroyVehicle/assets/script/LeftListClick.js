@@ -48,7 +48,7 @@ cc.Class({
         Sound.PlaySound("touch");
         cc.loader.loadRes("share", function (err, data) {
             wx.shareAppMessage({
-                title: "智商不足？快来充值！",
+                title: "前任提了豪车？快来砸爆它！！",
                 imageUrl: data.url,
                 success(res) {
                     console.log(res)

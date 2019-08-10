@@ -24,21 +24,33 @@ money.getlabel=function(moneynum)
     }
     else if(moneynum<1000000)
     {
-        moneynum=(moneynum/1000).toFixed(2);
+        moneynum=(moneynum/1000).toFixed(1);
         moneynum=moneynum+"k";
         return moneynum;
     }
     else if(moneynum<1000000000) 
     {
-        moneynum=(moneynum/1000000).toFixed(2);
+        moneynum=(moneynum/1000000).toFixed(1);
         moneynum=moneynum+"m";
         return moneynum;
     }
-    else
+    else if(moneynum<1000000000000)
     {
 
-        moneynum=(moneynum/1000000000).toFixed(2);
+        moneynum=(moneynum/1000000000).toFixed(1);
         moneynum=moneynum+"b";
         return moneynum;
     }
+    else if(moneynum<1000000000000000)
+    {
+        moneynum=(moneynum/1000000000000).toFixed(1);
+        moneynum=moneynum+"t";
+        return moneynum;
+    }
+    else{
+        moneynum=(moneynum/1000000000000000).toFixed(1);
+        moneynum=moneynum+"a";
+        return moneynum;
+    }
+    
 }
