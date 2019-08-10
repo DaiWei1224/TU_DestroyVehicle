@@ -56,7 +56,8 @@ Popup.show = function (
             enterCallBack();  //执行回调函数，初始化商店
             Popup._directButton = cc.find("closeButton", _popup);
             Popup._directButton.on('click', self.onButtonClicked, self);
-            console.log("close button found");
+            //滚动到最新解锁的位置，第一个参数为滚动的百分比（0-1），第二个参数为滚动时间
+            Popup._popup.getChildByName("StoreScrollView").getComponent(cc.ScrollView).scrollToPercentVertical(parseFloat(profit), 1);
 
         }else if(type == 'offLineProfit'){
 
@@ -88,7 +89,6 @@ Popup.show = function (
     // 执行弹出动画
     self.startFadeOut = function () {
         cc.eventManager.pauseTarget(Popup._popup, true);
-
         
         if(type == 'store'){
             //摧毁scrollview里的所有项

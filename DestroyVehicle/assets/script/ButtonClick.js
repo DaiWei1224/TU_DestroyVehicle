@@ -9,11 +9,19 @@ cc.Class({
     storeBtnClick: function(){
         var self = this;
         Sound.PlaySound("touch");
-        Popup.show("store","prefab/Store","1","2","3",function(){
+        //计算商店滚动百分比
+        var percent = 1;
+        var MaxArmRank = parseInt(self.getUserData('MaxArmRank', 0));
+        if(MaxArmRank > 6){
+            percent = 1 - ((MaxArmRank - 5) / 30);
+        }
+
+        Popup.show("store","prefab/Store",percent.toString(),"2","3",function(){
             var weaponBuyNum = '';
             var price = 0;
             //获取当前武器最高等级
             var MaxArmRank = parseInt(self.getUserData('MaxArmRank', 0)); 
+
             if(MaxArmRank == 29){
                 MaxArmRank = 31;
             }           
