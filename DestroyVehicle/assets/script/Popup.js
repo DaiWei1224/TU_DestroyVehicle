@@ -51,30 +51,34 @@ Popup.show = function (
         self.actionFadeIn = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 255), cc.scaleTo(Popup._animSpeed, 1)), cbFadeIn);
         self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Popup._animSpeed, 0), cc.scaleTo(Popup._animSpeed, 2)), cbFadeOut);
 
-        // 获取子节点并添加点击事件
-        if(type == 'store'){
-            enterCallBack();  //执行回调函数，初始化商店
-            Popup._directButton = cc.find("closeButton", _popup);
-            Popup._directButton.on('click', self.onButtonClicked, self);
-            //滚动到最新解锁的位置，第一个参数为滚动的百分比（0-1），第二个参数为滚动时间
-            Popup._popup.getChildByName("StoreScrollView").getComponent(cc.ScrollView).scrollToPercentVertical(parseFloat(profit), 1);
-
-        }else if(type == 'offLineProfit'){
-
-            var dl= cc.find('diamNum', _popup);
-            if(!dl){
-                console.log("节点为空");
-            }else{
-                dl.getComponent(cc.Label).string = profit; // 设置离线收益Label
-            }
-
-            Popup._directButton = cc.find("direct", _popup);
-            Popup._directButton.on('click', self.onButtonClicked, self);
-
-        }
-
         // 展现 alert
-        self.startFadeIn();        
+        self.startFadeIn(); 
+
+        setTimeout(function(){
+            // 获取子节点并添加点击事件
+            if(type == 'store'){
+                enterCallBack();  //执行回调函数，初始化商店
+                Popup._directButton = cc.find("closeButton", _popup);
+                Popup._directButton.on('click', self.onButtonClicked, self);
+
+                //滚动到最新解锁的位置，第一个参数为滚动的百分比（0-1），第二个参数为滚动时间
+                Popup._popup.getChildByName("StoreScrollView").getComponent(cc.ScrollView).scrollToPercentVertical(parseFloat(profit), 1);
+
+            }else if(type == 'offLineProfit'){
+
+                var dl= cc.find('diamNum', _popup);
+                if(!dl){
+                    console.log("节点为空");
+                }else{
+                    dl.getComponent(cc.Label).string = profit; // 设置离线收益Label
+                }
+                Popup._directButton = cc.find("direct", _popup);
+                Popup._directButton.on('click', self.onButtonClicked, self);
+            }
+       
+        },350);
+
+        
     });
 
     // 执行弹进动画

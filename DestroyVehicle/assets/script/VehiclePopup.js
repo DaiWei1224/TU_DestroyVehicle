@@ -68,12 +68,8 @@ VehiclePopup.show = function (
             if(!dl){
                 console.log("节点为空");
             }else{
-                // 设置新车辆图片
-                cc.loader.loadRes(imageRoute, cc.SpriteFrame, function (err, texture) {
-                    if(err){
-                        console.log(err);
-                    }                   
-                    dl.getComponent(cc.Sprite).spriteFrame = texture;
+                cc.loader.loadRes("vehicle/car", cc.SpriteAtlas, function (err, atlas) {
+                    dl.getComponent(cc.Sprite).spriteFrame = atlas.getSpriteFrame("vehicle" + imageRoute + "_1");
                 });
             }
 

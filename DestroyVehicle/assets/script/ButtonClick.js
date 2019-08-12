@@ -3,6 +3,7 @@ cc.Class({
     extends: cc.Component,
     properties: {
         atlas:cc.SpriteAtlas,
+        item: cc.Prefab,
     },
 
     //点击商店按钮
@@ -19,6 +20,40 @@ cc.Class({
         Popup.show("store","prefab/Store",percent.toString(),"2","3",function(){
             var weaponBuyNum = '';
             var price = 0;
+            //添加商品预制体
+            for(var i = 0; i < 30; i++){
+                //实例化一个prefab 
+                let item = cc.instantiate(self.item);
+                //更换预制体名字
+                item.name = 'item' + (i + 1);
+                //获取预制体里面的节点了,进行相应的设置,首先设置商品编号
+                let nameNode = item.getChildByName('number');  
+                nameNode.getComponent(cc.Label).string = (i + 1);
+                //设置商品图片
+                nameNode = item.getChildByName('weapon');  
+                if(i < 9){
+                    nameNode.getComponent(cc.Sprite).spriteFrame = self.atlas.getSpriteFrame("weapon0" + (i + 1));
+                }else{
+                    nameNode.getComponent(cc.Sprite).spriteFrame = self.atlas.getSpriteFrame("weapon" + (i + 1));
+                }
+                //设置商品名称
+                nameNode = item.getChildByName('weaponName'); 
+                nameNode.getComponent(cc.Label).string = self.getWeaponName(i);
+                //设置CustomEventData
+                nameNode = item.getChildByName('buyButton');
+                var button = nameNode.getComponent(cc.Button);
+                //nameNode.node.on('click', self.weaponBtnClick(i), self);
+                var clickEventHandler = new cc.Component.EventHandler();
+                clickEventHandler.target = item; // 这个 node 节点是你的事件处理代码组件所属的节点
+                clickEventHandler.component = "ButtonClick";// 这个是代码文件名
+                clickEventHandler.handler = "weaponBtnClick";
+                clickEventHandler.customEventData = i;
+                button.clickEvents.push(clickEventHandler);
+                //把实例化出的节点添加到指定节点下
+                var filename = "Canvas/Store/StoreScrollView/view/content";
+                cc.find(filename).addChild(item);
+                //this.content.addChild(item);
+            }
             //获取当前武器最高等级
             var MaxArmRank = parseInt(self.getUserData('MaxArmRank', 0)); 
 
@@ -115,15 +150,13 @@ cc.Class({
                         cc.find(filename).active = false;
                     }
                 }
-
-
             }    
-
         });
     },
 
     //点击购买武器
     weaponBtnClick: function(event,customEventData){
+        console.log("customEventData = " + customEventData);
         var self = this;
         var CM = require("CombineManager");
         var flag = CM.InstNewArm(customEventData);
@@ -166,6 +199,10 @@ cc.Class({
                     var priceLabel = cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
                     autoBuyBtn.weapon_num = weapon_info.weapon_nums[autoBuyBtn.weapon_kind];
                     priceLabel.string = money.getlabel(weapon_info.getPrice(autoBuyBtn.weapon_kind, autoBuyBtn.weapon_num));
+
+                    if(parseInt(money.partnum)<parseInt(weapon_info.getPrice(autoBuyBtn.weapon_kind, autoBuyBtn.weapon_num))){
+                        cc.find("Canvas/autobuyButton/mask").active=true;
+                    }
                     //更新最优武器图片
                     var weaponImage = cc.find("Canvas/autobuyButton/Sprite").getComponent(cc.Sprite);
                     if(parseInt(autoBuyBtn.weapon_kind) + 1 < 10){
@@ -198,10 +235,8 @@ cc.Class({
             }else if((customEventData > MaxArmRank - 4) && (customEventData < MaxArmRank - 1)){
                 //钻石购买
                 var diamonds = cc.find("Canvas/Diamonds/diamond_label").getComponent(cc.Label);
-                console.log("钻石购买");
                 var diamondsNum =money.diamondnum;
                 var weaponPrice = parseInt(weapon_info.getdiamondprice(customEventData,num));
-                console.log('weapondiamondprice='+weaponPrice);
                 if(diamondsNum >= weaponPrice){
                     diamondsNum -= weaponPrice;
                     money.diamondnum = diamondsNum;
@@ -211,7 +246,6 @@ cc.Class({
                     //购买后将最新的购买数量保存
                     weapon_info.weapon_nums[customEventData] = num;
                     var price = weapon_info.getdiamondprice(customEventData,num);
-                    console.log("钻石购买的价格hi"+price);
                     var pricelabel = cc.find(filename).getComponent(cc.Label);
                     pricelabel.string = money.getlabel(price);
                     //检查所有购买按钮是否金钱不足需要变灰    
@@ -303,5 +337,40 @@ cc.Class({
             return value;
         }
     },
+    //获得武器的名称
+    getWeaponName: function(number){
+        switch(number){
+            case 0:return "人字拖";
+            case 1:return "尖叫鸡";
+            case 2:return "木棍";
+            case 3:return "键盘";
+            case 4:return "球拍";
+            case 5:return "玩具法杖";
+            case 6:return "球棒";
+            case 7:return "菜刀";
+            case 8:return "锤子";
+            case 9:return "板砖";
+            case 10:return "滑板";
+            case 11:return "折叠椅";
+            case 12:return "诺基亚";
+            case 13:return "斧头";
+            case 14:return "球杆";
+            case 15:return "撬棍";
+            case 16:return "警棍";
+            case 17:return "铁铲";
+            case 18:return "大砍刀";
+            case 19:return "铁剑";
+            case 20:return "狼牙棒";
+            case 21:return "武士刀";
+            case 22:return "巨锤";
+            case 23:return "大斧";
+            case 24:return "青龙偃月刀";
+            case 25:return "方天画戟";
+            case 26:return "镰刀";
+            case 27:return "电锯";
+            case 28:return "圣剑";
+            case 29:return "金箍棒";
+        }
+    }
 
 });

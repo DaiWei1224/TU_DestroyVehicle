@@ -54,7 +54,8 @@ cc.Class({
             default: 0,
             type:cc.Integer,
             displayName:"点击攻击力",
-        }
+        },
+        vehicleAtlas:cc.SpriteAtlas,
 
     },
 
@@ -74,7 +75,7 @@ cc.Class({
         this.allBlood = parseInt(this.getUserData("allBlood", 100));
         this.restBlood = parseInt(this.getUserData("restBlood", 100));
         //加载车图片//////////////////////////////////////////////////////////////////////////////////////////////
-        var routeName = '/vehicle/vehicle' + ((this.car_level)%3 + 1);
+        var routeName = 'vehicle' + ((this.car_level) % 30 + 1);
         if(this.restBlood / this. allBlood < 0.25){
             routeName += '_4';
         }else if(this.restBlood / this. allBlood < 0.5){
@@ -84,12 +85,15 @@ cc.Class({
         }else{
             routeName += '_1';
         }
-        cc.loader.loadRes(routeName, cc.SpriteFrame, function (err, texture) {
-            if(err){
-                console.log(err);
-            }                   
-            self.node.getComponent(cc.Sprite).spriteFrame = texture;
-        });
+        // cc.loader.loadRes(routeName, cc.SpriteFrame, function (err, texture) {
+        //     if(err){
+        //         console.log(err);
+        //     }                   
+        //     self.node.getComponent(cc.Sprite).spriteFrame = texture;
+        // });
+        self.node.getComponent(cc.Sprite).spriteFrame = self.vehicleAtlas.getSpriteFrame(routeName);
+                                                                          
+
         this.CarBreakStage=0;
     },
 
@@ -235,13 +239,15 @@ cc.Class({
 
     changeVehicle (fileName, self){
         Sound.PlaySound("break");
-        cc.loader.loadRes(fileName, cc.SpriteFrame, function (err, texture) {
-            if(err){
-                console.log(err);
-            }                   
-            self.node.getComponent(cc.Sprite).spriteFrame = texture;
-        });
+        // cc.loader.loadRes(fileName, cc.SpriteFrame, function (err, texture) {
+        //     if(err){
+        //         console.log(err);
+        //     }                   
+        //     self.node.getComponent(cc.Sprite).spriteFrame = texture;
+        // });
+        self.node.getComponent(cc.Sprite).spriteFrame = self.vehicleAtlas.getSpriteFrame(fileName);
     },
+
     showRollNotice(str) {
         let label = this.createShowNode(str);
 
@@ -333,16 +339,16 @@ cc.Class({
         }
         /////////////////////////////////////////////////////
         var nextLevel = self.car_level + 2;
-        if(nextLevel > 30){
-            nextLevel = 30;
-        }
-        var thisImage = (nextLevel - 1)% 3;
+        // if(nextLevel > 30){
+        //     nextLevel = 30;
+        // }
+        var thisImage = (nextLevel - 1) % 30;
         if(thisImage == 0){
-            thisImage = 3;
+            thisImage = 30;
         }
-        var nextImage = nextLevel % 3;
+        var nextImage = nextLevel % 30;
         if(nextImage == 0){
-            nextImage = 3;
+            nextImage = 30;
         }
         /////////////////////////////////////////////////////
         //根据血量换车的图片和弹出弹窗
@@ -361,7 +367,8 @@ cc.Class({
                 'prefab/NewVehicle', 
                 str,
                 self.getVehicleName(nextLevel),
-                self.getImageRoute(nextImage),
+                //self.getImageRoute(nextImage),
+                nextImage,
                 function(){
                 self.car_level += 1;//车的等级+1（从0开始）
                 self.allBlood = Math.pow(1.23,self.car_level);//根据公式计算的某等级的武器的伤害
@@ -374,7 +381,7 @@ cc.Class({
                 car.string = "Lv." + (self.car_level + 1);
                 self.percentageLabel.string = 100+"%";//重置血条百分比
                 self.blood.progress = 1;//重置血条
-                var filename = "/vehicle/vehicle" + nextImage + "_1";//申请当前等级的汽车资源
+                var filename = "vehicle" + nextImage + "_1";//申请当前等级的汽车资源
                 self.changeVehicle(filename,self);
                 self.count=0;
             });
@@ -385,14 +392,14 @@ cc.Class({
             self.blood.progress = 1;
             
         }else if(self.blood.progress < 0.25&&this.CarBreakStage==2){
-            self.changeVehicle("/vehicle/vehicle" + thisImage + "_4", self);
+            self.changeVehicle("vehicle" + thisImage + "_4", self);
             this.CarBreakStage=3;
         }else if(self.blood.progress < 0.5&&this.CarBreakStage==1){
-            self.changeVehicle("/vehicle/vehicle" + thisImage + "_3", self);
+            self.changeVehicle("vehicle" + thisImage + "_3", self);
             this.CarBreakStage=2;
         }else if(self.blood.progress < 0.75&&this.CarBreakStage==0){
             this.CarBreakStage=1;
-            self.changeVehicle("/vehicle/vehicle" + thisImage + "_2", self);
+            self.changeVehicle("vehicle" + thisImage + "_2", self);
         }    
 
     },
@@ -442,41 +449,37 @@ cc.Class({
             case 28: return 'Lv.28 劳斯莱斯幻影';
             case 29: return 'Lv.29 劳斯莱斯银魅';
             case 30: return 'Lv.30 劳斯莱斯金魅';
-        }
-    },
-    //获取车辆图片路径
-    getImageRoute: function(level){
-        switch(level){
-            case 1:  return '/vehicle/vehicle1_1';
-            case 2:  return '/vehicle/vehicle2_1';
-            case 3:  return '/vehicle/vehicle3_1';
-            case 4:  return '/vehicle/vehicle4_1';
-            case 5:  return '/vehicle/vehicle5_1';
-            case 6:  return '/vehicle/vehicle6_1';
-            case 7:  return '/vehicle/vehicle7_1';
-            case 8:  return '/vehicle/vehicle8_1';
-            case 9:  return '/vehicle/vehicle9_1';
-            case 10: return '/vehicle/vehicle10_1';
-            case 11: return '/vehicle/vehicle11_1';
-            case 12: return '/vehicle/vehicle12_1';
-            case 13: return '/vehicle/vehicle13_1';
-            case 14: return '/vehicle/vehicle14_1';
-            case 15: return '/vehicle/vehicle15_1';
-            case 16: return '/vehicle/vehicle16_1';
-            case 17: return '/vehicle/vehicle17_1';
-            case 18: return '/vehicle/vehicle18_1';
-            case 19: return '/vehicle/vehicle19_1';
-            case 20: return '/vehicle/vehicle20_1';
-            case 21: return '/vehicle/vehicle21_1';
-            case 22: return '/vehicle/vehicle22_1';
-            case 23: return '/vehicle/vehicle23_1';
-            case 24: return '/vehicle/vehicle24_1';
-            case 25: return '/vehicle/vehicle25_1';
-            case 26: return '/vehicle/vehicle26_1';
-            case 27: return '/vehicle/vehicle27_1';
-            case 28: return '/vehicle/vehicle28_1';
-            case 29: return '/vehicle/vehicle29_1';
-            case 30: return '/vehicle/vehicle30_1';
+
+            case 31:  return 'Lv.31 出租车 II';
+            case 32:  return 'Lv.32 叮叮快车 II';
+            case 33:  return 'Lv.33 里菊专车 II';
+            case 34:  return 'Lv.34 蔚来es6 II';
+            case 35:  return 'Lv.35 蔚来es8 II';
+            case 36:  return 'Lv.36 蔚来es9 II';
+            case 37:  return 'Lv.37 挑战者 II';
+            case 38:  return 'Lv.38 战马 II';
+            case 39:  return 'Lv.39 地狱猫 II';
+            case 40: return 'Lv.40 克洛泽 II';
+            case 41: return 'Lv.41 迈锐宝 II';
+            case 42: return 'Lv.42 大黄蜂 II';
+            case 43: return 'Lv.43 宝马3系 II';
+            case 44: return 'Lv.44 宝马5系 II';
+            case 45: return 'Lv.45 宝马7系 II';
+            case 46: return 'Lv.46 保时捷718 II';
+            case 47: return 'Lv.47 保时捷911 II';
+            case 48: return 'Lv.48 保时捷918 II';
+            case 49: return 'Lv.49 法拉利488 II';
+            case 50: return 'Lv.50 法拉利812 II';
+            case 51: return 'Lv.51 法拉利LF II';
+            case 52: return 'Lv.52 兰博基尼盖拉多 II';
+            case 53: return 'Lv.53 兰博基尼蝙蝠 II';
+            case 54: return 'Lv.54 兰博基尼毒药 II';
+            case 55: return 'Lv.55 莱肯 II';
+            case 56: return 'Lv.56 西贝尔 II';
+            case 57: return 'Lv.57 黄金超跑 II';
+            case 58: return 'Lv.58 劳斯莱斯幻影 II';
+            case 59: return 'Lv.59 劳斯莱斯银魅 II';
+            case 60: return 'Lv.60 劳斯莱斯金魅 II';
         }
     },
 
