@@ -1,0 +1,29 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "ArmsUp",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.4166666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "y": [
+        {
+          "frame": 0,
+          "value": -934.615
+        },
+        {
+          "frame": 0.25,
+          "value": -300.608
+        },
+        {
+          "frame": 0.4166666666666667,
+          "value": -347.07
+        }
+      ]
+    }
+  },
+  "events": []
+}

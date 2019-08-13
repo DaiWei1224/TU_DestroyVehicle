@@ -1,0 +1,29 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "ArmsDown",
+  "_objFlags": 0,
+  "_native": "",
+  "_duration": 0.4166666666666667,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "y": [
+        {
+          "frame": 0,
+          "value": -349.874
+        },
+        {
+          "frame": 0.16666666666666666,
+          "value": -272.563
+        },
+        {
+          "frame": 0.4166666666666667,
+          "value": -932.034
+        }
+      ]
+    }
+  },
+  "events": []
+}
