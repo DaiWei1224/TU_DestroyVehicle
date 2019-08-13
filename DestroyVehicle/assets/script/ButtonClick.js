@@ -61,27 +61,27 @@ cc.Class({
                 MaxArmRank = 31;
             }           
             //初始化商店里所有武器的价格
-            if(MaxArmRank < 5){     //6级以下只能买第一级的武器
-                var weaponBuyNum = weapon_info.weapon_nums[0];
-                //根据武器等级和购买数量获取当前武器价格
-                price = weapon_info.getPrice(0, parseInt(weaponBuyNum))
-                //设置价格Label
-                var filename = "Canvas/Store/StoreScrollView/view/content/item1/buyButton/label";
-                cc.find(filename).getComponent(cc.Label).string = money.getlabel(price);
-                //去掉“未解锁”蒙板
-                filename = "Canvas/Store/StoreScrollView/view/content/item1/lockMask";
-                cc.find(filename).active = false;
-                //将武器图片从黑色设为白色
-                filename = "Canvas/Store/StoreScrollView/view/content/item1/weapon";
-                cc.find(filename).color = new cc.Color(255, 255, 255);
-                //判断当前拥有零件数是否大于武器价格，大于则去掉灰色蒙板
-                var parts = money.partnum;
-                if(parseInt(parts) >= price){
-                filename = "Canvas/Store/StoreScrollView/view/content/item1/mask";
-                    cc.find(filename).active = false;
-                }
-            }
-            else{
+            // if(MaxArmRank < 5){     //6级以下只能买第一级的武器
+            //     var weaponBuyNum = weapon_info.weapon_nums[0];
+            //     //根据武器等级和购买数量获取当前武器价格
+            //     price = weapon_info.getPrice(0, parseInt(weaponBuyNum))
+            //     //设置价格Label
+            //     var filename = "Canvas/Store/StoreScrollView/view/content/item1/buyButton/label";
+            //     cc.find(filename).getComponent(cc.Label).string = money.getlabel(price);
+            //     //去掉“未解锁”蒙板
+            //     filename = "Canvas/Store/StoreScrollView/view/content/item1/lockMask";
+            //     cc.find(filename).active = false;
+            //     //将武器图片从黑色设为白色
+            //     filename = "Canvas/Store/StoreScrollView/view/content/item1/weapon";
+            //     cc.find(filename).color = new cc.Color(255, 255, 255);
+            //     //判断当前拥有零件数是否大于武器价格，大于则去掉灰色蒙板
+            //     var parts = money.partnum;
+            //     if(parseInt(parts) >= price){
+            //     filename = "Canvas/Store/StoreScrollView/view/content/item1/mask";
+            //         cc.find(filename).active = false;
+            //     }
+            // }
+            //else{
                 MaxArmRank -= 2;    //6级及以上只能购买低两级的武器
                 //////////////////////////////////////////////////////////////////////////////i < 8 delete!!!!!!!!
                 for(var i = 0; i <= MaxArmRank - 2/* && i < 8*/; i++){       //零件购买
@@ -150,7 +150,7 @@ cc.Class({
                         cc.find(filename).active = false;
                     }
                 }
-            }    
+            //}    
         });
     },
 
@@ -285,16 +285,16 @@ cc.Class({
             }
             //console.log("money.partnum="+money.partnum);
             if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") != null){
-                if(MaxArmRank < 5){     //小于6级
-                    //检查零件购买
-                    var Money = money.partnum;
-                    var price = weapon_info.getPrice(0, weapon_info.weapon_nums[0]);
-                    if(Money >= price){
-                        if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") != null){
-                            cc.find("Canvas/Store/StoreScrollView/view/content/item1/mask").active = false;
-                        }
-                    }
-                }else{                  //大于等于6级
+                // if(MaxArmRank < 5){     //小于6级
+                //     //检查零件购买
+                //     var Money = money.partnum;
+                //     var price = weapon_info.getPrice(0, weapon_info.weapon_nums[0]);
+                //     if(Money >= price){
+                //         if(cc.find("Canvas/Store/StoreScrollView/view/content/item1") != null){
+                //             cc.find("Canvas/Store/StoreScrollView/view/content/item1/mask").active = false;
+                //         }
+                //     }
+                // }else{                  //大于等于6级
                     //检查零件购买
                     var Money = money.partnum;
                     //////////////////////////////////////////////////////////////////////////////i < 9 delete!!!!!!!!
@@ -323,7 +323,7 @@ cc.Class({
                             cc.find("Canvas/Store/StoreScrollView/view/content/item" + i + "/mask").active = false;
                         }
                     }
-                }
+                //}
             }
         }
     },

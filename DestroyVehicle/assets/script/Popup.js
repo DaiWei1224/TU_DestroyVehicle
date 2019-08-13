@@ -62,7 +62,7 @@ Popup.show = function (
                 Popup._directButton.on('click', self.onButtonClicked, self);
 
                 //滚动到最新解锁的位置，第一个参数为滚动的百分比（0-1），第二个参数为滚动时间
-                Popup._popup.getChildByName("StoreScrollView").getComponent(cc.ScrollView).scrollToPercentVertical(parseFloat(profit), 1);
+                Popup._popup.getChildByName("StoreScrollView").getComponent(cc.ScrollView).scrollToPercentVertical(parseFloat(profit));
 
             }else if(type == 'offLineProfit'){
 

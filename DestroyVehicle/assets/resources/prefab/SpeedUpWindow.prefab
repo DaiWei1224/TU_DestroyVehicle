@@ -37,11 +37,11 @@
     "_level": 1,
     "_components": [
       {
-        "__id__": 31
+        "__id__": 32
       }
     ],
     "_prefab": {
-      "__id__": 32
+      "__id__": 33
     },
     "_opacity": 255,
     "_color": {
@@ -832,7 +832,7 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -137.574,
+      "x": 0,
       "y": 277.955,
       "z": 0
     },
@@ -913,7 +913,7 @@
       }
     ],
     "_prefab": {
-      "__id__": 30
+      "__id__": 31
     },
     "_opacity": 255,
     "_color": {
@@ -1003,6 +1003,9 @@
     "clickEvents": [
       {
         "__id__": 29
+      },
+      {
+        "__id__": 30
       }
     ],
     "_N$interactable": true,
@@ -1068,6 +1071,16 @@
     "component": "",
     "_componentId": "14a591RygJO44+GmwXwwIhK",
     "handler": "DoubleIncome",
+    "customEventData": ""
+  },
+  {
+    "__type__": "cc.ClickEvent",
+    "target": {
+      "__id__": 1
+    },
+    "component": "",
+    "_componentId": "14a591RygJO44+GmwXwwIhK",
+    "handler": "DestroyItSelf",
     "customEventData": ""
   },
   {

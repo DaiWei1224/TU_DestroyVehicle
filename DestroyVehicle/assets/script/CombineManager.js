@@ -52,9 +52,11 @@ cc.Class({
 
         this.DustbinChange=false;
         //载入武器槽信息，通过零件数判断是否第一次进入游戏
-        var temp = self.getUserData("parts",50);
-        if(temp == 50){
+        var temp = self.getUserData("parts",0);
+        if(temp == 0){
+            //第一次登陆初始化武器槽
             self.ArmArry = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+            //打开新手引导
             self.Guide.active = true;
         }
         else{
@@ -73,9 +75,8 @@ cc.Class({
                 self.getSlotData(slot.slot11, -1),
                 self.getSlotData(slot.slot12, -1));
         }
-
         //读取零件增加速度的值
-        money.speednum = self.getUserData("partsSpeed", 0)
+        money.speednum = self.getUserData("partsSpeed", 8)
         var speed = cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
         speed.string = "+" + money.getlabel(money.speednum) + "/s";
 
@@ -127,11 +128,10 @@ cc.Class({
         this.ChangeSprites();
     },
 
-    update (dt) {
-        console.log("touchid"+self.Touchid);
+    // update (dt) {
+    //     console.log("touchid"+self.Touchid);
         
-    },
-
+    // },
 
     GetSlot(Pos)
     {
@@ -287,6 +287,14 @@ cc.Class({
 
     ArmMove(downslot,upslot)
     {
+        if(self.MaxArmRank==0)
+        {
+            self.FollowArm.destroy();
+            self.FollowArm=null;
+            self.ArmImagesArry[downslot].opacity=255;
+            return;
+        }
+        
         if(self.ArmArry[downslot]>-1&&self.ArmArry[upslot]==-1)
         {
             self.ArmArry[upslot]=self.ArmArry[downslot];

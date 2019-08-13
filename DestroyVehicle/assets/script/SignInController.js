@@ -23,6 +23,14 @@ cc.Class({
     },
 
     onLoad () {
+        //第一次登陆不出现签到弹窗
+        if(this.getUserData("parts", 0) == 0){
+            this.SignInWindow.active = false;
+            //将可领取的项label改为可领取，并添加光圈
+            cc.find("SignIn/aWeek/day1/title").getComponent(cc.Label).string = "可领取";
+            cc.find("SignIn/aWeek/day1/light").active = true;
+            return;
+        }
         var self = this;
         //获取当前日期
         var nowDate = new Date().getDate(); //从Date对象返回一个月中的某一天 (1 ~ 31)
@@ -47,9 +55,6 @@ cc.Class({
             //self.SignInWindow.active = true;
             var actionFadeIn = cc.sequence(cc.spawn(cc.fadeTo(self.windowSpeed, 255), cc.scaleTo(self.windowSpeed, 1)),null);//, cbFadeIn);
             self.SignInWindow.runAction(actionFadeIn);
-
-            console.log("self.SignInWindow.active = "+self.SignInWindow.active);
-
             //若已领取天数为7，则改为0
             if(receiveDayNum == 7){
                 receiveDayNum = 0;
@@ -99,16 +104,18 @@ cc.Class({
             money.diamondnum += 10;
             this.diamondLabel.string = money.getlabel(money.diamondnum);
         }*/
+        console.log("签到前： daimond = " + money.diamondnum);
         switch(receiveDayNum){
-            case '0':money.diamondnum += 400; break;
-            case '1':money.diamondnum += 450; break;
-            case '2':money.diamondnum += 500; break;
-            case '3':money.diamondnum += 550; break;
-            case '4':money.diamondnum += 600; break;
-            case '5':money.diamondnum += 650; break;
-            case '6':money.diamondnum += 800; break;
-            }
-            this.diamondLabel.string = money.getlabel(money.diamondnum);				
+            case '0': money.diamondnum = parseInt(money.diamondnum) + 400; break;
+            case '1': money.diamondnum = parseInt(money.diamondnum) + 450; break;
+            case '2': money.diamondnum = parseInt(money.diamondnum) + 500; break;
+            case '3': money.diamondnum = parseInt(money.diamondnum) + 550; break;
+            case '4': money.diamondnum = parseInt(money.diamondnum) + 600; break;
+            case '5': money.diamondnum = parseInt(money.diamondnum) + 650; break;
+            case '6': money.diamondnum = parseInt(money.diamondnum) + 800; break;
+        }
+        console.log("签到后： daimond = " + money.diamondnum);
+        this.diamondLabel.string = money.getlabel(money.diamondnum);				
           
         //将领取消光圈取后的项改为已领取并添加蒙板
         cc.find("SignIn/aWeek/day" + (parseInt(receiveDayNum) + 1) + "/light").active = false;
