@@ -161,9 +161,9 @@ cc.Class({
         var temp = this.level.string.split('.');
         cc.sys.localStorage.setItem("level", parseInt(temp[1]));
         //若当前血量为60/100，则restBlood=60，allBlood=100
-        temp = this.blood.string.split('/');
-        cc.sys.localStorage.setItem("restBlood",parseInt(temp[0]));
-        cc.sys.localStorage.setItem("allBlood",parseInt(temp[1]));
+        var blood=cc.find("Canvas/Vehicle").getComponent("HitVehicle");
+        cc.sys.localStorage.setItem("restBlood",parseInt(blood.allBlood));
+        cc.sys.localStorage.setItem("allBlood",parseInt(blood.restBlood));
        
        if(weapon_info.weapon_earningspeed=='2')
        {

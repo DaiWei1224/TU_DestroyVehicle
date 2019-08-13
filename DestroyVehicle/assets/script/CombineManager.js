@@ -82,8 +82,9 @@ cc.Class({
         self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             if(!self.FollowArm&&self.Touchid==-1)
             {
-                self.Touchid=event.getID();
+                
                 self.MouseDownSlot=self.GetSlot(event.getLocation());//得到触摸的是第几块
+                if(self.MouseDownSlot>=0)   self.Touchid=event.getID();
                 self.MouseDownOnSlot(self.MouseDownSlot,self.node.convertToNodeSpaceAR(event.getLocation()));//触摸的位置（x，y），和第几个
             }
         }, self.node);
@@ -114,8 +115,8 @@ cc.Class({
             if(event.getID()==self.Touchid)
             {
             self.MouseUpSlot=self.GetSlot(event.getLocation());
+            
             self.MouseUpOnSlot(self.MouseUpSlot);
-            self.Touchid=-1;
             }
         }, self.node);
 
@@ -127,6 +128,8 @@ cc.Class({
     },
 
     update (dt) {
+        console.log("touchid"+self.Touchid);
+        
     },
 
 
@@ -175,6 +178,7 @@ cc.Class({
             self.ArmImagesArry[slotnum].opacity = 100;
             self.FindEqualArms(slotnum,true);
         }
+        else self.Touchid=-1;
     },
 
 
@@ -191,33 +195,41 @@ cc.Class({
         if(slotnum==-2)
         {
             self.ArmDelet(self.MouseDownSlot);
+            self.Touchid=-1;
         }
         else if(slotnum==-1||slotnum==self.MouseDownSlot)
         {
             self.ArmMoveCancle(self.MouseDownSlot);
+            self.Touchid=-1;
         }
         else if(self.ArmArry[slotnum]==self.ArmArry[self.MouseDownSlot]&&self.ArmArry[slotnum]!=-1)
         {
             if(self.MaxArmRank==29&&self.ArmArry[slotnum]==29)
+            {
                 self.ArmChangePlace(self.MouseDownSlot,slotnum);
+                self.Touchid=-1;}
             else
                 self.ArmCombine(self.MouseDownSlot,slotnum);
         }
         else if(self.ArmArry[self.MouseDownSlot]>-1&&self.ArmArry[slotnum]==-1)
         {
             self.ArmMove(self.MouseDownSlot,slotnum);
+            self.Touchid=-1;
         }
         else if(self.ArmArry[self.MouseDownSlot]!=self.ArmArry[slotnum])
         {
             self.ArmChangePlace(self.MouseDownSlot,slotnum);
+            self.Touchid=-1;
         }
+        self.MouseDownSlot=-1;
     },
 
     ArmCombine(downslot,upslot)
     {
-        self.ArmArry[upslot]=parseInt(self.ArmArry[upslot])+1;
         Sound.PlaySound("combine");
         self.ArmImagesArry[downslot].destroy();
+        self.ArmArry[upslot]=parseInt(self.ArmArry[upslot])+1;
+        
 
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
         
@@ -239,6 +251,10 @@ cc.Class({
             Num.getComponent(cc.Label).string=parseInt(self.ArmArry[upslot])+1;
             self.node.addChild(Armi);
             self.ArmImagesArry[upslot]=Armi;
+
+            self.Touchid=-1;
+            self.MouseDownSlot=-1;
+            console.log("armcombinefinish");
             
             Armi.setPosition(self.SlotPositionArry[upslot]);
             if(self.ArmArry[upslot]>self.MaxArmRank)
@@ -258,12 +274,12 @@ cc.Class({
         var CollisionEffect=cc.callFunc(function () {
             CurrentFollowArm.runAction(CollisionEffectA);
             self.ArmImagesArry[upslot].runAction(CollisionEffectB);
-            self.FollowArm=null;
+
         }, this);
 
         var action = cc.sequence(cc.moveTo(0.2, self.SlotPositionArry[upslot]),CollisionEffect);
         var CurrentFollowArm=self.FollowArm;
-        
+        self.FollowArm=null;
         CurrentFollowArm.runAction(action);
     },
 
@@ -389,9 +405,9 @@ cc.Class({
                     self.autobuy.active=false;
                 }
                 part.string=money.getlabel(money.partnum);
-                self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
+                self.erning_parts[i].getComponent(cc.Label).string="+"+money.getlabel(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
                 self.erning_parts[i].active=true;
-                self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
+                self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.5,0,20),cc.fadeOut(0.01),cc.moveBy(0.5,0,-20)));
             }
             
             };          
@@ -553,9 +569,9 @@ cc.Class({
                         self.autobuy.active=false;
                     }
                     part.string=money.getlabel(money.partnum);
-                    self.erning_parts[i].getComponent(cc.Label).string="+$"+money.getlabel(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
+                    self.erning_parts[i].getComponent(cc.Label).string="+"+money.getlabel(weapon_info.getpart(self.ArmArry[i])*weapon_info.weapon_earningspeed);
                     self.erning_parts[i].active=true;
-                    self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.25,0,20),cc.fadeOut(0.01),cc.moveBy(0.25,0,-20)));
+                    self.erning_parts[i].runAction(cc.sequence(cc.fadeIn(0.01),cc.moveBy(0.5,0,20),cc.fadeOut(0.01),cc.moveBy(0.5,0,-20)));
                 }
                 
                 };            

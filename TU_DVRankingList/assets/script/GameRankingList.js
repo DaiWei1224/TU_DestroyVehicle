@@ -5,6 +5,7 @@ cc.Class({
         //rankingScrollView: cc.ScrollView,
         scrollViewContent: cc.Node,
         prefabRankItem: cc.Prefab,
+        selfItem: cc.Prefab,
         //prefabGameOverRank: cc.Prefab,
         //gameOverRankLayout: cc.Node,
         //loadingLabel: cc.Node,//加载文字
@@ -44,7 +45,7 @@ cc.Class({
                 success: (userRes) => {
                     //this.loadingLabel.active = false;
                     console.log('success', userRes.data)                   
-                    //let userData = userRes.data[0];
+                    let userData = userRes.data[0];
                     //取出所有好友数据
                     wx.getFriendCloudStorage({
                         keyList: [levelRank],
@@ -65,8 +66,14 @@ cc.Class({
                             });
                             for (let i = 0; i < data.length && i < 10; i++) {   //只保存前十个人的排名
                                 var playerInfo = data[i];                                
-                                var item = cc.instantiate(this.prefabRankItem);
-                                item.getComponent('RankItem').init(i, playerInfo);
+                                var item;
+                                if (data[i].avatarUrl == userData.avatarUrl) {
+                                    item = cc.instantiate(this.selfItem);
+                                    item.getComponent('RankItem').init(i, playerInfo, true);
+                                }else{
+                                    item = cc.instantiate(this.prefabRankItem);
+                                    item.getComponent('RankItem').init(i, playerInfo, false);
+                                }                                
                                 this.scrollViewContent.addChild(item);
                                 // if (data[i].avatarUrl == userData.avatarUrl) {
                                 //     let userItem = cc.instantiate(this.prefabRankItem);
@@ -98,10 +105,10 @@ cc.Class({
         }
         this.scrollViewContent.active = false;
         this.scrollViewContent.removeAllChildren();
-        //this.gameOverRankLayout.active = false;
-        //this.gameOverRankLayout.removeAllChildren();
-        //this.loadingLabel.getComponent(cc.Label).string = "玩命加载中...";
-        //this.loadingLabel.active = true;
+    //     this.gameOverRankLayout.active = false;
+    //     this.gameOverRankLayout.removeAllChildren();
+    //     this.loadingLabel.getComponent(cc.Label).string = "玩命加载中...";
+    //     this.loadingLabel.active = true;
     },
     // submitScore(MAIN_MENU_NUM, score) { //提交得分
     //     if (this.CC_WECHATGAME) {

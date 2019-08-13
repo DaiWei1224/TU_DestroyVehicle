@@ -7,6 +7,8 @@ cc.Class({
         list: cc.Node,
         mask: cc.Node,
         soundTexture: cc.Node,
+        SoundOff:cc.SpriteFrame,
+        SoundOn:cc.SpriteFrame,
         OuterClick: {
             default: false, //点击其他按钮左侧栏自动收回的判断标志
         },
@@ -65,20 +67,21 @@ cc.Class({
         var self = this;
         if(Sound.SoundVolume == 1){
             Sound.SoundVolume = 0;
-            cc.loader.loadRes('Sound/soundClose', cc.SpriteFrame, function (err, texture) {
+            /*cc.loader.loadRes('Sound/soundClose', cc.SpriteFrame, function (err, texture) {
                 if(err){
                     console.log(err);
                 }                   
-                self.soundTexture.getComponent(cc.Sprite).spriteFrame = texture;
-            });
+                
+            });*/self.soundTexture.getComponent(cc.Sprite).spriteFrame = self.SoundOff;
         }else{
             Sound.SoundVolume = 1;
-            cc.loader.loadRes('Sound/soundOpen', cc.SpriteFrame, function (err, texture) {
+            /*cc.loader.loadRes('Sound/soundOpen', cc.SpriteFrame, function (err, texture) {
                 if(err){
                     console.log(err);
                 }                   
                 self.soundTexture.getComponent(cc.Sprite).spriteFrame = texture;
-            });
+            });*/
+            self.soundTexture.getComponent(cc.Sprite).spriteFrame = self.SoundOn;
         }
     }
 });

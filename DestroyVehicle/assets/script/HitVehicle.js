@@ -56,6 +56,8 @@ cc.Class({
             displayName:"点击攻击力",
         },
         vehicleAtlas:cc.SpriteAtlas,
+        allBlood:0,
+        restBlood:0,
 
     },
 
@@ -85,18 +87,59 @@ cc.Class({
         }else{
             routeName += '_1';
         }
-        // cc.loader.loadRes(routeName, cc.SpriteFrame, function (err, texture) {
-        //     if(err){
-        //         console.log(err);
-        //     }                   
-        //     self.node.getComponent(cc.Sprite).spriteFrame = texture;
-        // });
+       
         self.node.getComponent(cc.Sprite).spriteFrame = self.vehicleAtlas.getSpriteFrame(routeName);
                                                                           
 
         this.CarBreakStage=0;
     },
-
+    newlabel(str,callBack){
+        let newNode = null;
+        console.log("正在创建新节点");
+            if (!this._labelPool) {
+    
+                //初始化对象池
+                console.log("没有对象池");
+                this._labelPool = new cc.NodePool();
+            }
+            if (this._labelPool.size() > 0) {
+    
+                console.log("size="+this._labelPool.size() );
+                //从对象池请求对象
+                newNode = this._labelPool.get();
+               
+                newNode.getComponent(cc.Label).string=str;
+                newNode.parent=this.layerBg;
+              
+            //    newNode.runAction(cc.fadeIn(0.01));
+                //var pos=this.layerBg.getPosition();
+                newNode.setPosition(0,300);
+                
+                if(callBack)
+                {
+                  
+                    callBack(newNode);
+                 }
+            } else {
+                // 如果没有空闲对象，我们就用 cc.instantiate 重新创建
+                cc.loader.loadRes("prefab/hurtBlood", cc.Prefab, function (err, prefab) {
+                    if (err) {
+                        console.log(err);
+                        console.log("申请资源失败");
+                        return;
+                    }             
+                    newNode = cc.instantiate(prefab);
+                    newNode.getComponent(cc.Label).string=str;
+                    this.layerBg.addChild(newNode);
+                    newNode.setPosition(0,300);
+                    if(callBack)
+                    {
+                       
+                        callBack(newNode);
+                    }
+                }.bind(this));
+            }
+    },
     newClickNode(position, callBack) {
         let newNode = null;
         if (!this._clickPool) {
@@ -194,8 +237,14 @@ cc.Class({
                 pl += 5*2*10; 
 
                 self.check(pl);
-                self.showRollNotice('-' + self.clickPower*2);
-                Sound.PlaySound("hit");
+                self.newlabel('-' + self.clickPower*2,function(node){
+                  
+                   
+                    node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,100),cc.fadeOut(1)),cc.callFunc(function(target){
+                        self._labelPool.put(target);
+                    })));
+                }.bind(this));
+                Sound.PlaySound("Crash1");
             }
             else{
                 var decBlood = self.clickPower / self.allBlood;
@@ -204,7 +253,14 @@ cc.Class({
                 self.restBlood -= self.clickPower;
                 pl+=5*2;
                 self.check(pl);
-                self.showRollNotice('-' + self.clickPower);
+                self.newlabel('-' + self.clickPower,function(node){
+                    
+                    console.log(node.getComponent(cc.Label).string);
+                    
+                    node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,100),cc.fadeOut(1)),cc.callFunc(function(target){
+                        self._labelPool.put(target);
+                    })));
+                }.bind(this));
                 Sound.PlaySound("hit");
             } 
 
@@ -228,14 +284,7 @@ cc.Class({
         });
         
     },
-    createShowNode:function(str){
-       
-        let label = cc.instantiate(this.labelPfb);
-        this.layerBg.addChild(label);
-
-        label.getComponent(cc.Label).string = str;
-        return label;
-    },
+  
 
     changeVehicle (fileName, self){
         Sound.PlaySound("break");
@@ -248,18 +297,6 @@ cc.Class({
         self.node.getComponent(cc.Sprite).spriteFrame = self.vehicleAtlas.getSpriteFrame(fileName);
     },
 
-    showRollNotice(str) {
-        let label = this.createShowNode(str);
-
-        //时间 秒数
-        let holdTime = 1;
-
-        let sequence = cc.sequence(cc.spawn(cc.fadeTo(holdTime, 0),cc.moveTo(holdTime,0,500)), cc.callFunc(function(target, score) {
-            target.destroy();
-        }, this))//动作完成后删除
-        label.runAction(sequence);
-
-    },
 
     //获取key对应的数据，为空设为默认值dft
     getUserData: function(key, dft) {    
@@ -318,7 +355,14 @@ cc.Class({
 
             pl += self.power;     //金币+5
             self.check(pl);
-            self.showRollNotice('-' + self.power);
+            self.newlabel('-' + self.power,function(node){
+             
+                
+                
+                node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,100),cc.fadeOut(1)),cc.callFunc(function(target){
+                    self._labelPool.put(target);
+                })));
+            }.bind(this));
 
             if(self.blood.progress>=0){
                 self.percentageLabel.string = Math.ceil(self.blood.progress * 100) + "%";

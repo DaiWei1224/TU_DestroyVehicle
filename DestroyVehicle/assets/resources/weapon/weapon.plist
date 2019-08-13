@@ -454,6 +454,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>等级签.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{51,53}</string>
+                <key>spriteSourceSize</key>
+                <string>{51,53}</string>
+                <key>textureRect</key>
+                <string>{{911,1},{51,53}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -468,7 +483,7 @@
             <key>size</key>
             <string>{1000,2026}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b47d103d76c2f8577a8fc7be2fa33983:e86842efa8311f192cb6cb12dd122bc9:f56027bfb88798a33d33ff61c031c331$</string>
+            <string>$TexturePacker:SmartUpdate:a96a103e6f3a50ee42e5fab0bc110477:88044ed8e4c96490749c622dcbfc280f:f56027bfb88798a33d33ff61c031c331$</string>
             <key>textureFileName</key>
             <string>weapon.png</string>
         </dict>
