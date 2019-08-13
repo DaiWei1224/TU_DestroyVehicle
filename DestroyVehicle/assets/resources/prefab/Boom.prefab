@@ -18,7 +18,7 @@
     "_parent": null,
     "_children": [],
     "_active": true,
-    "_level": 2,
+    "_level": 1,
     "_components": [
       {
         "__id__": 2
@@ -53,9 +53,9 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.308,
-      "y": 0.308,
-      "z": 0.308
+      "x": 0.3,
+      "y": 0.3,
+      "z": 1
     },
     "_quat": {
       "__type__": "cc.Quat",
@@ -83,14 +83,14 @@
     "_dstBlendFactor": 1,
     "_custom": false,
     "_file": {
-      "__uuid__": "455814a5-46d0-4fe7-9082-7ab940517dd5"
+      "__uuid__": "9fc5603f-cf44-4759-9d44-6ac9f179e2a1"
     },
     "_spriteFrame": null,
     "_texture": null,
     "_stopped": true,
     "playOnLoad": false,
     "autoRemoveOnFinish": false,
-    "totalParticles": 181,
+    "totalParticles": 50,
     "duration": 0.26,
     "emissionRate": 247.94520547945206,
     "life": 0.73,
@@ -125,9 +125,9 @@
     },
     "angle": 90,
     "angleVar": 180,
-    "startSize": 8,
+    "startSize": 10,
     "startSizeVar": 34,
-    "endSize": 40,
+    "endSize": 5,
     "endSizeVar": 0,
     "startSpin": -37,
     "startSpinVar": 0,
@@ -151,8 +151,8 @@
       "x": 0,
       "y": -1060
     },
-    "speed": 630,
-    "speedVar": 5,
+    "speed": 300,
+    "speedVar": 300,
     "tangentialAccel": 0,
     "tangentialAccelVar": 0,
     "radialAccel": 0,
@@ -164,7 +164,7 @@
     "endRadiusVar": 0,
     "rotatePerS": 0,
     "rotatePerSVar": 0,
-    "_N$preview": false,
+    "_N$preview": true,
     "_id": ""
   },
   {
@@ -173,7 +173,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "c5431aa9-8f50-4aa5-9293-de8616a8fc80"
     },
     "fileId": "9esu/EI/1ELap2EsXAKW/F",
     "sync": false

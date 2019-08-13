@@ -5,7 +5,6 @@ cc.Class({
 
     properties: {
 
-        layerBg: cc.Node,
         labelPfb: cc.Prefab,
         CarBreakStage:Number,
 
@@ -107,13 +106,13 @@ cc.Class({
                 console.log("size="+this._labelPool.size() );
                 //从对象池请求对象
                 newNode = this._labelPool.get();
-               
+                this.node.addChild(newNode);
                 newNode.getComponent(cc.Label).string=str;
-                newNode.parent=this.layerBg;
+               
               
             //    newNode.runAction(cc.fadeIn(0.01));
                 //var pos=this.layerBg.getPosition();
-                newNode.setPosition(0,300);
+                newNode.setPosition(0,100);
                 
                 if(callBack)
                 {
@@ -130,8 +129,8 @@ cc.Class({
                     }             
                     newNode = cc.instantiate(prefab);
                     newNode.getComponent(cc.Label).string=str;
-                    this.layerBg.addChild(newNode);
-                    newNode.setPosition(0,300);
+                    this.node.addChild(newNode);
+                    newNode.setPosition(0,100);
                     if(callBack)
                     {
                        
@@ -240,7 +239,7 @@ cc.Class({
                 self.newlabel('-' + self.clickPower*2,function(node){
                   
                    
-                    node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,100),cc.fadeOut(1)),cc.callFunc(function(target){
+                    node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,200),cc.fadeOut(1)),cc.callFunc(function(target){
                         self._labelPool.put(target);
                     })));
                 }.bind(this));
@@ -257,7 +256,7 @@ cc.Class({
                     
                     console.log(node.getComponent(cc.Label).string);
                     
-                    node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,100),cc.fadeOut(1)),cc.callFunc(function(target){
+                    node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,200),cc.fadeOut(1)),cc.callFunc(function(target){
                         self._labelPool.put(target);
                     })));
                 }.bind(this));
@@ -359,7 +358,7 @@ cc.Class({
              
                 
                 
-                node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,100),cc.fadeOut(1)),cc.callFunc(function(target){
+                node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,200),cc.fadeOut(1)),cc.callFunc(function(target){
                     self._labelPool.put(target);
                 })));
             }.bind(this));

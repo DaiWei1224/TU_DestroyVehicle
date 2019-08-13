@@ -794,7 +794,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 182.09,
+      "width": 15.290000000000001,
       "height": 51.8
     },
     "_anchorPoint": {
@@ -839,8 +839,8 @@
     "_enabled": true,
     "_materials": [],
     "_useOriginalSize": false,
-    "_string": "10000M",
-    "_N$string": "10000M",
+    "_string": " ",
+    "_N$string": " ",
     "_fontSize": 50,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1016,12 +1016,12 @@
     },
     "_enabled": true,
     "duration": 0.1,
-    "zoomScale": 1.2,
+    "zoomScale": 0.8,
     "clickEvents": [],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
-    "_N$transition": 0,
-    "transition": 0,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
       "__type__": "cc.Color",
       "r": 214,

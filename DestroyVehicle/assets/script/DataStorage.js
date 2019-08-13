@@ -41,8 +41,7 @@ cc.Class({
     },
 
     onLoad () {
-        //这个调用记得删！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！1111111
-        this.InitializationTest();
+        //this.InitializationTest();
 
         //登陆读取用户数据
         var self = this;
@@ -162,8 +161,8 @@ cc.Class({
         cc.sys.localStorage.setItem("level", parseInt(temp[1]));
         //若当前血量为60/100，则restBlood=60，allBlood=100
         var blood=cc.find("Canvas/Vehicle").getComponent("HitVehicle");
-        cc.sys.localStorage.setItem("restBlood",parseInt(blood.allBlood));
-        cc.sys.localStorage.setItem("allBlood",parseInt(blood.restBlood));
+        cc.sys.localStorage.setItem("allBlood",parseInt(blood.allBlood));
+        cc.sys.localStorage.setItem("restBlood",parseInt(blood.restBlood));
        
        if(weapon_info.weapon_earningspeed=='2')
        {
