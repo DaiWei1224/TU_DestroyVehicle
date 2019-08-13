@@ -156,15 +156,15 @@ cc.Class({
 
     //点击购买武器
     weaponBtnClick: function(event,customEventData){
-        console.log("customEventData = " + customEventData);
+        //console.log("customEventData = " + customEventData);
         var self = this;
         var CM = require("CombineManager");
         var flag = CM.InstNewArm(customEventData);
-        console.log("fshengle点击事件");
+        //console.log("fshengle点击事件");
         //返回1代表还有空位，可以初始化
         if(flag == "1")
         {
-            console.log("成功购买");
+            //console.log("成功购买");
             Sound.PlaySound("buy");
             //console.log(customEventData);
             customEventData = parseInt(customEventData);

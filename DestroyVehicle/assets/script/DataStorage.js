@@ -56,7 +56,7 @@ cc.Class({
         //读取零件增加速度
         money.speednum = self.getUserData("partsSpeed", 8);
         self.speed.string = '+' + money.getlabel(money.speednum) + '/s';
-        console.log("读取的速率"+money.speednum);
+        //console.log("读取的速率"+money.speednum);
         //初始化weapon_info.weapon_num数组
         var MaxArmRank = self.getUserData("MaxArmRank", 0);
         weapon_info.level_now =parseInt(MaxArmRank);
@@ -70,12 +70,15 @@ cc.Class({
         if(date1 != 0){
             date2 = new Date().getTime(); //返回页面的时间
             var leaveTime = parseInt((date2 - date1) / 1000);
-            console.log("距离上次登陆 " + leaveTime + " 秒");
+            //console.log("距离上次登陆 " + leaveTime + " 秒");
             if(leaveTime > 7200){  //设置最大离线收益时间为2小时
                 leaveTime = 7200;
             }
             //计算离线收益速率
-            var offLineSpeed = parseFloat(money.speednum) - parseInt(weapon_info.getatk(MaxArmRank)) ;
+            var offLineSpeed = parseFloat(money.speednum) - parseInt(weapon_info.getatk(MaxArmRank));
+            if(offLineSpeed < 0){
+                offLineSpeed = 0;
+            }
             money.partnum += leaveTime * offLineSpeed;
 
             self.parts.string = money.getlabel(money.partnum);   //将更新后的零件数保存到label
@@ -110,7 +113,7 @@ cc.Class({
             if(date1 != 0){
                 date2 = new Date().getTime(); //返回页面的时间
                 var leaveTime = parseInt((date2 - date1) / 1000);
-                console.log("离线 " + leaveTime + " 秒");
+                //console.log("离线 " + leaveTime + " 秒");
                 money.partnum= parseInt(money.partnum);
                 
                 var speedoff=money.speednum;

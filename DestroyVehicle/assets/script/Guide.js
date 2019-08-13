@@ -58,7 +58,7 @@ cc.Class({
 
     update (dt) {
         this.GuideUpdate();
-        console.log("   "+this.GuideStep);
+        //console.log("   "+this.GuideStep);
     },
 
     GuideUpdate()

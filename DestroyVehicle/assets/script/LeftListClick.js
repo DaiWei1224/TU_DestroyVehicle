@@ -53,14 +53,14 @@ cc.Class({
                 title: "前任提了豪车？快来砸爆它！！",
                 imageUrl: data.url,
                 success(res) {
-                    console.log(res)
+                    //console.log(res)
                 },
                 fail(res) {
-                    console.log(res)
+                    //console.log(res)
                 }
             })
         });
-        console.log("分享");
+        //console.log("分享");
     },
 
     soundSettings() {

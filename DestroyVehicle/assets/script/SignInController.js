@@ -104,7 +104,6 @@ cc.Class({
             money.diamondnum += 10;
             this.diamondLabel.string = money.getlabel(money.diamondnum);
         }*/
-        console.log("签到前： daimond = " + money.diamondnum);
         switch(receiveDayNum){
             case '0': money.diamondnum = parseInt(money.diamondnum) + 400; break;
             case '1': money.diamondnum = parseInt(money.diamondnum) + 450; break;
@@ -114,7 +113,6 @@ cc.Class({
             case '5': money.diamondnum = parseInt(money.diamondnum) + 650; break;
             case '6': money.diamondnum = parseInt(money.diamondnum) + 800; break;
         }
-        console.log("签到后： daimond = " + money.diamondnum);
         this.diamondLabel.string = money.getlabel(money.diamondnum);				
           
         //将领取消光圈取后的项改为已领取并添加蒙板

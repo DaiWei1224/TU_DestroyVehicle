@@ -235,7 +235,7 @@ cc.Class({
         
         
         money.speednum=parseInt(money.speednum)-parseInt(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(downslot)))*weapon_info.weapon_earningspeed*2;
-        console.log("jiude jiandiao "+money.speednum);
+        //console.log("jiude jiandiao "+money.speednum);
         money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(self.ArmArry[upslot])/weapon_info.gettime(self.ArmArry[upslot]))*weapon_info.weapon_earningspeed;
         speed.string="+"+money.getlabel(money.speednum)+"/s";
         self.ArmArry[downslot]=-1;
@@ -254,7 +254,7 @@ cc.Class({
 
             self.Touchid=-1;
             self.MouseDownSlot=-1;
-            console.log("armcombinefinish");
+            //console.log("armcombinefinish");
             
             Armi.setPosition(self.SlotPositionArry[upslot]);
             if(self.ArmArry[upslot]>self.MaxArmRank)
@@ -433,7 +433,7 @@ cc.Class({
         autoBuyBtn.weapon_kind = weapon_info.changeweapon();
         //更新打击后价格
         weapon_info.weapon_kind=weapon_info.changeweapon();
-        console.log("更新后的武器等级"+weapon_info.weapon_kind);
+        //console.log("更新后的武器等级"+weapon_info.weapon_kind);
         var priceLabel = cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
         autoBuyBtn.weapon_num = weapon_info.weapon_nums[autoBuyBtn.weapon_kind];
         priceLabel.string = money.getlabel(weapon_info.getPrice(autoBuyBtn.weapon_kind, autoBuyBtn.weapon_num));
@@ -601,5 +601,5 @@ cc.Class({
                 return flag;
             }
         }
-        console.log("创建编号为"+ArmRank+"的武器");
+        //console.log("创建编号为"+ArmRank+"的武器");
     };

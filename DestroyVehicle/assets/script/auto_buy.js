@@ -17,7 +17,7 @@ cc.Class({
         self.weapon_kind = parseInt(weapon_info.changeweapon());
         self.weapon_num = parseInt(weapon_info.weapon_nums[self.weapon_kind]);
 
-        console.log(self.weapon_kind+ "    "+ self.weapon_num);
+        //console.log(self.weapon_kind+ "    "+ self.weapon_num);
         var price=cc.find("Canvas/autobuyButton/priceLabel").getComponent(cc.Label);
         price.string = money.getlabel(weapon_info.getPrice(self.weapon_kind,self.weapon_num));//更新打击后价格
         //更新最优武器图片
@@ -55,7 +55,7 @@ cc.Class({
 
             self.weapon_num+=1;
             weapon_info.weapon_nums[self.weapon_kind] = self.weapon_num;
-            console.log("已经购买了"+self.weapon_num);
+            //console.log("已经购买了"+self.weapon_num);
            //扣钱
             var abc=require("CombineManager");
             var flag=abc.InstNewArm(weapon_info.weapon_kind);
@@ -64,7 +64,7 @@ cc.Class({
                 Sound.PlaySound("buy");
                 self.weapon_kind = weapon_info.changeweapon();
                 self.weapon_num = weapon_info.weapon_nums[self.weapon_kind];
-                console.log("等级是"+self.weapon_kind+"数量是"+self.weapon_num);
+                //console.log("等级是"+self.weapon_kind+"数量是"+self.weapon_num);
                 //更新打击后价格
                 price.string = money.getlabel(weapon_info.getPrice(self.weapon_kind,weapon_info.weapon_nums[weapon_info.weapon_kind]));
                 //更新最优武器图片

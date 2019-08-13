@@ -94,16 +94,16 @@ cc.Class({
     },
     newlabel(str,callBack){
         let newNode = null;
-        console.log("正在创建新节点");
+        //console.log("正在创建新节点");
             if (!this._labelPool) {
     
                 //初始化对象池
-                console.log("没有对象池");
+                //console.log("没有对象池");
                 this._labelPool = new cc.NodePool();
             }
             if (this._labelPool.size() > 0) {
     
-                console.log("size="+this._labelPool.size() );
+                //console.log("size="+this._labelPool.size() );
                 //从对象池请求对象
                 newNode = this._labelPool.get();
                 this.node.addChild(newNode);
@@ -253,9 +253,7 @@ cc.Class({
                 pl+=5*2;
                 self.check(pl);
                 self.newlabel('-' + self.clickPower,function(node){
-                    
-                    console.log(node.getComponent(cc.Label).string);
-                    
+                    //console.log(node.getComponent(cc.Label).string);                    
                     node.runAction(cc.sequence(cc.fadeIn(0.01),cc.spawn(cc.moveBy(1,0,200),cc.fadeOut(1)),cc.callFunc(function(target){
                         self._labelPool.put(target);
                     })));

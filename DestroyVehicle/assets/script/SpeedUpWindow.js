@@ -28,7 +28,7 @@ cc.Class({
             Sound.PlaySound("speed up");
             
             
-            var mul2Button=cc.find('Canvas/mul2Button');console.log("nnn"+mul2Button.name);
+            var mul2Button=cc.find('Canvas/mul2Button');//console.log("nnn"+mul2Button.name);
             mul2Button.getComponent("SpeedUp").DoubleIncomeTime+=60;
             money.diamondnum -= 10;
             
