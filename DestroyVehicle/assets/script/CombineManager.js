@@ -36,11 +36,9 @@ cc.Class({
 
         Touchid:Number,
         atlas:cc.SpriteAtlas,
-
-        Guide: cc.Node,
+        //Guide: cc.Node,
     },
-    
-    // LIFE-CYCLE CALLBACKS:
+
     onLoad(){
         self=this;
 
@@ -50,14 +48,25 @@ cc.Class({
         self.MaxArmRank = self.getUserData('MaxArmRank',0);
         self.onLoadChangeArm(self.MaxArmRank);
 
+        //新手引导
+        var Guide=cc.find("Canvas/Guide");
+        var Guide6=cc.find("Canvas/Guide6");
+        if(self.MaxArmRank < 1){
+            Guide.active = true;
+        }else{
+            Guide.destroy();
+        }
+        if(self.MaxArmRank < 5){
+            Guide6.active = true;
+        }else{
+            Guide6.destroy();
+        }
+
         this.DustbinChange=false;
-        //载入武器槽信息，通过零件数判断是否第一次进入游戏
-        var temp = self.getUserData("parts",0);
-        if(temp == 0){
+        //载入武器槽信息，通过武器等级是否大于1判断是否第一次进入游戏
+        if(self.MaxArmRank < 1){
             //第一次登陆初始化武器槽
             self.ArmArry = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
-            //打开新手引导
-            self.Guide.active = true;
         }
         else{
             var slot = JSON.parse(cc.sys.localStorage.getItem('slot'));

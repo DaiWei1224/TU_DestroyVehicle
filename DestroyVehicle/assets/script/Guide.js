@@ -5,21 +5,21 @@ cc.Class({
 
     properties: {
         WorkerMask:cc.Node,
-        GoldCarMask:cc.Node,
+        //GoldCarMask:cc.Node,
         CarMask:cc.Node,
         GoldMask:cc.Node,
         AutoBuyMask:cc.Node,
-        SpawnGoldMask:cc.Node,
+        //SpawnGoldMask:cc.Node,
         CombineMask:cc.Node,
-        CarBloodMask:cc.Node,
-        SpeedUpMask:cc.Node,
-        GiftBoxMask:cc.Node,
-        SlotsMask:cc.Node,
+        //CarBloodMask:cc.Node,
+        //SpeedUpMask:cc.Node,
+        //GiftBoxMask:cc.Node,
+        //SlotsMask:cc.Node,
 
         GuideLable:cc.Node,
 
         CombineManager:null,//combinemanager script
-        DataStorage:null,
+        //DataStorage:null,
 
         GuideStep:Number,
         WorkerGuideStep:Number,
@@ -44,7 +44,7 @@ cc.Class({
         this.ClickMask.active=false;
 
         this.CombineManager=cc.find("Canvas/SlotManager").getComponent("CombineManager");
-        this.DataStorage=cc.find("Canvas").getComponent("DataStorage");
+        //this.DataStorage=cc.find("Canvas").getComponent("DataStorage");
         this.GuideStep=0;
         this.WorkerGuideStep=0;
         this.CarMask.active=true;
@@ -65,7 +65,7 @@ cc.Class({
     {
         switch(this.GuideStep)
         {
-            case 0:
+            /*case 0:
                 if(money.partnum>=50){
                     this.CarMask.active=false;
                     this.GoldCarMask.active=true;
@@ -74,17 +74,17 @@ cc.Class({
                     this.GuideStep++;
                     
                 }
-                break;
-            case 1:
-                if(this.GoldCarMask!=null&&money.partnum>=100){
-                    this.GoldCarMask.destroy();
+                break;*/
+            case 0:
+                if(money.partnum>=100){
+                    this.CarMask.destroy();
                     this.GoldMask.active=true;
-                    this.GuideLable.getComponent(cc.Label).string="您的金钱已经足够购买一把武器";
+                    this.GuideLable.getComponent(cc.Label).string="您的金钱已经足够购买\n一把武器";
                     this.ClickMask.active=true;
                     this.GuideStep++;
                 }
                 break;
-            case 3:
+            /*case 3:
                 var slot0arm=this.CombineManager.ArmArry[0];
                 var slot1arm=this.CombineManager.ArmArry[1];
                 if(slot1arm==0&&slot0arm==0)
@@ -96,32 +96,46 @@ cc.Class({
                     this.ClickMask.active=true;
                     this.GuideStep++;
                 }
-                break;
-            case 5:
+                break;*/
+            case 2:
                     var slot0arm=this.CombineManager.ArmArry[0];
                     var slot1arm=this.CombineManager.ArmArry[1];
                     if(slot1arm==0&&slot0arm==0)
                     {
-                        this.SpawnGoldMask.destroy();
+                        this.AutoBuyMask.destroy();
                         this.CombineMask.active=true;
                         this.GuideLable.getComponent(cc.Label).string="拖动一个武器至同名武器\n合成更高等级武器";
                         this.GuideLable.setPosition(0,-275);
                         this.GuideStep++;
                     }
                     break;
-            case 6:
+            case 3:
                 var slot0arm=this.CombineManager.ArmArry[0];
                 var slot1arm=this.CombineManager.ArmArry[1];
                     if(slot1arm==1||slot0arm==1)
                     {
-                        this.CombineMask.destroy();
+                        /*this.CombineMask.destroy();
                         this.CarMask.active=true;
                         this.GuideLable.getComponent(cc.Label).string="新的武器拥有更高的攻击力\n快来试试新武器的威力吧";
                         this.GuideLable.setPosition(0,-100);
+                        this.GuideStep++;*/
                         this.GuideStep++;
+                        this.scheduleOnce(function() {
+                            this.CombineMask.destroy();
+                            this.WorkerBody.active=true;
+                            this.WorkerMask.active=true;
+                            this.ClickMask.active=true;
+                            self.node.setContentSize(1200,1800);
+                            this.GuideLable.getComponent(cc.Label).string="恭喜您解锁了工人";
+                            this.GuideLable.setPosition(0,0);
+                            
+                            console.log("this.GuideStep"+this.GuideStep);
+                            this.HitVehicle.count=0;
+                        }, 0.25);
+                        
                     }
                     break;
-            case 7:
+            /*case 7:
                     var levelstring=this.DataStorage.level.getComponent(cc.Label).string;
                     var Carlevel=parseInt(levelstring.slice(3));
                     if(Carlevel==2)
@@ -135,7 +149,7 @@ cc.Class({
                         this.GuideStep++;
                     }
                     
-                    break;
+                    break;*/
         }
     },
 
@@ -146,9 +160,9 @@ cc.Class({
 
     TouchDown()
     {
-        if(this.GuideStep==2)
+        if(this.GuideStep==1)
         {
-            this.GoldMask.active=false;
+            this.GoldMask.destroy();
             this.AutoBuyMask.active=true;
             this.GuideLable.getComponent(cc.Label).string="点击购买新武器";
             this.GuideLable.setPosition(75,-375);
@@ -158,14 +172,14 @@ cc.Class({
             abc.InstNewArm(0);
             this.ClickMask.active=false;
         }
-        else if(this.GuideStep==4)
+        /*else if(this.GuideStep==4)
         {
             this.ClickMask.active=false;
             this.GuideLable.getComponent(cc.Label).string="即便您离线\n也会在离线的前两小时产生收益";
             this.GuideLable.setPosition(0,-375);
             this.GuideStep++;
-        }
-        else if(this.GuideStep==8)
+        }*/
+        /*else if(this.GuideStep==8)
         {
             this.CarBloodMask.destroy();
             this.WorkerBody.active=true;
@@ -175,8 +189,8 @@ cc.Class({
             this.GuideLable.setPosition(0,0);
             this.GuideStep++;
             this.HitVehicle.count=0;
-        }
-        else if(this.GuideStep==9)
+        }*/
+        else if(this.GuideStep==4)
             {
                 if(this.WorkerGuideStep==0)
                 {
@@ -191,9 +205,10 @@ cc.Class({
                 else if(this.WorkerGuideStep==2)
                 {
                     this.GuideLable.getComponent(cc.Label).string="注意：工人只在您上线时工作";
-                    this.WorkerGuideStep++;
+                    this.GuideStep++;
+                    //this.WorkerGuideStep++;
                 }
-                else if(this.WorkerGuideStep==3)
+                /*else if(this.WorkerGuideStep==3)
                 {
                     this.HitVehicle.count=-100000;
                     this.WorkerMask.destroy();
@@ -201,10 +216,10 @@ cc.Class({
                     this.SpeedUpMask.active=true;
                     this.GuideLable.getComponent(cc.Label).string="此处是收益加速";
                     this.GuideLable.setPosition(0,-375);
-                }
+                }*/
                 
             }
-            else if(this.GuideStep==10)
+            /*else if(this.GuideStep==10)
                 {
                     this.GuideLable.getComponent(cc.Label).string="您可花费10钻石\n购买1分钟双倍金钱";
                     this.GuideStep++;
@@ -222,10 +237,10 @@ cc.Class({
                 this.GuideLable.getComponent(cc.Label).string="当倒计时结束\n您将获得丰厚奖励";
                 this.GuideStep++;
                 
-            }
-            else if(this.GuideStep==13)
+            }*/
+            else if(this.GuideStep==5)
             {
-                this.HitVehicle.count=0;
+                //this.HitVehicle.count=0;
                 this.ExitGuide();
             } 
     },

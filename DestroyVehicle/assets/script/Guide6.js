@@ -62,7 +62,7 @@ cc.Class({
                 this.GuideStep++;
                 break;
             case 5:
-                this.node.parent.destroy();
+                this.node.destroy();
                 break;
         }
     },

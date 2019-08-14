@@ -24,7 +24,7 @@ cc.Class({
 
     onLoad () {
         //第一次登陆不出现签到弹窗
-        if(this.getUserData("parts", 0) == 0){
+        if(this.getUserData("MaxArmRank", 0) == 0){
             this.SignInWindow.active = false;
             //将可领取的项label改为可领取，并添加光圈
             cc.find("SignIn/aWeek/day1/title").getComponent(cc.Label).string = "可领取";

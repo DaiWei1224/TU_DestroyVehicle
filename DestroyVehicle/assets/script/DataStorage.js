@@ -67,7 +67,7 @@ cc.Class({
 
         //计算离线时点收益
         date1 = self.getUserData("leaveDate", 0);
-        if(date1 != 0){
+        if(MaxArmRank > 0){
             date2 = new Date().getTime(); //返回页面的时间
             var leaveTime = parseInt((date2 - date1) / 1000);
             //console.log("距离上次登陆 " + leaveTime + " 秒");
