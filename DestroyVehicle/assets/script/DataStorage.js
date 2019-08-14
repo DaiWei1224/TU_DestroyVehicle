@@ -64,10 +64,9 @@ cc.Class({
             weapon_info.weapon_nums[i] = self.getUserData("weapon" + (i + 1), 1);
 
         }
-
         //计算离线时点收益
-        date1 = self.getUserData("leaveDate", 0);
         if(MaxArmRank > 0){
+            date1 = self.getUserData("leaveDate", 0);
             date2 = new Date().getTime(); //返回页面的时间
             var leaveTime = parseInt((date2 - date1) / 1000);
             //console.log("距离上次登陆 " + leaveTime + " 秒");
@@ -137,20 +136,12 @@ cc.Class({
         cc.sys.localStorage.setItem("allBlood",100);
         cc.sys.localStorage.setItem("MaxArmRank", 0);
         cc.sys.localStorage.setItem("partsSpeed", 8);
-        cc.sys.localStorage.setItem("weapon1", 1);
-        cc.sys.localStorage.setItem("weapon2", 1);
-        cc.sys.localStorage.setItem("weapon3", 1);
-        cc.sys.localStorage.setItem("weapon4", 1);
-        cc.sys.localStorage.setItem("weapon5", 1);
-        cc.sys.localStorage.setItem("weapon6", 1);
-        cc.sys.localStorage.setItem("weapon7", 1);
-        cc.sys.localStorage.setItem("weapon8", 1);
-        cc.sys.localStorage.setItem("weapon9", 1);
-        cc.sys.localStorage.setItem("weapon10", 1);
         cc.sys.localStorage.setItem("leaveDate", 0); 
-        cc.sys.localStorage.setItem("recentReceiveDate", 1);
+        cc.sys.localStorage.setItem("recentReceiveDate", 0);
         cc.sys.localStorage.setItem("receiveDayNum", 0);
-
+        for(var i = 1; i < 31; i++){
+            cc.sys.localStorage.setItem("weapon" + i, 1);
+        }
     },
 
     //存储数据

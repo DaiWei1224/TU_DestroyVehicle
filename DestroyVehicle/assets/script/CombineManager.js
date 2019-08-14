@@ -63,10 +63,26 @@ cc.Class({
         }
 
         this.DustbinChange=false;
-        //载入武器槽信息，通过武器等级是否大于1判断是否第一次进入游戏
+        //载入武器槽信息，通过武器等级判断是否第一次进入游戏
         if(self.MaxArmRank < 1){
             //第一次登陆初始化武器槽
             self.ArmArry = new Array(-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+            //初始化存储每个坑位对应的武器
+            var slot = {
+                slot01: -1,
+                slot02: -1,
+                slot03: -1,
+                slot04: -1,
+                slot05: -1,
+                slot06: -1,
+                slot07: -1,
+                slot08: -1,
+                slot09: -1,
+                slot10: -1,
+                slot11: -1,
+                slot12: -1,
+            }   
+            cc.sys.localStorage.setItem('slot',JSON.stringify(slot));
         }
         else{
             var slot = JSON.parse(cc.sys.localStorage.getItem('slot'));
@@ -137,11 +153,6 @@ cc.Class({
         this.ChangeSprites();
     },
 
-    // update (dt) {
-    //     console.log("touchid"+self.Touchid);
-        
-    // },
-
     GetSlot(Pos)
     {
         var slotx=-1,sloty=-1;
@@ -192,7 +203,10 @@ cc.Class({
 
 
     SpawnFollowArm(Armseq,position){
-        var FArm = cc.instantiate(self.ArmImagesArry[Armseq]);
+        var FArm = cc.instantiate(self.WeaponNode);
+        FArm.getComponent(cc.Sprite).spriteFrame=self.ArmSpritFrameArry[self.ArmArry[Armseq]];
+        var Num=FArm.getChildByName("num");
+        Num.getComponent(cc.Label).string=parseInt(self.ArmArry[Armseq])+1;
         self.node.addChild(FArm);
         FArm.setPosition(position);
         self.FollowArm=FArm;
@@ -237,35 +251,29 @@ cc.Class({
     {
         Sound.PlaySound("combine");
         self.ArmImagesArry[downslot].destroy();
-        self.ArmArry[upslot]=parseInt(self.ArmArry[upslot])+1;
+        //self.ArmArry[upslot]=parseInt(self.ArmArry[upslot])+1;
         
 
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
         
-        
-        money.speednum=parseInt(money.speednum)-parseInt(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(downslot)))*weapon_info.weapon_earningspeed*2;
-        //console.log("jiude jiandiao "+money.speednum);
-        money.speednum=parseInt(money.speednum)+parseInt(weapon_info.getpart(self.ArmArry[upslot])/weapon_info.gettime(self.ArmArry[upslot]))*weapon_info.weapon_earningspeed;
+        var temp=self.ArmArry[upslot]+1;
+        //console.log(temp);
+        money.speednum=parseInt(money.speednum)-Math.floor(parseInt(weapon_info.getpart(self.ArmArry[downslot]))/parseFloat(weapon_info.gettime(self.ArmArry[downslot])))*weapon_info.weapon_earningspeed*2;
+        //console.log('aaa'+money.speednum);
+        money.speednum=parseInt(money.speednum)+Math.floor(parseInt(weapon_info.getpart(temp)/parseFloat(weapon_info.gettime(temp))))*weapon_info.weapon_earningspeed;  
+       //console.log("bbb"+money.speednum);
+       //console.log("asdf"+Math.floor(parseInt(weapon_info.getpart(temp))/parseFloat(weapon_info.gettime(temp)))*weapon_info.weapon_earningspeed);
         speed.string="+"+money.getlabel(money.speednum)+"/s";
         self.ArmArry[downslot]=-1;
         
         var finished = cc.callFunc(function () {
             CurrentFollowArm.destroy();
-            
 
-            self.ArmImagesArry[upslot].destroy();
-            var Armi =cc.instantiate(self.WeaponNode);
-            Armi.getComponent(cc.Sprite).spriteFrame=self.ArmSpritFrameArry[self.ArmArry[upslot]];
-            var Num=Armi.getChildByName("num");
+            self.ArmImagesArry[upslot].getComponent(cc.Sprite).spriteFrame=self.ArmSpritFrameArry[self.ArmArry[upslot]];
+            var Num=self.ArmImagesArry[upslot].getChildByName("num");
             Num.getComponent(cc.Label).string=parseInt(self.ArmArry[upslot])+1;
-            self.node.addChild(Armi);
-            self.ArmImagesArry[upslot]=Armi;
-
-            self.Touchid=-1;
-            self.MouseDownSlot=-1;
-            //console.log("armcombinefinish");
             
-            Armi.setPosition(self.SlotPositionArry[upslot]);
+            self.ArmImagesArry[upslot].setPosition(self.SlotPositionArry[upslot]);
             if(self.ArmArry[upslot]>self.MaxArmRank)
             {
                 self.MaxArmRank=self.ArmArry[upslot];
@@ -281,12 +289,15 @@ cc.Class({
         var CollisionEffectB=cc.sequence(cc.moveBy(0.1,-100,0),cc.moveBy(0.1,50,0));
 
         var CollisionEffect=cc.callFunc(function () {
+            self.ArmArry[upslot]=parseInt(self.ArmArry[upslot])+1;
+            self.Touchid=-1;
+            self.MouseDownSlot=-1;
             CurrentFollowArm.runAction(CollisionEffectA);
             self.ArmImagesArry[upslot].runAction(CollisionEffectB);
 
         }, this);
 
-        var action = cc.sequence(cc.moveTo(0.2, self.SlotPositionArry[upslot]),CollisionEffect);
+        var action = cc.sequence(cc.moveTo(0.03, self.SlotPositionArry[upslot]),CollisionEffect);
         var CurrentFollowArm=self.FollowArm;
         self.FollowArm=null;
         CurrentFollowArm.runAction(action);
@@ -368,6 +379,7 @@ cc.Class({
         var speed=cc.find("Canvas/Parts/add_speed_label").getComponent(cc.Label);
         
         money.speednum=parseInt(money.speednum)-parseInt(weapon_info.getpart(self.ArmArry[downslot])/weapon_info.gettime(self.ArmArry[downslot]))*weapon_info.weapon_earningspeed;
+        console.log("删除了"+parseInt(weapon_info.getpart(self.ArmArry[downslot])/weapon_info.gettime(self.ArmArry[downslot]))*weapon_info.weapon_earningspeed);
         speed.string="+"+money.getlabel(money.speednum)+"/s";
         var part=cc.find("Canvas/Parts/part_label").getComponent(cc.Label);
         

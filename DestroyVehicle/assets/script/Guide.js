@@ -129,7 +129,7 @@ cc.Class({
                             this.GuideLable.getComponent(cc.Label).string="恭喜您解锁了工人";
                             this.GuideLable.setPosition(0,0);
                             
-                            console.log("this.GuideStep"+this.GuideStep);
+                            //console.log("this.GuideStep"+this.GuideStep);
                             this.HitVehicle.count=0;
                         }, 0.25);
                         

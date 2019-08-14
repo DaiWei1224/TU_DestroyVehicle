@@ -34,8 +34,8 @@ cc.Class({
         var self = this;
         //获取当前日期
         var nowDate = new Date().getDate(); //从Date对象返回一个月中的某一天 (1 ~ 31)
-        //读取上一次领取的日期, 默认值为1
-        var recentReceiveDate = self.getUserData("recentReceiveDate", 1);
+        //读取上一次领取的日期, 默认值为0
+        var recentReceiveDate = self.getUserData("recentReceiveDate", 0);
         //读取已领取天数, 默认值为0
         var receiveDayNum = self.getUserData("receiveDayNum", 0);
         //判断当前日期和上一次领取日期是否相等
@@ -92,7 +92,7 @@ cc.Class({
     //点击领取按钮
     clickReceiveBtn: function() {
         //读取上一次领取的日期, 默认值为1
-        var recentReceiveDate = this.getUserData("recentReceiveDate", 1);
+        var recentReceiveDate = this.getUserData("recentReceiveDate", 0);
         //读取已领取天数, 默认值为0
         var receiveDayNum = this.getUserData("receiveDayNum", 0);
         //加钻石
