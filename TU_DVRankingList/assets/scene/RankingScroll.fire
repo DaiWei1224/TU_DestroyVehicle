@@ -428,7 +428,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 200,
+      "width": 588,
       "height": 150
     },
     "_anchorPoint": {
@@ -499,7 +499,7 @@
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 200,
+      "width": 588,
       "height": 150
     },
     "_resize": 0,
