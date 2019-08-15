@@ -75,7 +75,7 @@ cc.Class({
         this.level.string = "Lv." + (this.car_level + 1);
         this.allBlood = parseInt(this.getUserData("allBlood", 100));
         this.restBlood = parseInt(this.getUserData("restBlood", 100));
-        //加载车图片//////////////////////////////////////////////////////////////////////////////////////////////
+        //加载车图片
         var routeName = 'vehicle' + ((this.car_level) % 30 + 1);
         if(this.restBlood / this. allBlood < 0.25){
             routeName += '_4';
@@ -106,12 +106,8 @@ cc.Class({
                 //console.log("size="+this._labelPool.size() );
                 //从对象池请求对象
                 newNode = this._labelPool.get();
-                this.node.addChild(newNode);
+                newNode.parent=this.node;
                 newNode.getComponent(cc.Label).string=str;
-               
-              
-            //    newNode.runAction(cc.fadeIn(0.01));
-                //var pos=this.layerBg.getPosition();
                 newNode.setPosition(0,100);
                 
                 if(callBack)
@@ -128,8 +124,9 @@ cc.Class({
                         return;
                     }             
                     newNode = cc.instantiate(prefab);
+                    
+                    newNode.parent=this.node;
                     newNode.getComponent(cc.Label).string=str;
-                    this.node.addChild(newNode);
                     newNode.setPosition(0,100);
                     if(callBack)
                     {
