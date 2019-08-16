@@ -391,7 +391,6 @@ cc.Class({
         /////////////////////////////////////////////////////
         //根据血量换车的图片和弹出弹窗
         if(self.blood.progress <0.00001){
-            
             var str = money.getlabel(14+9*(self.car_level));
             if(self.car_level==0)
             {
@@ -428,7 +427,13 @@ cc.Class({
             diamond.string = money.getlabel(money.diamondnum);
 
             self.blood.progress = 1;
-            
+            //上传数据到云端
+            wx.setUserCloudStorage({
+                KVDataList: [{
+                    key: "levelRank2",
+                    value: (self.car_level + 1).toString(),
+                }],
+            });
         }else if(self.blood.progress < 0.25&&this.CarBreakStage==2){
             self.changeVehicle("vehicle" + thisImage + "_4", self);
             this.CarBreakStage=3;

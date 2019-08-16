@@ -64,17 +64,18 @@ cc.Class({
                                 }
                                 return b.KVDataList[0].value - a.KVDataList[0].value;
                             });
-                            for (let i = 0; i < data.length && i < 10; i++) {   //只保存前十个人的排名
+                            for (let i = 0; i < data.length; i++) {   //只保存前五个人的排名
                                 var playerInfo = data[i];                                
                                 var item;
                                 if (data[i].avatarUrl == userData.avatarUrl) {
                                     item = cc.instantiate(this.selfItem);
                                     item.getComponent('RankItem').init(i, playerInfo, true);
-                                }else{
+                                    this.scrollViewContent.addChild(item);
+                                }else if(i < 5){
                                     item = cc.instantiate(this.prefabRankItem);
                                     item.getComponent('RankItem').init(i, playerInfo, false);
+                                    this.scrollViewContent.addChild(item);
                                 }                                
-                                this.scrollViewContent.addChild(item);
                                 // if (data[i].avatarUrl == userData.avatarUrl) {
                                 //     let userItem = cc.instantiate(this.prefabRankItem);
                                 //     userItem.getComponent('RankItem').init(i, playerInfo);
